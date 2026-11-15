@@ -79,5 +79,5 @@ A4: "Three reasons: First, 84% of surveyed Cal Poly students lack the prompt eng
 ================================================================================
 LIVE DEMO LINK & GITHUB REPO
 ================================================================================
-• Live Working App: https://diff-supplements-painted-please.trycloudflare.com (No login needed)
+• Live Working App: https://thirty-took-spokesman-gotten.trycloudflare.com (No login needed)
 • GitHub Repo: https://github.com/zedk1929/local-ai-job-trainer
