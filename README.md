@@ -1,5 +1,8 @@
 # Local AI Job Trainer (Local AI Coach)
 
+> 🚀 **Live Working App for Judges**: [https://diff-supplements-painted-please.trycloudflare.com](https://diff-supplements-painted-please.trycloudflare.com)  
+> *(No login required. Works in private browsing. Explore immediately in **Preview Mode** with zero local configuration, or Connected Mode via the host).*
+
 A consumer web application for configuring, evaluating, and supervising private local AI models for recurring operational jobs.
 
 The hackathon preset is **Survey Cleaner**, which transforms raw, unstructured customer feedback into categorized, sentiment-analyzed, and safety-flagged structured records using customizable taxonomies and rules.
