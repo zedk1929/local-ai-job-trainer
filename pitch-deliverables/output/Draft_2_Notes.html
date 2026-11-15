@@ -1,11 +1,11 @@
 <!doctype html><html><meta charset="utf-8"><title>Apprentice — 4-Minute Presentation Notes</title><style>body{max-width:900px;margin:50px auto;padding:0 30px;font:16px/1.65 Arial,sans-serif;color:#0f172a;background:#f8fafc}h1{font-size:38px;color:#1d4ed8;margin-bottom:10px}h2{font-size:22px;color:#0f172a;margin-top:36px;border-bottom:2px solid #1d4ed8;padding-bottom:6px}pre{background:#fff;padding:20px;border-radius:8px;border:1px solid #cbd5e1;white-space:pre-wrap;font-family:Arial,sans-serif;font-size:14px;line-height:1.6}.badge{display:inline-block;padding:4px 10px;border-radius:12px;background:#dbff81;color:#0f172a;font-size:12px;font-weight:bold;margin-bottom:20px}</style><h1>Apprentice</h1><div class="badge">Cal Poly AI Hackathon 2026 · 6-Slide High-Impact Presentation Notes</div><pre>================================================================================
 APPRENTICE — 4-MINUTE PRESENTATION SPEAKER NOTES (PRESENTER BULLET POINTS)
 ================================================================================
-Format: 6 High-Impact Slides | Duration: ~4 Minutes (~35-45 seconds per slide)
-Typography: Professional Grotesque / Arial (Clean, modern, OpenAI-style)
+Format: 6 High-Impact Slides with Real Product Screenshots
+Brand Mark: Stylized 2σ (Bottom Left) | Typography: Clean Neo-Grotesque (Arial / Aptos)
 
 --------------------------------------------------------------------------------
-SLIDE 1: TITLE &amp; THE BIG QUESTION (Dark Blue / Ink)
+SLIDE 1: TITLE &amp; THE BIG QUESTION (Dark Carbon)
 --------------------------------------------------------------------------------
 • OPENING HOOK: "Why pay $50 a month for cloud AI to see your confidential data, when you can teach an AI your job once and run it on your own computer for free?"
 • INTRODUCE APPRENTICE: We build on-device AI workers for your repetitive computer jobs.
@@ -25,32 +25,33 @@ SLIDE 2: CAL POLY STUDENT VALIDATION (Paper)
   - Price (19%): Students hate $20/month SaaS subscription traps.
 
 --------------------------------------------------------------------------------
-SLIDE 3: HOW IT WORKS — TEACHER &amp; WORKER (Dark Ink)
+SLIDE 3: HOW IT WORKS + PRODUCT SCREENSHOT (Dark Carbon)
 --------------------------------------------------------------------------------
 • THE TEACHER-WORKER LOOP: You don’t need to train a model from scratch—bring a few dozen examples of your job.
 • STEP 1 (TEACHER): Frontier AI (Gemini / Claude) analyzes failure patterns on sample rows and synthesizes precise coding rules.
 • STEP 2 (HUMAN IN THE LOOP): You review and edit the proposed rules in browser. Atomic revision locking ensures what you approve is what runs.
 • STEP 3 (LOCAL APPRENTICE): Qwen 2.5 Coder 3B executes locally on your laptop GPU via Ollama.
-• THE PAYOFF: Frontier intelligence during setup; 100% offline privacy and zero API bills during execution.
+• POINT TO SCREENSHOT: Show judges the real application UI on the right—the 7-step evaluation and baseline milestone pipeline running live.
 
 --------------------------------------------------------------------------------
-SLIDE 4: THE CONCRETE TEST — "GLASS IN LATTE" (Paper)
+SLIDE 4: THE CONCRETE TEST — "GLASS IN LATTE" + RULE EDITOR (Paper)
 --------------------------------------------------------------------------------
 • THE REAL-WORLD EXAMPLE: From our campus dining feedback dataset: "Found shattered glass in my iced latte. Almost swallowed it!"
 • THE CATASTROPHIC FAILURE: Out of the box, the baseline local AI labeled sentiment as "unclear" and left needs_review as false!
 • THE CONSEQUENCE: A life-threatening food safety hazard was buried in the unread queue.
 • THE COACHING LESSON: Parent AI caught the flaw and wrote a hard rule: "Foreign objects or hazards must NEVER be unclear. Flag negative sentiment and alert review immediately."
-• THE APPRENTICE RESULT: With the approved rule, Apprentice instantly classified it negative, flagged review, and triggered an emergency manager alert in seconds.
+• THE APPRENTICE RESULT: With the approved rule, Apprentice instantly classified it negative, flagged review, and triggered an emergency alert in seconds.
+• POINT TO SCREENSHOT: Show judges the real Failure Analysis dashboard and in-browser rule editor where this exact rule was reviewed and locked.
 
 --------------------------------------------------------------------------------
-SLIDE 5: VERIFIED RESULTS — MEASURABLE GAINS (Blue)
+SLIDE 5: VERIFIED RESULTS + BENCHMARK COMPARISON SCREENSHOT (Blue)
 --------------------------------------------------------------------------------
 • SCIENTIFIC RIGOR: We benchmarked Apprentice on 40 reserved survey responses that the parent AI never touched.
 • TOPIC MICRO-F1: Jumped from 76.5% to 84.1% (+7.6 percentage points).
 • SENTIMENT ACCURACY: Jumped from 72.5% to 80.0% (+7.5 percentage points).
 • SCHEMA VALIDITY: Reached 100.0%—zero parse errors, zero hallucinations.
 • SAFETY TRIAGE: Maintained 95.0% review flag accuracy with zero regressions.
-• EFFICIENCY: All running on the exact same compact 3B model with zero GPU training compute.
+• POINT TO SCREENSHOT: Highlight the actual comparison table on the right—real row-by-row before and after outputs on local Qwen 3B.
 
 --------------------------------------------------------------------------------
 SLIDE 6: BUSINESS MODEL &amp; VISION (Paper)

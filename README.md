@@ -1,6 +1,6 @@
 # Apprentice
 
-> 🚀 **Live Working App for Judges**: [https://diff-supplements-painted-please.trycloudflare.com](https://diff-supplements-painted-please.trycloudflare.com)  
+> 🚀 **Live Working App for Judges**: [https://thirty-took-spokesman-gotten.trycloudflare.com](https://thirty-took-spokesman-gotten.trycloudflare.com)  
 > *(No login required. Works in private browsing. Explore immediately in **Preview Mode** with zero local configuration, or Connected Mode via the host).*
 
 A consumer web application for configuring, evaluating, and supervising private local AI models for recurring operational jobs.
