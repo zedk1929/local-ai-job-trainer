@@ -50,3 +50,6 @@ backend/runs/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Pitch deliverables build artifacts
+pitch-deliverables/.build/

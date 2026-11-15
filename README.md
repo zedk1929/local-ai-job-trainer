@@ -1,14 +1,76 @@
-# Local AI Job Trainer
+# Local AI Job Trainer (Local AI Coach)
 
-A consumer application for teaching local AI models specific, recurring jobs. The application evaluates local model performance on structured tasks and prepares them for task specialization.
+A consumer web application for configuring, evaluating, and supervising private local AI models for recurring operational jobs.
 
-The hackathon preset is **Survey Cleaner**, which transforms unstructured open-ended survey feedback into consistent structured records using customizable categories and coding rules.
+The hackathon preset is **Survey Cleaner**, which transforms raw, unstructured customer feedback into categorized, sentiment-analyzed, and safety-flagged structured records using customizable taxonomies and rules.
+
+---
+
+## Hackathon Submission Highlights
+
+### 1. The Problem & Who Has It
+Small business owners, customer experience teams, and community organizations receive high volumes of unstructured feedback (e.g. coffee shop reviews, student feedback, event responses).
+- **The Challenge**: General-purpose AI models make frequent errors without domain-specific rules, sending all private customer feedback to cloud APIs can be costly and raises privacy concerns, and non-technical operators cannot easily evaluate whether an AI model actually follows their specific guidelines.
+- **The Solution**: A local-first workflow where a lightweight, open-weight model runs privately on the user's laptop, guided by a stronger "Parent AI Coach" that diagnoses mistakes and proposes refined rules with human-in-the-loop review.
+
+### 2. What We Built
+- **Local Inference Engine**: Runs `qwen2.5-coder:3b` locally via Ollama with zero cloud API dependencies.
+- **Two-Stage Dataset Importer**: Flexible CSV inspection, header detection, and custom column mapping with UTF-8 BOM, multiline, and quote support.
+- **Rigorous Ground-Truth Evaluator**: Evaluates topic micro-F1 (supporting multi-topic comments), sentiment accuracy, review flag accuracy, schema compliance, and latency against human labels.
+- **Parent AI Failure Analysis**: Leverages Google Gemini or Anthropic Claude to analyze disagreements on a development subset and propose refined coding rules.
+- **Human-in-the-Loop Safeguards**: Atomic revision checks, race condition protection, explicit rule diff transparency, and mandatory acknowledgment of removed rules.
+- **Auditable Provenance & Export**: Collision-free CSV export with complete execution metadata (`is_simulated`, model identity, validity flags).
+- **Offline Preview Mode**: Full interactive walkthrough with deterministic fixtures for judges running without Ollama or GPU hardware.
+
+### 3. AI Tools Used & Credits
+- **Ollama + Qwen2.5-Coder 3B (Alibaba Cloud)**: On-device local LLM inference engine executing prompt-driven survey categorization on an 8 GB M2 MacBook Air.
+- **Google Gemini API (`gemini-2.5-pro` / `gemini-1.5-pro`)**: Parent AI supervisor diagnosing model failure patterns and proposing targeted coding rule improvements.
+- **Anthropic Claude API (`claude-3-5-sonnet`)**: Secondary parent AI supervisor provider.
+- **Google Antigravity**: Agentic coding pair programmer used to architect, build, verify, and harden the full-stack system, test suite, and database migrations.
+
+### 4. Pitch Deliverables
+- **Pitch Deck**: [`pitch-deliverables/output/Local_AI_Coach_Presentation.pptx`](pitch-deliverables/output/Local_AI_Coach_Presentation.pptx)
+- **Speaker Notes & Presentation Script**: [`pitch-deliverables/output/Presentation_Script.txt`](pitch-deliverables/output/Presentation_Script.txt)
+- **HTML Slide Notes**: [`pitch-deliverables/output/Presentation_Script.html`](pitch-deliverables/output/Presentation_Script.html)
 
 ---
 
 ## Current Milestone: Real Batch Baseline Evaluation
 
 Before training any adapters, the application measures how well your original, unspecialized local model performs on the task.
+
+### Empirical Baseline Experiment Results (`qwen2.5-coder:3b`)
+
+A complete 61-row baseline experiment was executed using the local Ollama model (`qwen2.5-coder:3b` at `http://127.0.0.1:11434`, GGUF Q4_K_M, concurrency 1, Apple M2 MacBook Air 8 GB). All artifacts are published in [`evaluation/survey_baseline/`](file:///Users/lcooney/Documents/ChatGPT/HACKATHON/hackathon-project/evaluation/survey_baseline):
+
+| Metric | Empirical Score | Detail / Denominator |
+| :--- | :--- | :--- |
+| **Output Schema Validity** | **100.0%** | 60 / 60 attempted rows strictly compliant JSON |
+| **Topic Micro-F1** | **81.1%** *(81.2% unrounded)* | 69 TP / (69 TP + 10 FP + 22 FN) across 4 classes |
+| **Sentiment Accuracy** | **75.0%** | 45 / 60 evaluated rows |
+| **Review Flag Accuracy** | **93.3%** | 56 / 60 evaluated rows |
+| **Blank Row Handling** | **100.0%** | 1 blank row (`DEV_61`) identified & skipped cleanly |
+| **Request Failures** | **0.0%** | 0 timeouts, 0 errors, 100% real inference |
+| **Total Runtime / Throughput**| **134.7s** | 0.45 responses/sec (warm latency: ~1.8s/row) |
+
+#### Inspectable Artifacts
+- **Comprehensive Evaluation Report**: [`evaluation/survey_baseline/report.md`](file:///Users/lcooney/Documents/ChatGPT/HACKATHON/hackathon-project/evaluation/survey_baseline/report.md)
+- **Dataset**: [`evaluation/survey_baseline/dataset.csv`](file:///Users/lcooney/Documents/ChatGPT/HACKATHON/hackathon-project/evaluation/survey_baseline/dataset.csv) (60 labeled responses + 1 blank row)
+- **Labeling Notes & Ambiguities**: [`evaluation/survey_baseline/labeling_notes.md`](file:///Users/lcooney/Documents/ChatGPT/HACKATHON/hackathon-project/evaluation/survey_baseline/labeling_notes.md)
+- **Frozen Configuration**: [`evaluation/survey_baseline/config.json`](file:///Users/lcooney/Documents/ChatGPT/HACKATHON/hackathon-project/evaluation/survey_baseline/config.json)
+- **Per-Row Predictions & Provenance**: [`evaluation/survey_baseline/predictions.jsonl`](file:///Users/lcooney/Documents/ChatGPT/HACKATHON/hackathon-project/evaluation/survey_baseline/predictions.jsonl)
+- **Exported CSV**: [`evaluation/survey_baseline/results.csv`](file:///Users/lcooney/Documents/ChatGPT/HACKATHON/hackathon-project/evaluation/survey_baseline/results.csv)
+- **Metrics Report**: [`evaluation/survey_baseline/metrics.json`](file:///Users/lcooney/Documents/ChatGPT/HACKATHON/hackathon-project/evaluation/survey_baseline/metrics.json)
+- **Reproducible Runner**: [`evaluation/survey_baseline/run_experiment.py`](file:///Users/lcooney/Documents/ChatGPT/HACKATHON/hackathon-project/evaluation/survey_baseline/run_experiment.py)
+
+#### How to Reproduce the Baseline Experiment
+```bash
+cd backend
+uv run python ../evaluation/survey_baseline/run_experiment.py
+```
+*(Executes against an isolated temporary SQLite database and upload storage, leaving all user data untouched).*
+
+---
 
 ### Hardware & Local Model Configuration
 - **Runtime**: Ollama local inference endpoint at `http://127.0.0.1:11434`
@@ -227,3 +289,5 @@ uv run --with pytest --with pytest-asyncio pytest
   - Bounded concurrency for memory stability on M2 8GB MacBook Air.
 - **Out of Scope for this Milestone**:
   - LoRA fine-tuning and weight updates (intentionally disabled until baseline evaluation results justify specialization).
+
+Connected parent analyses run as background jobs: POST returns accepted status promptly, and the UI polls saved status with elapsed time. Refreshing or clicking again while a job is analyzing reuses that job. Provider requests have a 180-second response timeout and a 190-second overall analysis-call deadline. No automatic retry occurs; a failed request may have reached the provider, so retry is deliberate. The provider/model/key are captured when the user starts the job and are not changed by later setup edits. Preview analysis remains immediate.

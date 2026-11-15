@@ -10,12 +10,70 @@ import {
   BaselinePrediction,
   DatasetValidationSummary,
   InspectedCsvResponse,
-  ConfirmDatasetRequest
+  ConfirmDatasetRequest,
+  FailureAnalysis
 } from '../types';
 
 const API_BASE = '/api';
 
 export const api = {
+  async updateProposedRules(
+    batchId: string,
+    rules: string[],
+    baseRevision?: number
+  ): Promise<{ analysis: FailureAnalysis | null }> {
+    const res = await fetch(`${API_BASE}/baseline/batch/${batchId}/analysis/rules`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        proposed_rules: rules,
+        ...(baseRevision !== undefined ? { base_revision: baseRevision } : {})
+      }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.detail || 'Failed to update proposed rules.');
+    }
+    return res.json();
+  },
+  async failureAnalysis(
+    batchId: string,
+    action: 'get' | 'analyze' | 'compare',
+    optionsOrConsent?: boolean | {
+      consent?: boolean;
+      rule_revision?: number;
+      approved_rules?: string[];
+      acknowledged_removed_rules?: string[];
+    }
+  ): Promise<{ analysis: FailureAnalysis | null }> {
+    const isCompare = action === 'compare';
+    let body: any = {};
+    if (action === 'analyze') {
+      const consent = typeof optionsOrConsent === 'boolean' ? optionsOrConsent : (optionsOrConsent?.consent ?? false);
+      body = { consent_to_share_responses: consent };
+    } else if (action === 'compare') {
+      if (typeof optionsOrConsent === 'object') {
+        body = {
+          approved: true,
+          rule_revision: optionsOrConsent.rule_revision,
+          approved_rules: optionsOrConsent.approved_rules,
+          acknowledged_removed_rules: optionsOrConsent.acknowledged_removed_rules
+        };
+      } else {
+        body = { approved: true };
+      }
+    }
+    const res = await fetch(`${API_BASE}/baseline/batch/${batchId}/analysis${isCompare ? '/compare' : ''}`, {
+      method: action === 'get' ? 'GET' : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      ...(action !== 'get' ? { body: JSON.stringify(body) } : {}),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(typeof err.detail === 'string' ? err.detail : 'Failure analysis request failed.');
+    }
+    return res.json();
+  },
   // Health & Capabilities
   async getCapabilities(): Promise<SystemCapabilities> {
     const res = await fetch(`${API_BASE}/capabilities`);
@@ -47,6 +105,7 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
+    if (!res.ok) throw new Error('Could not save parent settings. Choose a supported provider and a model name.');
     return res.json();
   },
 

@@ -1,0 +1,37 @@
+<!doctype html><html><meta charset="utf-8"><title>Local AI Coach — Speaker Notes</title><style>body{max-width:800px;margin:60px auto;font:18px/1.65 Arial;color:#172731;padding:0 30px}h1{font-size:36px}h2{font-size:25px;margin-top:45px;color:#17634b}p{white-space:pre-line}.preface{background:#edf5f0;padding:24px}@media print{body{margin:25px;font-size:12pt}h2{break-after:avoid}}</style><h1>Local AI Coach</h1><p class="preface">LOCAL AI COACH — SPEAKING SCRIPT
+About 4–5 minutes, including a short demo.
+
+This is a practice pitch. Maya and Eli are fictional examples. The $15/month price is a hypothesis. No interviews, customers, revenue, time savings, or improved scores are claimed. Baseline scores come from the user's reported run/screenshots and were not rerun for this deck. Product status reflects the latest review in this conversation, not a fresh code audit.
+
+</p><h2>Slide 1: Local AI Coach</h2><p>Imagine you run a small café. Every week, you read customer comments and sort them into issues you can act on. You try a local AI, but you still have to check whether it understands your rules. Local AI Coach tests that model, asks a stronger AI to diagnose its mistakes, and lets you measure whether better instructions help. Today, Survey Cleaner is our working example.</p><h2>Slide 2: Maya’s weekly feedback review</h2><p>Meet Maya, a fictional café owner. She collects comments through a survey and wants to know what customers mention, how they feel, and which responses need a human follow-up. This is an illustrative user story, not someone we interviewed. Her difficulty is consistency. A comment can praise the coffee and criticize the staff in the same sentence. A useful assistant needs to handle both.</p><h2>Slide 3: A model score is only the beginning</h2><p>Getting an answer from a model is easy. Knowing whether to trust its answers is harder. Maya needs examples of mistakes, a way to adjust the instructions, and a fair comparison before adopting a change. Our product brings those steps into one workflow. It also keeps the original results so she can see when a proposed improvement makes things worse.</p><h2>Slide 4: The improvement workflow</h2><p>Here is the flow. Upload a CSV and map the columns. Run the original local model against human-labeled responses. With permission, send a development subset to the parent AI for analysis. Review and edit the proposed rules, then approve a local comparison. The parent does not receive the comparison responses. That separation helps us evaluate the proposal, although this is still development data rather than a final independent test.</p><h2>Slide 5: One mistake, one proposed correction</h2><p>Take the fictional comment from Maya's café. Suppose the model calls it positive and only labels drink quality. The parent could propose: include every explicitly mentioned topic, and use mixed sentiment when praise and criticism appear together. Maya reviews that suggestion. We then test the revised instructions on other responses. This example explains the mechanism. It is not a measured before-and-after result from our app.</p><h2>Slide 6: Our original local-model results</h2><p>These are the original model results reported from our fictional survey dataset. Sixty nonblank responses had human labels. Topic micro-F1 was 77.6 percent, sentiment accuracy was 71.7 percent, and review-flag accuracy was 90 percent. Schema validity was 98.3 percent. This shows the local model can do useful work and still has weaknesses to investigate. These are baseline results, not evidence that the parent improved it.</p><h2>Slide 7: The demo: inspect, propose, compare</h2><p>In the demo, I would open the original results and show one real recorded mistake. Then I would open the saved parent analysis and explain a proposed rule. Finally, I would show the comparison on the reserved responses, if that run is complete and verified. We do not yet have a verified improvement result to put on this slide. If a change fails, the honest outcome is to keep the original.</p><h2>Slide 8: A first customer hypothesis</h2><p>Our first customer hypothesis is a small team that repeatedly categorizes written feedback using its own rules. Maya represents an owner-operator who could pay. Eli, a fictional campus event organizer, represents an accessible pilot user. We would recruit through campus organizations and direct conversations with local businesses. A possible price to test is fifteen dollars a month, with parent API usage separate. We have not validated that price, demand, or savings.</p><h2>Slide 9: Our next proof: a useful change</h2><p>Our next milestone is one real user completing the workflow and one verified comparison showing whether a proposed change helped. The longer-term direction is an exportable local worker, connections to tools such as Google Sheets, and eventually optional adapter training. Those are future capabilities. For now, we are looking for people who repeatedly review written feedback and are willing to test whether this workflow earns their trust.</p><h2>Rehearsal and Q&amp;A</h2><p>
+JUDGE QUESTIONS — PRACTICE ANSWERS
+
+Does it train the local model?
+Today it changes the instructions supplied to the same local model. Adapter training is a future capability.
+
+Why not just use Gemini or Claude for every response?
+That is a valid alternative. Our hypothesis is that some recurring jobs can run satisfactorily on a local model, with a stronger model helping configure it occasionally. We still need to establish the quality, cost and convenience tradeoff for a real user.
+
+Does all the data stay on the laptop?
+Local inference runs on the laptop. With consent, the parent receives up to 20 development response excerpts plus their labels and predictions and the task context, taxonomy and rules. The parent does not receive comparison responses or unrelated CSV columns. Do not claim complete privacy or anonymization.
+
+Did the parent actually improve it?
+We have a real baseline and a saved parent proposal. A verified improvement result is still pending. Replace this answer only after completing and checking the actual comparison.
+
+Is your comparison an untouched final test?
+No. It is a reserved development comparison subset. Repeated tuning against it would weaken the evidence. A final claim would need a fresh test set.
+
+Who has used it?
+The example personas are fictional. We have not supplied evidence of external user adoption.
+
+What still needs work?
+The latest review found approval and evidence-validation safeguards needing fixes. Do not present them as resolved without checking. Integration, exportable worker packaging and model training are future work.
+
+DEMO CUE SHEET
+1. Before presenting, finish approval fixes and verify the complete comparison path.
+2. Use fictional data. Confirm the run says REAL before describing local inference as live.
+3. Have the original results and saved proposal ready. Avoid depending on a fresh parent request during the pitch.
+4. Compare the original and revised model on the same reserved rows. Do not compare the 60-row baseline directly with a smaller comparison subset.
+5. If the comparison is incomplete, say so. Use slide 5 only as an explicitly illustrative explanation.
+6. If the live demo fails, show a truthful saved run and identify it as recorded.
+</p></html>

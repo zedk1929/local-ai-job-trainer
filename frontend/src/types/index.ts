@@ -229,10 +229,14 @@ export interface BaselinePrediction {
   ground_truth_needs_review: boolean | null;
   ground_truth_label_errors?: string[];
   raw_model_output?: any;
+  raw_model_text?: string | null;
   predicted_topics: string[];
+  topics_valid?: boolean;
   predicted_sentiment: string;
+  sentiment_valid?: boolean;
   generated_summary: string;
   predicted_needs_review: boolean;
+  needs_review_valid?: boolean;
   review_reason: string;
   is_valid_schema: boolean;
   schema_errors: string[];
@@ -241,6 +245,49 @@ export interface BaselinePrediction {
   latency_seconds: number;
   is_simulated?: boolean;
   model_name?: string;
+}
+
+export interface FailureGroup {
+  title: string;
+  failure_type?: string;
+  explanation: string;
+  row_indices: number[];
+}
+
+export interface FailureAnalysis {
+  id: string;
+  source_batch_id: string;
+  status: 'analyzing' | 'ready' | 'failed' | 'invalid_proposal';
+  error_message: string | null;
+  comparison_batch_id: string | null;
+  comparison: BaselineBatch | null;
+  created_at: string;
+  report: {
+    summary: string;
+    groups: FailureGroup[];
+    original_rules: string[];
+    proposed_rules: string[];
+    rule_revision: number;
+    approved_revision?: number | null;
+    approved_rules?: string[] | null;
+    validation_warnings?: string[];
+    validation_errors?: string[];
+    has_blocking_errors?: boolean;
+    removed_original_rules?: string[];
+    preserved_original_rules?: string[];
+    added_proposed_rules?: string[];
+    is_fully_preserved?: boolean;
+    requirement_warnings?: string[];
+    is_simulated: boolean;
+    parent_model: string;
+    source_mode: AppMode;
+    source_model: string;
+    development_row_indices: number[];
+    evaluation_row_indices: number[];
+    development_failure_count: number;
+    reference_metrics: BaselineEvaluationReport;
+    disclaimer: string;
+  };
 }
 
 export interface DatasetRecord {

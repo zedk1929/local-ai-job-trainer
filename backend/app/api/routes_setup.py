@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, Field
+from typing import Optional, Literal
 from app.config import settings
 from app.services.model_backend import LocalModelBackend
 from app.services.supervisor_client import SupervisorClient
@@ -13,9 +13,9 @@ class UpdateModelConfig(BaseModel):
     model_name: Optional[str] = None
 
 class UpdateSupervisorConfig(BaseModel):
-    provider: Optional[str] = "gemini"
-    model: Optional[str] = "gemini-2.5-pro"
-    api_key: Optional[str] = None
+    provider: Optional[Literal['gemini', 'anthropic']] = None
+    model: Optional[str] = Field(None, min_length=1, max_length=120)
+    api_key: Optional[str] = Field(None, max_length=4000)
 
 class ModeToggleRequest(BaseModel):
     app_mode: str # "preview" or "connected"
@@ -58,12 +58,16 @@ async def update_model_setup(req: UpdateModelConfig):
 
 @router.post("/setup/supervisor")
 async def update_supervisor_setup(req: UpdateSupervisorConfig):
+    if req.provider is not None and req.provider != settings.supervisor_provider:
+        # A credential is scoped to its provider; never silently reuse it elsewhere.
+        settings.supervisor_api_key = ''
+        settings.supervisor_model = 'claude-sonnet-5-5' if req.provider == 'anthropic' else 'gemini-3.8-flash'
     if req.provider is not None:
         settings.supervisor_provider = req.provider
     if req.model is not None:
         settings.supervisor_model = req.model
     if req.api_key is not None:
-        settings.supervisor_api_key = req.api_key
+        settings.supervisor_api_key = req.api_key.strip()
 
     client = SupervisorClient()
     return {

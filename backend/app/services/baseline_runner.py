@@ -3,6 +3,7 @@ import time
 import json
 import csv
 import logging
+import uuid
 import aiosqlite
 from pathlib import Path
 from typing import Dict, Any, List, Optional
@@ -87,33 +88,40 @@ class BaselineBatchRunner:
                 item["predicted_topics"] = json.loads(item["predicted_topics"]) if item["predicted_topics"] else []
                 item["schema_errors"] = json.loads(item["schema_errors"]) if item["schema_errors"] else []
                 item["is_valid_schema"] = bool(item["is_valid_schema"])
+                item["topics_valid"] = bool(item.get("topics_valid", 0))
+                item["sentiment_valid"] = bool(item.get("sentiment_valid", 0))
+                item["needs_review_valid"] = bool(item.get("needs_review_valid", 0))
                 item["predicted_needs_review"] = bool(item["predicted_needs_review"])
                 item["ground_truth_needs_review"] = (
                     bool(item["ground_truth_needs_review"])
                     if item["ground_truth_needs_review"] is not None
                     else None
                 )
+                item["raw_model_text"] = item.get("raw_model_text")
                 item["is_simulated"] = bool(item.get("is_simulated", 0))
                 item["model_name"] = item.get("model_name", "")
 
                 # Filter matching
-                if filter_mode == "errors" and item["status"] != "error":
-                    continue
+                if filter_mode == "errors":
+                    if item["status"] != "error" and item["is_valid_schema"]:
+                        continue
                 elif filter_mode == "flagged" and not item["predicted_needs_review"]:
                     continue
                 elif filter_mode == "mistakes":
-                    # Mismatch on any available label
+                    # Mismatch on any available label or invalid prediction on labeled field
                     has_mismatch = False
+                    if item["status"] == "error" or not item["is_valid_schema"]:
+                        has_mismatch = True
                     if item["ground_truth_topics"] is not None:
-                        if set(item["predicted_topics"]) != set(item["ground_truth_topics"]):
+                        if item.get("topics_valid") == 0 or set(item["predicted_topics"]) != set(item["ground_truth_topics"]):
                             has_mismatch = True
                     if item["ground_truth_sentiment"] is not None:
-                        if str(item["predicted_sentiment"]).lower() != str(item["ground_truth_sentiment"]).lower():
+                        if item.get("sentiment_valid") == 0 or str(item["predicted_sentiment"]).lower() != str(item["ground_truth_sentiment"]).lower():
                             has_mismatch = True
                     if item["ground_truth_needs_review"] is not None:
-                        if bool(item["predicted_needs_review"]) != bool(item["ground_truth_needs_review"]):
+                        if item.get("needs_review_valid") == 0 or bool(item["predicted_needs_review"]) != bool(item["ground_truth_needs_review"]):
                             has_mismatch = True
-                    if not has_mismatch and item["status"] != "error":
+                    if not has_mismatch:
                         continue
 
                 results.append(item)
@@ -131,10 +139,11 @@ class BaselineBatchRunner:
         label_sentiment_col: Optional[str] = None,
         label_needs_review_col: Optional[str] = None,
         concurrency: int = 1,
-        retried_from_batch_id: Optional[str] = None
+        retried_from_batch_id: Optional[str] = None,
+        execution_snapshot: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """Initialize batch in SQLite and trigger background asynchronous runner."""
-        batch_id = f"batch_{int(time.time() * 1000)}"
+        batch_id = f"batch_{uuid.uuid4().hex}"
         now = get_now_iso()
 
         # Fetch project for snapshotting
@@ -143,9 +152,18 @@ class BaselineBatchRunner:
         if not proj:
             raise ValueError(f"Project '{project_id}' not found.")
 
+        if execution_snapshot is not None:
+            # Internal comparison runs use source configuration, never mutate the project.
+            proj = {**proj, **{k: execution_snapshot[k] for k in
+                    ('survey_context', 'taxonomy', 'coding_rules') if k in execution_snapshot}}
+
         frozen_app_mode = settings.app_mode
         frozen_model_name = settings.local_model_name or "qwen2.5-coder:3b"
         frozen_endpoint = settings.local_model_endpoint or "http://127.0.0.1:11434"
+        if execution_snapshot is not None:
+            frozen_app_mode = execution_snapshot['app_mode']
+            frozen_model_name = execution_snapshot['model_name']
+            frozen_endpoint = execution_snapshot['model_endpoint']
 
         model_backend = LocalModelBackend(
             endpoint_url=frozen_endpoint,
@@ -178,6 +196,11 @@ class BaselineBatchRunner:
                 proj["coding_rules"]
             )
         }
+
+        if execution_snapshot is not None:
+            for key in ('source_batch_id', 'analysis_id', 'evaluation_role', 'source_row_indices', 'rule_revision'):
+                if key in execution_snapshot:
+                    snapshot[key] = execution_snapshot[key]
 
         async with aiosqlite.connect(settings.db_path) as db:
             await db.execute("""
@@ -261,14 +284,34 @@ class BaselineBatchRunner:
         blank_count = 0
         records_for_eval = []
 
+        # Helper for column lookup tolerant to leading/trailing whitespace
+        def get_row_val(row: Dict[str, Any], col: Optional[str]) -> Any:
+            if not col:
+                return None
+            if col in row:
+                return row[col]
+            col_s = col.strip()
+            for k, v in row.items():
+                if k and k.strip() == col_s:
+                    return v
+            return None
+
+        def has_row_col(row: Dict[str, Any], col: Optional[str]) -> bool:
+            if not col:
+                return False
+            if col in row:
+                return True
+            col_s = col.strip()
+            return any(k and k.strip() == col_s for k in row.keys())
+
         async def process_row(idx: int, row_data: Dict[str, Any]):
             nonlocal processed_count, error_count, blank_count
 
             if self.cancel_flags.get(batch_id, False):
                 return
 
-            raw_text = row_data.get(response_col, "")
-            resp_id = str(row_data.get(id_col, f"row_{idx+1}")) if id_col else f"row_{idx+1}"
+            raw_text = get_row_val(row_data, response_col) or ""
+            resp_id = str(get_row_val(row_data, id_col)) if id_col and has_row_col(row_data, id_col) else f"row_{idx+1}"
 
             # Ground truth parsing
             gt_topics = None
@@ -279,8 +322,8 @@ class BaselineBatchRunner:
             has_invalid_needs_review_label = False
             row_label_errors: List[str] = []
 
-            if label_topics_col and label_topics_col in row_data:
-                res_topics = parse_ground_truth_topics(row_data.get(label_topics_col), valid_taxonomy_ids)
+            if label_topics_col and has_row_col(row_data, label_topics_col):
+                res_topics = parse_ground_truth_topics(get_row_val(row_data, label_topics_col), valid_taxonomy_ids)
                 if res_topics.is_present:
                     if res_topics.is_valid:
                         gt_topics = res_topics.value
@@ -289,8 +332,8 @@ class BaselineBatchRunner:
                         if res_topics.error:
                             row_label_errors.append(res_topics.error)
 
-            if label_sentiment_col and label_sentiment_col in row_data:
-                res_sent = parse_ground_truth_sentiment(row_data.get(label_sentiment_col))
+            if label_sentiment_col and has_row_col(row_data, label_sentiment_col):
+                res_sent = parse_ground_truth_sentiment(get_row_val(row_data, label_sentiment_col))
                 if res_sent.is_present:
                     if res_sent.is_valid:
                         gt_sentiment = res_sent.value
@@ -299,8 +342,8 @@ class BaselineBatchRunner:
                         if res_sent.error:
                             row_label_errors.append(res_sent.error)
 
-            if label_needs_review_col and label_needs_review_col in row_data:
-                res_rf = parse_ground_truth_needs_review(row_data.get(label_needs_review_col))
+            if label_needs_review_col and has_row_col(row_data, label_needs_review_col):
+                res_rf = parse_ground_truth_needs_review(get_row_val(row_data, label_needs_review_col))
                 if res_rf.is_present:
                     if res_rf.is_valid:
                         gt_needs_review = res_rf.value
@@ -323,10 +366,14 @@ class BaselineBatchRunner:
                     "ground_truth_needs_review": int(gt_needs_review) if gt_needs_review is not None else None,
                     "ground_truth_label_errors": json.dumps(row_label_errors),
                     "raw_model_output": None,
+                    "raw_model_text": None,
                     "predicted_topics": json.dumps([]),
+                    "topics_valid": 0,
                     "predicted_sentiment": "",
+                    "sentiment_valid": 0,
                     "generated_summary": "[Skipped: Blank or whitespace response]",
                     "predicted_needs_review": 0,
+                    "needs_review_valid": 0,
                     "review_reason": "Blank response row",
                     "is_valid_schema": 0,
                     "schema_errors": json.dumps(["Response text is blank"]),
@@ -341,11 +388,12 @@ class BaselineBatchRunner:
                         INSERT INTO baseline_predictions (
                             batch_id, row_index, response_id, response_text, original_data,
                             ground_truth_topics, ground_truth_sentiment, ground_truth_needs_review,
-                            ground_truth_label_errors, raw_model_output,
-                            predicted_topics, predicted_sentiment, generated_summary,
-                            predicted_needs_review, review_reason, is_valid_schema, schema_errors,
+                            ground_truth_label_errors, raw_model_output, raw_model_text,
+                            predicted_topics, topics_valid, predicted_sentiment, sentiment_valid,
+                            generated_summary, predicted_needs_review, needs_review_valid,
+                            review_reason, is_valid_schema, schema_errors,
                             status, error_message, latency_seconds, is_simulated, model_name
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """, tuple(record.values()))
                     await db.commit()
 
@@ -357,6 +405,12 @@ class BaselineBatchRunner:
                     "has_invalid_sentiment_label": has_invalid_sentiment_label,
                     "ground_truth_needs_review": gt_needs_review,
                     "has_invalid_needs_review_label": has_invalid_needs_review_label,
+                    "predicted_topics": [],
+                    "topics_valid": False,
+                    "predicted_sentiment": None,
+                    "sentiment_valid": False,
+                    "predicted_needs_review": None,
+                    "needs_review_valid": False,
                     "is_valid_schema": False
                 })
                 processed_count += 1
@@ -392,7 +446,11 @@ class BaselineBatchRunner:
                     latency = round(time.perf_counter() - t0, 3)
 
                     # Validate raw model output strictly against job schema
-                    validated = survey_cleaner_job.validate_output(pred_raw, taxonomy)
+                    validated = survey_cleaner_job.validate_output(
+                        pred_raw,
+                        taxonomy,
+                        raw_text=pred_raw.get("raw_model_text")
+                    )
 
                     is_sim = 1 if (frozen_app_mode == "preview" or pred_raw.get("is_simulated_fixture", False)) else 0
                     record = {
@@ -406,10 +464,14 @@ class BaselineBatchRunner:
                         "ground_truth_needs_review": int(gt_needs_review) if gt_needs_review is not None else None,
                         "ground_truth_label_errors": json.dumps(row_label_errors),
                         "raw_model_output": json.dumps(pred_raw),
-                        "predicted_topics": json.dumps(validated.get("topics", [])),
-                        "predicted_sentiment": validated.get("sentiment", "unclear"),
+                        "raw_model_text": pred_raw.get("raw_model_text"),
+                        "predicted_topics": json.dumps(validated.get("topics", []) if validated.get("topics_valid") else []),
+                        "topics_valid": 1 if validated.get("topics_valid") else 0,
+                        "predicted_sentiment": validated.get("sentiment", "") if validated.get("sentiment_valid") else "",
+                        "sentiment_valid": 1 if validated.get("sentiment_valid") else 0,
                         "generated_summary": validated.get("summary") or "",
-                        "predicted_needs_review": 1 if validated.get("needs_review") else 0,
+                        "predicted_needs_review": 1 if (validated.get("needs_review_valid") and validated.get("needs_review")) else 0,
+                        "needs_review_valid": 1 if validated.get("needs_review_valid") else 0,
                         "review_reason": validated.get("review_reason") or "",
                         "is_valid_schema": 1 if validated.get("is_valid_schema") else 0,
                         "schema_errors": json.dumps(validated.get("validation_errors", [])),
@@ -429,9 +491,12 @@ class BaselineBatchRunner:
                         "ground_truth_needs_review": gt_needs_review,
                         "has_invalid_needs_review_label": has_invalid_needs_review_label,
                         "predicted_topics": validated.get("topics", []),
-                        "predicted_sentiment": validated.get("sentiment", "unclear"),
-                        "predicted_needs_review": validated.get("needs_review", False),
-                        "is_valid_schema": validated.get("is_valid_schema", True),
+                        "topics_valid": validated.get("topics_valid", False),
+                        "predicted_sentiment": validated.get("sentiment"),
+                        "sentiment_valid": validated.get("sentiment_valid", False),
+                        "predicted_needs_review": validated.get("needs_review"),
+                        "needs_review_valid": validated.get("needs_review_valid", False),
+                        "is_valid_schema": validated.get("is_valid_schema", False),
                         "latency_seconds": latency
                     })
 
@@ -452,10 +517,14 @@ class BaselineBatchRunner:
                         "ground_truth_needs_review": int(gt_needs_review) if gt_needs_review is not None else None,
                         "ground_truth_label_errors": json.dumps(row_label_errors),
                         "raw_model_output": None,
+                        "raw_model_text": None,
                         "predicted_topics": json.dumps([]),
+                        "topics_valid": 0,
                         "predicted_sentiment": "",
+                        "sentiment_valid": 0,
                         "generated_summary": "",
                         "predicted_needs_review": 0,
+                        "needs_review_valid": 0,
                         "review_reason": "",
                         "is_valid_schema": 0,
                         "schema_errors": json.dumps([err_str]),
@@ -475,8 +544,11 @@ class BaselineBatchRunner:
                         "ground_truth_needs_review": gt_needs_review,
                         "has_invalid_needs_review_label": has_invalid_needs_review_label,
                         "predicted_topics": [],
-                        "predicted_sentiment": "",
-                        "predicted_needs_review": False,
+                        "topics_valid": False,
+                        "predicted_sentiment": None,
+                        "sentiment_valid": False,
+                        "predicted_needs_review": None,
+                        "needs_review_valid": False,
                         "is_valid_schema": False,
                         "latency_seconds": latency
                     })
@@ -487,12 +559,14 @@ class BaselineBatchRunner:
                         INSERT INTO baseline_predictions (
                             batch_id, row_index, response_id, response_text, original_data,
                             ground_truth_topics, ground_truth_sentiment, ground_truth_needs_review,
-                            ground_truth_label_errors, raw_model_output,
-                            predicted_topics, predicted_sentiment, generated_summary,
-                            predicted_needs_review, review_reason, is_valid_schema, schema_errors,
+                            ground_truth_label_errors, raw_model_output, raw_model_text,
+                            predicted_topics, topics_valid, predicted_sentiment, sentiment_valid,
+                            generated_summary, predicted_needs_review, needs_review_valid,
+                            review_reason, is_valid_schema, schema_errors,
                             status, error_message, latency_seconds, is_simulated, model_name
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """, tuple(record.values()))
+                    await db.commit()
                     await db.commit()
 
                 processed_count += 1
@@ -610,7 +684,17 @@ class BaselineBatchRunner:
         label_needs_review_col = snapshot.get("label_needs_review_col") or None
 
         rows = []
-        if dataset_id in ("sample_cafe_labeled", "sample_dev_60"):
+        if snapshot.get('analysis_id') and snapshot.get('source_batch_id'):
+            source = await self.get_batch(snapshot['source_batch_id'])
+            if not source or source['project_id'] != project_id:
+                raise ValueError('Comparison source no longer belongs to this project.')
+            originals = await self.list_batch_predictions(source['id'], limit=201)
+            by_index = {p['row_index']: p['original_data'] for p in originals}
+            try:
+                rows = [by_index[i] for i in snapshot['source_row_indices']]
+            except KeyError:
+                raise ValueError('Comparison source rows are no longer available.')
+        elif dataset_id in ("sample_cafe_labeled", "sample_dev_60"):
             is_dev_60 = dataset_id == "sample_dev_60"
             sample_path = settings.dev_sample_csv_path if is_dev_60 else settings.sample_csv_path
             default_filename = "dev_survey_60_labeled.csv" if is_dev_60 else "sample_survey_labeled.csv"
@@ -622,6 +706,8 @@ class BaselineBatchRunner:
         else:
             from app.services.run_store import run_store
             ds = await run_store.get_dataset(dataset_id)
+            if ds and ds.get("project_id") != project_id:
+                raise ValueError(f"Dataset '{dataset_id}' does not belong to project '{project_id}'.")
             if ds and Path(ds["filepath"]).exists():
                 filepath = ds["filepath"]
                 try:
@@ -640,7 +726,24 @@ class BaselineBatchRunner:
                 else:
                     raise ValueError(f"Cannot retry batch {batch_id}: dataset {dataset_id} no longer exists on disk.")
 
-        return await self.create_and_start_batch(
+        if rows:
+            available_cols = list(rows[0].keys())
+            col_map = {c.strip(): c for c in available_cols}
+            def resolve_c(c: Optional[str]) -> Optional[str]:
+                if not c:
+                    return c
+                if c in available_cols:
+                    return c
+                if c.strip() in col_map:
+                    return col_map[c.strip()]
+                return c
+            response_col = resolve_c(response_col)
+            id_col = resolve_c(id_col)
+            label_topics_col = resolve_c(label_topics_col)
+            label_sentiment_col = resolve_c(label_sentiment_col)
+            label_needs_review_col = resolve_c(label_needs_review_col)
+
+        retried = await self.create_and_start_batch(
             project_id=project_id,
             dataset_id=dataset_id,
             rows=rows,
@@ -650,7 +753,14 @@ class BaselineBatchRunner:
             label_sentiment_col=label_sentiment_col,
             label_needs_review_col=label_needs_review_col,
             concurrency=concurrency,
-            retried_from_batch_id=batch_id
+            retried_from_batch_id=batch_id,
+            execution_snapshot=snapshot if snapshot.get('analysis_id') else None
         )
+        if snapshot.get('analysis_id'):
+            async with aiosqlite.connect(settings.db_path) as db:
+                await db.execute('UPDATE failure_analyses SET comparison_batch_id = ? WHERE id = ?',
+                                 (retried['id'], snapshot['analysis_id']))
+                await db.commit()
+        return retried
 
 baseline_batch_runner = BaselineBatchRunner()

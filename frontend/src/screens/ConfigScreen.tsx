@@ -78,19 +78,62 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
   const [rowCount, setRowCount] = useState<number>(0);
   const [validationSummary, setValidationSummary] = useState<DatasetValidationSummary | null>(null);
 
-  // Load preview of currently confirmed dataset on mount or project switch
+  // Reset all editing state whenever project changes to maintain strict project isolation
   useEffect(() => {
+    setContext(project.survey_context || '');
+    setTaxonomy(project.taxonomy || []);
+    setRules(project.coding_rules || []);
+    setNewCatId('');
+    setNewCatName('');
+    setNewCatDesc('');
+    setNewRule('');
+    setPendingInspection(null);
+    setInspecting(false);
+    setConfirming(false);
+    setUploadError(null);
+    setConfirmSuccess(false);
+    setConfirmedDataset(null);
+    setCsvPreview(null);
+    setCsvColumns([]);
+    setResponseCol(project.response_col || '');
+    setIdCol(project.id_col || '');
+    setLabelTopicsCol(project.label_topics_col || '');
+    setLabelSentimentCol(project.label_sentiment_col || '');
+    setLabelNeedsReviewCol(project.label_needs_review_col || '');
+    setRowCount(0);
+    setValidationSummary(null);
+    setSyntheticExamples([]);
+    setGeneratingSynthetic(false);
+    setSavingChanges(false);
+    setSaveSuccess(false);
+  }, [project.id]);
+
+  // Load preview of currently confirmed dataset on mount or project switch with race condition guard
+  useEffect(() => {
+    let active = true;
     if (project.selected_dataset_id) {
       api.getDatasetPreview(project.id, project.selected_dataset_id)
         .then((preview) => {
+          if (!active) return;
           setCsvPreview(preview.preview_rows);
           setCsvColumns(preview.columns);
           setRowCount(preview.row_count);
         })
         .catch((e) => {
+          if (!active) return;
           console.warn('Could not load confirmed dataset preview:', e);
+          setCsvPreview(null);
+          setCsvColumns([]);
+          setRowCount(0);
         });
+    } else {
+      setCsvPreview(null);
+      setCsvColumns([]);
+      setRowCount(0);
     }
+    return () => {
+      active = false;
+    };
   }, [project.id, project.selected_dataset_id]);
 
   // Synthetic example state
@@ -126,9 +169,10 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
 
   // Save project configuration
   const handleSave = async () => {
+    const targetProjectId = project.id;
     setSavingChanges(true);
     try {
-      const updated = await api.updateProject(project.id, {
+      const updated = await api.updateProject(targetProjectId, {
         survey_context: context,
         taxonomy,
         coding_rules: rules,
@@ -139,10 +183,14 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
         label_needs_review_col: labelNeedsReviewCol,
       });
       onUpdateProject(updated);
-      setSaveSuccess(true);
-      setTimeout(() => setSaveSuccess(false), 2500);
+      if (project.id === targetProjectId) {
+        setSaveSuccess(true);
+        setTimeout(() => setSaveSuccess(false), 2500);
+      }
     } finally {
-      setSavingChanges(false);
+      if (project.id === targetProjectId) {
+        setSavingChanges(false);
+      }
     }
   };
 
@@ -229,11 +277,12 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
       return;
     }
 
+    const targetProjectId = project.id;
     setConfirming(true);
     setUploadError(null);
     try {
       const res = await api.confirmDataset({
-        project_id: project.id,
+        project_id: targetProjectId,
         temp_file_id: pendingInspection.temp_file_id,
         filename: pendingInspection.filename,
         response_col: responseCol,
@@ -244,15 +293,10 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
         is_sample: pendingInspection.is_sample,
       });
 
-      setConfirmedDataset(res.dataset);
-      setCsvPreview(res.preview_rows);
-      setCsvColumns(res.columns);
-      setRowCount(res.row_count);
-      setValidationSummary(res.validation_summary);
-
       // Update project parent state
       const updatedProject: Project = {
         ...project,
+        id: targetProjectId,
         selected_dataset_id: res.dataset.id,
         response_col: responseCol,
         id_col: idCol || '',
@@ -261,13 +305,25 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
         label_needs_review_col: labelNeedsReviewCol || '',
       };
       onUpdateProject(updatedProject);
-      setPendingInspection(null);
-      setConfirmSuccess(true);
-      setTimeout(() => setConfirmSuccess(false), 4000);
+
+      if (project.id === targetProjectId) {
+        setConfirmedDataset(res.dataset);
+        setCsvPreview(res.preview_rows);
+        setCsvColumns(res.columns);
+        setRowCount(res.row_count);
+        setValidationSummary(res.validation_summary);
+        setPendingInspection(null);
+        setConfirmSuccess(true);
+        setTimeout(() => setConfirmSuccess(false), 4000);
+      }
     } catch (err: any) {
-      setUploadError(err.message || 'Failed to confirm dataset');
+      if (project.id === targetProjectId) {
+        setUploadError(err.message || 'Failed to confirm dataset');
+      }
     } finally {
-      setConfirming(false);
+      if (project.id === targetProjectId) {
+        setConfirming(false);
+      }
     }
   };
 

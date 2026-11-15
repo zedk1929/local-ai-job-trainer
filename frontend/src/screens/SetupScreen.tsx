@@ -24,13 +24,11 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
 
   // Supervisor state
   const [provider, setProvider] = useState(capabilities?.supervisor_api.provider || 'gemini');
-  const [supervisorModel, setSupervisorModel] = useState(capabilities?.supervisor_api.model || 'gemini-2.5-pro');
+  const [supervisorModel, setSupervisorModel] = useState(capabilities?.supervisor_api.model || 'gemini-3.8-flash');
   const [apiKey, setApiKey] = useState('');
   const [testingSupervisor, setTestingSupervisor] = useState(false);
   const [testResult, setTestResult] = useState<{ connected: boolean; message: string } | null>(null);
 
-  // Privacy preference state
-  const [allowRealDataUpload, setAllowRealDataUpload] = useState(false);
 
   const handleSaveModel = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,9 +49,8 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
     setTestingSupervisor(true);
     setTestResult(null);
     try {
-      if (apiKey) {
-        await api.updateSupervisorConfig({ provider, model: supervisorModel, api_key: apiKey });
-      }
+      await api.updateSupervisorConfig({ provider, model: supervisorModel, ...(apiKey ? { api_key: apiKey } : {}) });
+      setApiKey('');
       const res = await api.testSupervisor();
       setTestResult(res);
       await onRefreshCapabilities();
@@ -70,7 +67,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
       <div>
         <h1 className="text-2xl font-bold text-white">Model and Supervisor Setup</h1>
         <p className="text-sm text-slate-400">
-          Configure your local model runtime and the supervising LLM that guides training data synthesis.
+          Configure the local model and the parent AI that reviews failures and proposes coding rules.
         </p>
       </div>
 
@@ -246,7 +243,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
             <h2 className="text-base font-bold text-white">Supervisor LLM Configuration</h2>
           </div>
           <p className="text-xs text-slate-400 leading-relaxed">
-            The supervisor generates synthetic examples and bounds the training curriculum.
+            The parent AI analyzes approved development examples and proposes revised coding rules.
             It never executes system commands or accesses local model weights directly.
           </p>
 
@@ -256,11 +253,16 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
               <select
                 aria-label="Supervisor Provider"
                 value={provider}
-                onChange={(e) => setProvider(e.target.value)}
+                onChange={(e) => {
+                  const selected = e.target.value;
+                  setProvider(selected);
+                  setSupervisorModel(selected === 'anthropic' ? 'claude-sonnet-5-5' : 'gemini-3.8-flash');
+                  setApiKey(''); setTestResult(null);
+                }}
                 className="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500"
               >
-                <option value="gemini">Google Gemini (Recommended)</option>
-                <option value="openai">OpenAI (GPT-4o / GPT-4o-mini)</option>
+                <option value="gemini">Google Gemini</option>
+                <option value="openai" disabled>OpenAI (not connected yet)</option>
                 <option value="anthropic">Anthropic Claude</option>
               </select>
             </div>
@@ -271,7 +273,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
                 type="text"
                 value={supervisorModel}
                 onChange={(e) => setSupervisorModel(e.target.value)}
-                placeholder="gemini-2.5-pro"
+                placeholder={provider === 'anthropic' ? 'claude-sonnet-5-5' : 'gemini-3.8-flash'}
                 className="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-white text-xs font-mono focus:outline-none focus:border-blue-500"
               />
             </div>
@@ -295,19 +297,9 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
               </div>
               <p className="text-[11px] text-slate-400 leading-normal">
                 By default, the supervisor synthesizes examples strictly from your survey description and category definitions.
-                Real customer feedback rows are <strong>never</strong> transmitted to the supervisor API.
+                Failure analysis shares a development subset only after separate, explicit consent on the Baseline Batch screen. Comparison rows are not sent for analysis.
               </p>
-              <label className="flex items-center gap-2 cursor-pointer pt-1">
-                <input
-                  type="checkbox"
-                  checked={allowRealDataUpload}
-                  onChange={(e) => setAllowRealDataUpload(e.target.checked)}
-                  className="rounded bg-slate-800 border-slate-700 text-blue-500 focus:ring-0"
-                />
-                <span className="text-[11px] text-slate-300">
-                  Allow supervisor to review human feedback rows (requires explicit consent)
-                </span>
-              </label>
+              <p className="text-[11px] text-slate-400">API keys stay in backend memory and are not saved to browser storage or returned by the API. Re-enter the key after a backend restart. Gemini checks key and model access without generating text; Claude sends a small paid test request.</p>
             </div>
 
             {testResult && (
@@ -327,7 +319,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
               disabled={testingSupervisor}
               className="w-full py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold transition disabled:opacity-50"
             >
-              {testingSupervisor ? 'Testing Connection...' : 'Test Supervisor API Connection'}
+              {testingSupervisor ? 'Testing Connection...' : 'Save & Test Parent Connection'}
             </button>
           </div>
         </div>

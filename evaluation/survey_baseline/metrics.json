@@ -1,0 +1,73 @@
+{
+  "is_unlabeled": false,
+  "is_simulated": false,
+  "execution_mode": "connected",
+  "model_name": "qwen2.5-coder:3b",
+  "total_rows": 61,
+  "attempted_rows": 60,
+  "blank_rows": 1,
+  "failed_requests": 0,
+  "schema_valid_count": 60,
+  "schema_invalid_count": 0,
+  "schema_validity_pct": 100.0,
+  "has_topic_labels": true,
+  "topic_labeled_rows": 60,
+  "invalid_topic_label_count": 0,
+  "topic_coverage_pct": 100.0,
+  "topic_tp": 69,
+  "topic_fp": 10,
+  "topic_fn": 22,
+  "topic_precision": 87.3,
+  "topic_recall": 75.8,
+  "topic_micro_f1": 81.1,
+  "per_topic_breakdown": {
+    "drink_quality": {
+      "tp": 20,
+      "fp": 1,
+      "fn": 7,
+      "precision": 95.2,
+      "recall": 74.1,
+      "f1": 83.3
+    },
+    "price": {
+      "tp": 16,
+      "fp": 1,
+      "fn": 3,
+      "precision": 94.1,
+      "recall": 84.2,
+      "f1": 88.9
+    },
+    "service": {
+      "tp": 18,
+      "fp": 4,
+      "fn": 9,
+      "precision": 81.8,
+      "recall": 66.7,
+      "f1": 73.5
+    },
+    "seating": {
+      "tp": 15,
+      "fp": 4,
+      "fn": 3,
+      "precision": 78.9,
+      "recall": 83.3,
+      "f1": 81.0
+    }
+  },
+  "has_sentiment_labels": true,
+  "sentiment_labeled_rows": 60,
+  "invalid_sentiment_label_count": 0,
+  "sentiment_coverage_pct": 100.0,
+  "sentiment_correct": 45,
+  "sentiment_accuracy": 75.0,
+  "has_review_flag_labels": true,
+  "review_flag_labeled_rows": 60,
+  "invalid_review_flag_count": 0,
+  "review_flag_coverage_pct": 100.0,
+  "review_flag_correct": 56,
+  "review_flag_accuracy": 93.3,
+  "total_elapsed_seconds": 134.69,
+  "throughput_items_per_sec": 0.45,
+  "average_latency_seconds": 2.24,
+  "scientific_disclaimer": "Empirical measurement on configured batch dataset. Accuracy and F1 scores are descriptive of this local sample only and do not establish general statistical significance or performance guarantees."
+}

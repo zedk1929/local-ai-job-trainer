@@ -1,4 +1,5 @@
 import os
+import re
 import httpx
 import json
 import logging
@@ -235,23 +236,49 @@ Respond ONLY with a valid JSON object matching this exact schema:
                         )
 
                     data = resp.json()
-                    raw_text = data.get("response", "").strip()
+                    raw_text = data.get("response", "")
+
+                    is_strict_json = False
+                    has_markdown_fence = False
+                    parsed = None
 
                     try:
-                        parsed = json.loads(raw_text)
-                    except json.JSONDecodeError:
-                        # Attempt to extract JSON substring if wrapped in markdown
-                        cleaned = raw_text.replace("```json", "").replace("```", "").strip()
-                        parsed = json.loads(cleaned)
+                        parsed = json.loads(raw_text.strip())
+                        is_strict_json = True
+                    except (json.JSONDecodeError, TypeError):
+                        fence_match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", raw_text.strip(), flags=re.IGNORECASE)
+                        if fence_match:
+                            has_markdown_fence = True
+                            try:
+                                parsed = json.loads(fence_match.group(1).strip())
+                            except (json.JSONDecodeError, TypeError):
+                                parsed = None
+                        elif raw_text.strip().startswith("```"):
+                            has_markdown_fence = True
+                            cleaned = raw_text.replace("```json", "").replace("```", "").strip()
+                            try:
+                                parsed = json.loads(cleaned)
+                            except (json.JSONDecodeError, TypeError):
+                                parsed = None
+                        else:
+                            parsed = None
 
-                    # Normalize fields
-                    parsed["is_simulated_fixture"] = False
-                    parsed["model_used"] = target_model
-                    parsed["adapter_used"] = None
-                    parsed["latency_seconds"] = latency
-                    return parsed
+                    parsed_dict = parsed if isinstance(parsed, dict) else {}
 
-            except (httpx.TimeoutException, httpx.NetworkError, json.JSONDecodeError, Exception) as err:
+                    result = {
+                        **parsed_dict,
+                        "raw_model_text": raw_text,
+                        "is_strict_json": is_strict_json,
+                        "has_markdown_fence": has_markdown_fence,
+                        "is_valid_json": isinstance(parsed, dict),
+                        "is_simulated_fixture": False,
+                        "model_used": target_model,
+                        "adapter_used": None,
+                        "latency_seconds": latency
+                    }
+                    return result
+
+            except (httpx.TimeoutException, httpx.NetworkError, Exception) as err:
                 last_error = err
                 logger.warning(f"Ollama inference attempt {attempt + 1}/{max_retries + 1} failed: {err}")
                 if attempt < max_retries:
@@ -349,13 +376,20 @@ Respond ONLY with a valid JSON object matching this exact schema:
         else:
             summary = f"Customer provided feedback covering {', '.join(topics) if topics else 'general feedback'}."
 
-        return {
-            "original_response": text,
+        preview_payload = {
             "topics": topics,
             "sentiment": sentiment,
             "summary": summary,
             "needs_review": needs_review,
-            "review_reason": review_reason,
+            "review_reason": review_reason
+        }
+        return {
+            "original_response": text,
+            **preview_payload,
+            "raw_model_text": json.dumps(preview_payload),
+            "is_strict_json": True,
+            "has_markdown_fence": False,
+            "is_valid_json": True,
             "is_valid_schema": True,
             "is_simulated_fixture": True,
             "model_used": f"{model_name or self.model_name} (preview fixture)",

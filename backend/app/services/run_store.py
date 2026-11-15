@@ -2,7 +2,7 @@ import json
 import asyncio
 import aiosqlite
 import logging
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime, timezone
 from pathlib import Path
 from app.config import settings
@@ -322,6 +322,73 @@ class RunStore:
             "origin": origin,
             "created_at": now
         }
+
+    async def confirm_dataset_atomic(
+        self,
+        project_id: str,
+        filename: str,
+        filepath: str,
+        row_count: int,
+        response_col: str,
+        id_col: str = "",
+        label_topics_col: str = "",
+        label_sentiment_col: str = "",
+        label_needs_review_col: str = "",
+        origin: str = "human-uploaded"
+    ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+        prev_proj = await self.get_project(project_id)
+        if not prev_proj:
+            raise ValueError(f"Project '{project_id}' not found.")
+
+        dataset_dict = await self.save_dataset(
+            project_id=project_id,
+            filename=filename,
+            filepath=filepath,
+            row_count=row_count,
+            response_col=response_col,
+            id_col=id_col or "",
+            label_topics_col=label_topics_col or "",
+            label_sentiment_col=label_sentiment_col or "",
+            label_needs_review_col=label_needs_review_col or "",
+            origin=origin
+        )
+        ds_id = dataset_dict["id"]
+        try:
+            updated_proj = await self.update_project(
+                project_id=project_id,
+                selected_dataset_id=ds_id,
+                response_col=response_col,
+                id_col=id_col or "",
+                label_topics_col=label_topics_col or "",
+                label_sentiment_col=label_sentiment_col or "",
+                label_needs_review_col=label_needs_review_col or ""
+            )
+            return dataset_dict, updated_proj
+        except Exception:
+            await self.delete_dataset(ds_id)
+            await self.restore_project_state(project_id, prev_proj)
+            raise
+
+    async def restore_project_state(self, project_id: str, prev_state: Dict[str, Any]) -> None:
+        """Directly restore previous project configuration in SQLite without using update_project."""
+        async with aiosqlite.connect(settings.db_path) as db:
+            await db.execute("""
+                UPDATE projects
+                SET selected_dataset_id = ?, response_col = ?, id_col = ?,
+                    label_topics_col = ?, label_sentiment_col = ?, label_needs_review_col = ?,
+                    updated_at = ?
+                WHERE id = ?
+            """, (
+                prev_state.get("selected_dataset_id"),
+                prev_state.get("response_col", "feedback_text"),
+                prev_state.get("id_col", ""),
+                prev_state.get("label_topics_col", ""),
+                prev_state.get("label_sentiment_col", ""),
+                prev_state.get("label_needs_review_col", ""),
+                get_now_iso(),
+                project_id
+            ))
+            await db.commit()
 
     async def delete_dataset(self, dataset_id: str) -> None:
         async with aiosqlite.connect(settings.db_path) as db:

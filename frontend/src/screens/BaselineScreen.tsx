@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Project, BaselineBatch, BaselinePrediction, AppMode, SystemCapabilities, DatasetRecord } from '../types';
 import { api } from '../api/client';
+import { FailureAnalysisPanel } from '../components/FailureAnalysisPanel';
 import {
   Play,
   Square,
@@ -71,52 +72,78 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
   const [showPreview, setShowPreview] = useState(false);
   const [loadingPreview, setLoadingPreview] = useState(false);
 
-  // Fetch datasets for project
-  const loadDatasets = async () => {
-    try {
-      const res = await api.getDatasets(project.id);
-      setAvailableDatasets(res.datasets || []);
-      // If project has selected_dataset_id that still exists, use it
-      if (project.selected_dataset_id && res.datasets.some((d: any) => d.id === project.selected_dataset_id)) {
-        setSelectedDatasetId(project.selected_dataset_id);
-      }
-    } catch (err) {
-      console.error('Failed to load datasets:', err);
-    }
-  };
-
-  // Fetch active/latest batch
-  const fetchActiveBatch = async () => {
-    try {
-      const res = await api.getActiveBaselineBatch(project.id);
-      if (res.batch) {
-        setActiveBatch(res.batch);
-      }
-    } catch (err) {
-      console.error('Failed to fetch active baseline batch:', err);
-    }
-  };
-
+  // Reset and fetch project-specific data on mount or project switch
   useEffect(() => {
-    loadDatasets();
-    fetchActiveBatch();
+    let active = true;
+
+    // Immediately clear stale project data
+    setActiveBatch(null);
+    setPredictions([]);
+    setDatasetPreview(null);
+    setAvailableDatasets([]);
+    setSelectedDatasetId(project.selected_dataset_id || 'sample_cafe_labeled');
+
+    const loadProjectData = async () => {
+      try {
+        const [dsRes, batchRes] = await Promise.all([
+          api.getDatasets(project.id),
+          api.getActiveBaselineBatch(project.id),
+        ]);
+
+        if (!active) return;
+
+        const datasets = dsRes.datasets || [];
+        setAvailableDatasets(datasets);
+        if (project.selected_dataset_id && datasets.some((d: any) => d.id === project.selected_dataset_id)) {
+          setSelectedDatasetId(project.selected_dataset_id);
+        } else if (!project.selected_dataset_id) {
+          setSelectedDatasetId('sample_cafe_labeled');
+        }
+
+        if (batchRes.batch && batchRes.batch.project_id === project.id) {
+          setActiveBatch(batchRes.batch);
+        } else {
+          setActiveBatch(null);
+          setPredictions([]);
+        }
+      } catch (err) {
+        if (!active) return;
+        console.error('Failed to load project baseline data:', err);
+        setActiveBatch(null);
+        setPredictions([]);
+      }
+    };
+
+    loadProjectData();
+
+    return () => {
+      active = false;
+    };
   }, [project.id]);
 
   // Load preview whenever selected dataset changes
   useEffect(() => {
+    let active = true;
     const fetchPreview = async () => {
       setLoadingPreview(true);
       try {
         const preview = await api.getDatasetPreview(project.id, selectedDatasetId, 5);
+        if (!active) return;
         setDatasetPreview(preview);
       } catch (err) {
+        if (!active) return;
         console.error('Failed to fetch dataset preview:', err);
         setDatasetPreview(null);
       } finally {
-        setLoadingPreview(false);
+        if (active) {
+          setLoadingPreview(false);
+        }
       }
     };
     fetchPreview();
+    return () => {
+      active = false;
+    };
   }, [project.id, selectedDatasetId]);
 
   // Handle dataset selection change
@@ -179,10 +206,13 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
 
   // Load predictions for batch
   const loadPredictions = async (batchId: string, filter: 'all' | 'mistakes' | 'errors' | 'flagged') => {
+    if (!activeBatch || activeBatch.id !== batchId || activeBatch.project_id !== project.id) return;
     setLoadingPreds(true);
     try {
       const res = await api.getBaselinePredictions(batchId, filter);
-      setPredictions(res.predictions || []);
+      if (activeBatch && activeBatch.id === batchId && activeBatch.project_id === project.id) {
+        setPredictions(res.predictions || []);
+      }
     } catch (err) {
       console.error('Failed to load predictions:', err);
     } finally {
@@ -221,12 +251,14 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
 
   // Cancel running batch
   const handleCancelBatch = async () => {
-    if (!activeBatch) return;
+    if (!activeBatch || activeBatch.project_id !== project.id) return;
     setCanceling(true);
     try {
       await api.cancelBaselineBatch(activeBatch.id);
       const res = await api.getBaselineBatch(activeBatch.id);
-      setActiveBatch(res.batch);
+      if (res.batch && res.batch.project_id === project.id) {
+        setActiveBatch(res.batch);
+      }
     } catch (err: any) {
       alert(err.message || 'Failed to cancel batch');
     } finally {
@@ -236,12 +268,14 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
 
   // Retry batch
   const handleRetryBatch = async () => {
-    if (!activeBatch) return;
+    if (!activeBatch || activeBatch.project_id !== project.id) return;
     setRetrying(true);
     try {
       const newBatch = await api.retryBaselineBatch(activeBatch.id);
-      setActiveBatch(newBatch);
-      setPredictions([]);
+      if (newBatch && newBatch.project_id === project.id) {
+        setActiveBatch(newBatch);
+        setPredictions([]);
+      }
     } catch (err: any) {
       alert(err.message || 'Failed to retry batch');
     } finally {
@@ -251,7 +285,7 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
 
   // Export CSV (available whenever processed_rows > 0)
   const handleExport = async () => {
-    if (!activeBatch) return;
+    if (!activeBatch || activeBatch.project_id !== project.id) return;
     try {
       await api.exportBaselineCsv(activeBatch.id);
     } catch (err: any) {
@@ -280,6 +314,15 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+      {activeBatch && (activeBatch.status === 'completed' || activeBatch.snapshot.analysis_id) && (
+        <FailureAnalysisPanel key={activeBatch.snapshot.source_batch_id || activeBatch.id} batch={activeBatch} appMode={appMode} onInspectBatch={batch => {
+          if (activeBatch.id === batch.id) {
+            loadPredictions(batch.id, filterMode);
+            return;
+          }
+          setActiveBatch(batch); setPredictions([]); setFilterMode('all');
+        }} />
+      )}
       {/* Screen Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
         <div>
@@ -430,7 +473,7 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
                 className="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-lg shadow-blue-600/30 transition flex items-center gap-2 disabled:opacity-50"
               >
                 <Play className="w-4 h-4 fill-white" />
-                {starting ? 'Initializing...' : 'Run Real Baseline Batch'}
+                {starting ? 'Initializing...' : appMode === 'preview' ? 'Run Preview Baseline Batch' : 'Run Real Baseline Batch'}
               </button>
             )}
 
@@ -732,18 +775,27 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
                     const isBlank = p.status === 'blank_skipped';
                     const isError = p.status === 'error';
                     const hasGT = p.ground_truth_topics !== null;
+
+                    const isTopicsValid = p.topics_valid !== undefined ? Boolean(p.topics_valid) : p.is_valid_schema;
+                    const isSentimentValid = p.sentiment_valid !== undefined ? Boolean(p.sentiment_valid) : p.is_valid_schema;
+                    const isNeedsReviewValid = p.needs_review_valid !== undefined ? Boolean(p.needs_review_valid) : p.is_valid_schema;
+
                     const topicsMatch =
                       hasGT &&
+                      isTopicsValid &&
                       Array.isArray(p.predicted_topics) &&
                       Array.isArray(p.ground_truth_topics) &&
                       p.predicted_topics.slice().sort().join(',') === p.ground_truth_topics.slice().sort().join(',');
 
                     const sentMatch =
                       p.ground_truth_sentiment !== null &&
+                      isSentimentValid &&
+                      Boolean(p.predicted_sentiment) &&
                       p.predicted_sentiment.toLowerCase() === p.ground_truth_sentiment.toLowerCase();
 
                     const rfMatch =
                       p.ground_truth_needs_review !== null &&
+                      isNeedsReviewValid &&
                       p.predicted_needs_review === p.ground_truth_needs_review;
 
                     const labelErrors = p.ground_truth_label_errors || [];
@@ -765,6 +817,18 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
                             <span className="text-slate-600">-</span>
                           ) : isError ? (
                             <span className="text-rose-400">Failed</span>
+                          ) : !isTopicsValid ? (
+                            <div className="space-y-0.5">
+                              <span className="px-1.5 py-0.5 rounded text-[10px] bg-amber-950 text-amber-300 border border-amber-800" title={p.schema_errors?.join('; ') || 'Missing or invalid topics output'}>
+                                [unavailable]
+                              </span>
+                              {hasGT && p.ground_truth_topics && (
+                                <div className="text-[10px] text-slate-400">
+                                  GT: {p.ground_truth_topics.join(', ') || '[]'}
+                                  <span className="text-amber-400 ml-1">≠</span>
+                                </div>
+                              )}
+                            </div>
                           ) : (
                             <div className="space-y-0.5">
                               <div className="flex flex-wrap gap-1">
@@ -797,6 +861,18 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
                             <span className="text-slate-600">-</span>
                           ) : isError ? (
                             <span className="text-rose-400">-</span>
+                          ) : !isSentimentValid ? (
+                            <div>
+                              <span className="px-1.5 py-0.5 rounded text-[10px] bg-amber-950 text-amber-300 border border-amber-800" title={p.schema_errors?.join('; ') || 'Missing or invalid sentiment output'}>
+                                [unavailable]
+                              </span>
+                              {p.ground_truth_sentiment && (
+                                <div className="text-[10px] text-slate-400">
+                                  GT: {p.ground_truth_sentiment}
+                                  <span className="text-amber-400 ml-1">≠</span>
+                                </div>
+                              )}
+                            </div>
                           ) : (
                             <div>
                               <span className="uppercase text-[10px] font-bold text-white">
@@ -820,20 +896,38 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
                         <td className="px-3 py-2">
                           {isBlank ? (
                             <span className="text-slate-600">-</span>
-                          ) : p.predicted_needs_review ? (
-                            <span className="px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 text-[10px] font-bold">
-                              FLAG
-                            </span>
+                          ) : isError ? (
+                            <span className="text-rose-400">-</span>
+                          ) : !isNeedsReviewValid ? (
+                            <div>
+                              <span className="px-1.5 py-0.5 rounded text-[10px] bg-amber-950 text-amber-300 border border-amber-800" title={p.schema_errors?.join('; ') || 'Missing or invalid review flag output'}>
+                                [unavailable]
+                              </span>
+                              {p.ground_truth_needs_review !== null && (
+                                <div className="text-[10px] text-slate-400">
+                                  GT: {p.ground_truth_needs_review ? 'FLAG' : 'OK'}
+                                  <span className="text-amber-400 ml-1">≠</span>
+                                </div>
+                              )}
+                            </div>
                           ) : (
-                            <span className="text-slate-500 text-[10px]">OK</span>
-                          )}
-                          {p.ground_truth_needs_review !== null && (
-                            <div className="text-[10px] text-slate-400">
-                              GT: {p.ground_truth_needs_review ? 'FLAG' : 'OK'}
-                              {rfMatch ? (
-                                <span className="text-emerald-400 ml-1">✓</span>
+                            <div>
+                              {p.predicted_needs_review ? (
+                                <span className="px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 text-[10px] font-bold">
+                                  FLAG
+                                </span>
                               ) : (
-                                <span className="text-amber-400 ml-1">≠</span>
+                                <span className="text-slate-500 text-[10px]">OK</span>
+                              )}
+                              {p.ground_truth_needs_review !== null && (
+                                <div className="text-[10px] text-slate-400">
+                                  GT: {p.ground_truth_needs_review ? 'FLAG' : 'OK'}
+                                  {rfMatch ? (
+                                    <span className="text-emerald-400 ml-1">✓</span>
+                                  ) : (
+                                    <span className="text-amber-400 ml-1">≠</span>
+                                  )}
+                                </div>
                               )}
                             </div>
                           )}

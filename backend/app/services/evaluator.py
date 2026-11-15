@@ -156,18 +156,43 @@ def evaluate_baseline_batch(
         for tid in all_taxonomy_ids:
             per_topic[tid] = {"tp": 0, "fp": 0, "fn": 0}
 
+    # Helpers to determine field validity with backward compatibility for mock tests
+    def is_topics_valid(r: Dict[str, Any]) -> bool:
+        if "topics_valid" in r:
+            return bool(r["topics_valid"])
+        if r.get("status") != "success":
+            return False
+        return isinstance(r.get("predicted_topics"), list) and r.get("is_valid_schema") is not False
+
+    def is_sentiment_valid(r: Dict[str, Any]) -> bool:
+        if "sentiment_valid" in r:
+            return bool(r["sentiment_valid"])
+        if r.get("status") != "success":
+            return False
+        pred_s = str(r.get("predicted_sentiment", "")).strip().lower()
+        return pred_s in {"positive", "negative", "neutral", "mixed", "unclear"} and r.get("is_valid_schema") is not False
+
+    def is_needs_review_valid(r: Dict[str, Any]) -> bool:
+        if "needs_review_valid" in r:
+            return bool(r["needs_review_valid"])
+        if r.get("status") != "success":
+            return False
+        val = r.get("predicted_needs_review")
+        return isinstance(val, bool) and r.get("is_valid_schema") is not False
+
     for r in topic_labeled_records:
         gt_set = set(r.get("ground_truth_topics") or [])
 
-        if r.get("status") == "error":
-            # Failed request: all ground truth topics count as False Negatives, 0 TP, 0 FP
+        if r.get("status") == "error" or not is_topics_valid(r):
+            # Failed request or invalid topics output: all GT topics count as False Negatives
             total_fn += len(gt_set)
+            if len(gt_set) == 0:
+                # If ground truth was empty list, an invalid prediction counts as False Positive
+                total_fp += 1
             for tid in gt_set:
                 if tid in per_topic:
                     per_topic[tid]["fn"] += 1
         else:
-            # If model output was schema-invalid (e.g. malformed or invalid topic),
-            # any sanitized topics matching gt_set are counted, but invalid topics do not help
             pred_set = set(r.get("predicted_topics") or [])
             tp = len(pred_set.intersection(gt_set))
             fp = len(pred_set.difference(gt_set))
@@ -225,7 +250,11 @@ def evaluate_baseline_batch(
 
     sentiment_correct = 0
     for r in sentiment_labeled_records:
-        if r.get("status") == "success":
+        if (
+            r.get("status") == "success"
+            and is_sentiment_valid(r)
+            and r.get("predicted_sentiment") is not None
+        ):
             pred_s = str(r.get("predicted_sentiment", "")).strip().lower()
             gt_s = str(r.get("ground_truth_sentiment", "")).strip().lower()
             if pred_s == gt_s:
@@ -255,9 +284,13 @@ def evaluate_baseline_batch(
 
     review_flag_correct = 0
     for r in review_labeled_records:
-        if r.get("status") == "success":
-            pred_rf = bool(r.get("predicted_needs_review", False))
-            gt_rf = bool(r.get("ground_truth_needs_review", False))
+        if (
+            r.get("status") == "success"
+            and is_needs_review_valid(r)
+            and r.get("predicted_needs_review") is not None
+        ):
+            pred_rf = bool(r.get("predicted_needs_review"))
+            gt_rf = bool(r.get("ground_truth_needs_review"))
             if pred_rf == gt_rf:
                 review_flag_correct += 1
 

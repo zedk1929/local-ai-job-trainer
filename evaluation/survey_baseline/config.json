@@ -1,0 +1,66 @@
+{
+  "experiment_id": "survey_baseline_20261114",
+  "execution_date": "2026-11-14",
+  "job": {
+    "id": "survey-cleaner",
+    "name": "Survey Cleaner",
+    "version": "1.0.0",
+    "survey_context": "A campus café gathering student and faculty feedback on drink quality, pricing, speed, and seating atmosphere.",
+    "taxonomy": [
+      {
+        "id": "drink_quality",
+        "name": "Drink Quality",
+        "description": "Taste, temperature, espresso extraction, milk texture, or recipe accuracy."
+      },
+      {
+        "id": "price",
+        "name": "Price & Value",
+        "description": "Cost of items, discounts, value for money, perceived affordability."
+      },
+      {
+        "id": "service",
+        "name": "Staff & Service",
+        "description": "Speed of service, barista friendliness, accuracy of orders, wait times."
+      },
+      {
+        "id": "seating",
+        "name": "Atmosphere & Seating",
+        "description": "Table availability, noise level, cleanliness, seating comfort, WiFi, power outlets."
+      }
+    ],
+    "coding_rules": [
+      "Assign all relevant topics that are explicitly mentioned or strongly implied.",
+      "If the comment mentions both good and bad aspects (e.g. 'Coffee was great but line was huge'), mark sentiment as 'mixed'.",
+      "If the customer expresses uncertainty or the text is incomprehensible, mark sentiment as 'unclear' and set needs_review to true.",
+      "Do not infer unmentioned details or extrapolate facts.",
+      "Flag needs_review=true if customer reports an unresolved safety, harassment, or severe hygiene issue."
+    ]
+  },
+  "model": {
+    "name": "qwen2.5-coder:3b",
+    "endpoint": "http://127.0.0.1:11434",
+    "digest": "f72c60cabf6237b07f6e632b2c48d533cef25eda2efbd34bed21c5e9c01e6225",
+    "format": "gguf",
+    "family": "qwen2",
+    "parameter_size": "3.1B",
+    "quantization_level": "Q4_K_M",
+    "adapter": null,
+    "temperature": 0.0,
+    "response_format": "json"
+  },
+  "dataset": {
+    "relative_path": "evaluation/survey_baseline/dataset.csv",
+    "sha256": "20b384cd00a709c8cc0b70c34996b18845041dd1a23156b00b09da53149d19bc",
+    "total_rows": 61,
+    "labeled_rows": 60,
+    "blank_rows": 1,
+    "origin": "fictional development dataset pending human review"
+  },
+  "execution_environment": {
+    "hardware": "Apple M2 MacBook Air, 8 GB unified memory",
+    "concurrency": 1,
+    "timeout_seconds": 60.0,
+    "mode": "connected"
+  },
+  "prompt_template": "You are an expert survey data analyst specializing in customer feedback categorization.\nYour job is to read raw survey feedback and transform it into a structured record strictly adhering to the specified taxonomy and coding rules.\n\n### SURVEY CONTEXT:\nA campus café gathering student and faculty feedback on drink quality, pricing, speed, and seating atmosphere.\n\n### ALLOWED TOPIC TAXONOMY:\n  - ID: \"drink_quality\" | Name: \"Drink Quality\" | Description: Taste, temperature, espresso extraction, milk texture, or recipe accuracy.\n  - ID: \"price\" | Name: \"Price & Value\" | Description: Cost of items, discounts, value for money, perceived affordability.\n  - ID: \"service\" | Name: \"Staff & Service\" | Description: Speed of service, barista friendliness, accuracy of orders, wait times.\n  - ID: \"seating\" | Name: \"Atmosphere & Seating\" | Description: Table availability, noise level, cleanliness, seating comfort, WiFi, power outlets.\n\n### CODING RULES:\n  1. Assign all relevant topics that are explicitly mentioned or strongly implied.\n  2. If the comment mentions both good and bad aspects (e.g. 'Coffee was great but line was huge'), mark sentiment as 'mixed'.\n  3. If the customer expresses uncertainty or the text is incomprehensible, mark sentiment as 'unclear' and set needs_review to true.\n  4. Do not infer unmentioned details or extrapolate facts.\n  5. Flag needs_review=true if customer reports an unresolved safety, harassment, or severe hygiene issue.\n  - Multiple Topics: Assign ALL matching topic IDs from the taxonomy above. A response may mention 0, 1, or multiple topics. Output topic IDs as an array of strings. Do NOT invent new topic IDs.\n  - Sentiment: Must be strictly one of: \"positive\", \"negative\", \"mixed\", \"neutral\", \"unclear\".\n    * If both positive and negative aspects are mentioned, use \"mixed\".\n    * If incomprehensible, gibberish, or vague, use \"unclear\".\n  - Needs Review: Set needs_review to true if the feedback reports an unresolved safety incident, physical hazard, severe hygiene issue, harassment, or if text is completely unintelligible. Otherwise false.\n  - Summary: Write a concise, 1-sentence factual summary of the feedback. Do not extrapolate or add unmentioned details.\n\n### RAW SURVEY RESPONSE TO CATEGORIZE:\n\"<SURVEY_TEXT>\"\n\n### OUTPUT FORMAT:\nRespond ONLY with a valid JSON object matching this exact schema:\n{\n  \"topics\": [\"topic_id_1\", \"topic_id_2\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"1-sentence factual summary\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}"
+}

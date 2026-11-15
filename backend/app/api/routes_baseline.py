@@ -50,6 +50,12 @@ async def start_baseline_batch(req: StartBaselineRequest):
             if not ds:
                 raise HTTPException(status_code=404, detail=f"Dataset '{req.dataset_id}' not found")
 
+            if ds.get("project_id") != req.project_id:
+                raise HTTPException(
+                    status_code=404,
+                    detail=f"Dataset '{req.dataset_id}' does not belong to project '{req.project_id}'."
+                )
+
             filepath = ds["filepath"]
             try:
                 with open(filepath, "r", encoding="utf-8-sig") as f:
@@ -65,23 +71,40 @@ async def start_baseline_batch(req: StartBaselineRequest):
     if len(rows_to_process) == 0:
         raise HTTPException(status_code=400, detail="No rows found to process.")
 
-    # Validate required response column
+    # Validate required response column (with whitespace tolerance for column matching)
     available_cols = list(rows_to_process[0].keys())
-    if req.response_col not in available_cols:
+    col_map = {c.strip(): c for c in available_cols}
+
+    def resolve_col_name(c: Optional[str]) -> Optional[str]:
+        if not c:
+            return c
+        if c in available_cols:
+            return c
+        if c.strip() in col_map:
+            return col_map[c.strip()]
+        return c
+
+    actual_response_col = resolve_col_name(req.response_col)
+    if not actual_response_col or actual_response_col not in available_cols:
         raise HTTPException(
             status_code=400,
             detail=f"Required response column '{req.response_col}' not found in dataset. Available columns: {available_cols}"
         )
 
+    actual_id_col = resolve_col_name(req.id_col)
+    actual_label_topics_col = resolve_col_name(req.label_topics_col)
+    actual_label_sentiment_col = resolve_col_name(req.label_sentiment_col)
+    actual_label_needs_review_col = resolve_col_name(req.label_needs_review_col)
+
     batch = await baseline_batch_runner.create_and_start_batch(
         project_id=req.project_id,
         dataset_id=req.dataset_id or "inline_rows",
         rows=rows_to_process,
-        response_col=req.response_col,
-        id_col=req.id_col,
-        label_topics_col=req.label_topics_col,
-        label_sentiment_col=req.label_sentiment_col,
-        label_needs_review_col=req.label_needs_review_col,
+        response_col=actual_response_col,
+        id_col=actual_id_col,
+        label_topics_col=actual_label_topics_col,
+        label_sentiment_col=actual_label_sentiment_col,
+        label_needs_review_col=actual_label_needs_review_col,
         concurrency=req.concurrency or 1
     )
     return batch
@@ -162,24 +185,36 @@ async def export_baseline_csv(batch_id: str):
     if not predictions:
         raise HTTPException(status_code=400, detail="No predictions available to export.")
 
-    # Determine original columns from recorded rows
-    first_orig = predictions[0].get("original_data", {})
-    original_cols = list(first_orig.keys())
+    # Determine all original columns from recorded rows (preserving header order)
+    original_cols = []
+    seen_cols = set()
+    for p in predictions:
+        for k in p.get("original_data", {}).keys():
+            if k not in seen_cols:
+                seen_cols.add(k)
+                original_cols.append(k)
     allocated_names = set(original_cols)
 
     # Allocate collision-free column names consistently
     added_cols = {
         "topics": _make_unique_col("baseline_predicted_topics", allocated_names),
+        "topics_valid": _make_unique_col("baseline_topics_valid", allocated_names),
         "sentiment": _make_unique_col("baseline_predicted_sentiment", allocated_names),
+        "sentiment_valid": _make_unique_col("baseline_sentiment_valid", allocated_names),
         "summary": _make_unique_col("baseline_summary", allocated_names),
         "needs_review": _make_unique_col("baseline_needs_review", allocated_names),
+        "needs_review_valid": _make_unique_col("baseline_needs_review_valid", allocated_names),
         "review_reason": _make_unique_col("baseline_review_reason", allocated_names),
         "schema_valid": _make_unique_col("baseline_schema_valid", allocated_names),
+        "validation_details": _make_unique_col("baseline_validation_details", allocated_names),
         "status": _make_unique_col("baseline_status", allocated_names),
         "error": _make_unique_col("baseline_error", allocated_names),
         "is_simulated": _make_unique_col("baseline_is_simulated", allocated_names),
         "execution_mode": _make_unique_col("baseline_execution_mode", allocated_names),
-        "model_identity": _make_unique_col("baseline_model_identity", allocated_names)
+        "model_identity": _make_unique_col("baseline_model_identity", allocated_names),
+        "source_batch": _make_unique_col("baseline_source_batch", allocated_names),
+        "analysis_id": _make_unique_col("baseline_analysis_id", allocated_names),
+        "evaluation_role": _make_unique_col("baseline_evaluation_role", allocated_names)
     }
 
     fieldnames = list(original_cols) + list(added_cols.values())
@@ -190,15 +225,54 @@ async def export_baseline_csv(batch_id: str):
 
     for p in predictions:
         row = dict(p.get("original_data", {}))
-        topics = p.get("predicted_topics", [])
-        row[added_cols["topics"]] = "; ".join(topics) if isinstance(topics, list) else str(topics)
-        row[added_cols["sentiment"]] = p.get("predicted_sentiment", "")
+
+        # Output validity vs unavailable
+        topics_valid = bool(p.get("topics_valid"))
+        sentiment_valid = bool(p.get("sentiment_valid"))
+        needs_review_valid = bool(p.get("needs_review_valid"))
+
+        # Topics: show valid topics or [unavailable]
+        if topics_valid:
+            topics = p.get("predicted_topics", [])
+            row[added_cols["topics"]] = "; ".join(topics) if isinstance(topics, list) else str(topics)
+        else:
+            row[added_cols["topics"]] = "[unavailable]"
+
+        row[added_cols["topics_valid"]] = "YES" if topics_valid else "NO"
+
+        # Sentiment: show valid sentiment or [unavailable]
+        if sentiment_valid:
+            row[added_cols["sentiment"]] = p.get("predicted_sentiment", "")
+        else:
+            row[added_cols["sentiment"]] = "[unavailable]"
+
+        row[added_cols["sentiment_valid"]] = "YES" if sentiment_valid else "NO"
+
         row[added_cols["summary"]] = p.get("generated_summary", "")
-        row[added_cols["needs_review"]] = "YES" if p.get("predicted_needs_review") else "NO"
+
+        # Needs review: show valid YES/NO or [unavailable]
+        if needs_review_valid:
+            row[added_cols["needs_review"]] = "YES" if p.get("predicted_needs_review") else "NO"
+        else:
+            row[added_cols["needs_review"]] = "[unavailable]"
+
+        row[added_cols["needs_review_valid"]] = "YES" if needs_review_valid else "NO"
+
         row[added_cols["review_reason"]] = p.get("review_reason", "")
         row[added_cols["schema_valid"]] = "YES" if p.get("is_valid_schema") else "NO"
+
+        # Validation details and error explanation
+        schema_errs = p.get("schema_errors", [])
+        val_details = "; ".join(schema_errs) if isinstance(schema_errs, list) else str(schema_errs)
+        row[added_cols["validation_details"]] = val_details
+
+        # Transport/inference status preserved distinctly
         row[added_cols["status"]] = p.get("status", "")
-        row[added_cols["error"]] = p.get("error_message") or ""
+
+        err_msg = p.get("error_message") or ""
+        if not err_msg and not p.get("is_valid_schema") and val_details:
+            err_msg = f"Schema validation failed: {val_details}"
+        row[added_cols["error"]] = err_msg
 
         # Provenance metadata
         is_sim = p.get("is_simulated")
@@ -207,6 +281,9 @@ async def export_baseline_csv(batch_id: str):
         row[added_cols["is_simulated"]] = "YES" if is_sim else "NO"
         row[added_cols["execution_mode"]] = p.get("execution_mode") or batch.get("app_mode") or "connected"
         row[added_cols["model_identity"]] = p.get("model_name") or batch.get("model_name") or ""
+        row[added_cols['source_batch']] = batch['snapshot'].get('source_batch_id', '')
+        row[added_cols['analysis_id']] = batch['snapshot'].get('analysis_id', '')
+        row[added_cols['evaluation_role']] = batch['snapshot'].get('evaluation_role', 'original_baseline')
 
         writer.writerow(row)
 

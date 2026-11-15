@@ -459,7 +459,7 @@ async def confirm_dataset(req: ConfirmDatasetRequest):
 
     saved_dataset_id = None
     try:
-        dataset_record = await run_store.save_dataset(
+        dataset_record, _ = await run_store.confirm_dataset_atomic(
             project_id=req.project_id,
             filename=req.filename,
             filepath=dest_filepath,
@@ -472,17 +472,6 @@ async def confirm_dataset(req: ConfirmDatasetRequest):
             origin=origin
         )
         saved_dataset_id = dataset_record["id"]
-
-        # Update project with confirmed dataset and column mappings
-        await run_store.update_project(
-            project_id=req.project_id,
-            selected_dataset_id=dataset_record["id"],
-            response_col=req.response_col,
-            id_col=req.id_col or "",
-            label_topics_col=req.label_topics_col or "",
-            label_sentiment_col=req.label_sentiment_col or "",
-            label_needs_review_col=req.label_needs_review_col or ""
-        )
     except Exception as exc:
         if dest_path and dest_path.exists():
             try:
@@ -494,6 +483,13 @@ async def confirm_dataset(req: ConfirmDatasetRequest):
                 await run_store.delete_dataset(saved_dataset_id)
             except Exception:
                 pass
+
+        # Fully restore previous project selection and mappings on failure
+        try:
+            await run_store.restore_project_state(req.project_id, proj)
+        except Exception:
+            pass
+
         raise HTTPException(
             status_code=500,
             detail=f"Failed to persist dataset confirmation: {str(exc)}"

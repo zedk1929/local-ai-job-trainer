@@ -28,7 +28,7 @@ class Settings(BaseModel):
 
     # Supervisor configuration
     supervisor_provider: str = os.getenv("SUPERVISOR_PROVIDER", "gemini")
-    supervisor_model: str = os.getenv("SUPERVISOR_MODEL", "gemini-2.5-pro")
+    supervisor_model: str = os.getenv("SUPERVISOR_MODEL", "claude-sonnet-5-5" if os.getenv("SUPERVISOR_PROVIDER") == "anthropic" else "gemini-3.8-flash")
     supervisor_api_key: str = os.getenv("SUPERVISOR_API_KEY", "")
 
     # Local model configuration

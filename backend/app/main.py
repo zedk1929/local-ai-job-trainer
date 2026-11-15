@@ -13,6 +13,7 @@ from app.api.routes_datasets import router as datasets_router
 from app.api.routes_runs import router as runs_router
 from app.api.routes_inference import router as inference_router
 from app.api.routes_baseline import router as baseline_router
+from app.api.routes_analysis import router as analysis_router, recover_analyses
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -21,6 +22,7 @@ async def lifespan(app: FastAPI):
     # Mark any lingering interrupted runs and baseline batches safely
     await run_store.mark_interrupted_runs()
     await mark_interrupted_baseline_batches()
+    await recover_analyses()
     yield
 
 app = FastAPI(
@@ -48,6 +50,7 @@ app.include_router(datasets_router, prefix="/api", tags=["Datasets"])
 app.include_router(runs_router, prefix="/api", tags=["Runs & Training"])
 app.include_router(inference_router, prefix="/api", tags=["Inference & Export"])
 app.include_router(baseline_router, prefix="/api", tags=["Baseline Evaluation"])
+app.include_router(analysis_router, prefix="/api", tags=["Failure Analysis"])
 
 if __name__ == "__main__":
     import uvicorn

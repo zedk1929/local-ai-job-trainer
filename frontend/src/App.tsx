@@ -74,8 +74,8 @@ export const App: React.FC = () => {
   };
 
   const handleUpdateProject = (updated: Project) => {
-    setProjects(projects.map((p) => (p.id === updated.id ? updated : p)));
-    setSelectedProject(updated);
+    setProjects((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
+    setSelectedProject((curr) => (curr && curr.id === updated.id ? updated : curr));
   };
 
   if (loading) {
@@ -128,6 +128,7 @@ export const App: React.FC = () => {
 
         {activeScreen === 'config' && (
           <ConfigScreen
+            key={selectedProject?.id || 'none'}
             project={selectedProject}
             onUpdateProject={handleUpdateProject}
             onNavigate={setActiveScreen}
@@ -136,6 +137,7 @@ export const App: React.FC = () => {
 
         {activeScreen === 'baseline' && (
           <BaselineScreen
+            key={selectedProject?.id || 'none'}
             project={selectedProject}
             appMode={appMode}
             capabilities={capabilities}

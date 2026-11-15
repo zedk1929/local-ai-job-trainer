@@ -1,4 +1,5 @@
 import json
+import re
 from typing import Dict, Any, List, Optional, Tuple, Set
 from pydantic import BaseModel, Field
 from app.core.job_contract import JobDefinition, JobConfigSchema, MetricDefinition, TrainingOptionSchema
@@ -65,18 +66,29 @@ class SurveyCleanerJob(JobDefinition):
             f"Output a JSON object with keys: topics, sentiment, summary, needs_review, review_reason."
         )
 
-    def validate_output(self, raw_output: Any, taxonomy: List[Dict[str, str]]) -> Dict[str, Any]:
+    def validate_output(
+        self,
+        raw_output: Any,
+        taxonomy: List[Dict[str, str]],
+        raw_text: Optional[str] = None
+    ) -> Dict[str, Any]:
         """
         Strictly validate raw model output against the output schema contract.
-        Does NOT silently repair invalid outputs to claim schema validity.
+        Does NOT silently repair invalid outputs to claim schema validity or award credit.
         Returns:
             {
                 "is_valid_schema": bool,
+                "is_strict_json": bool,
                 "validation_errors": List[str],
-                "topics": List[str] (sanitized for safe downstream use),
-                "sentiment": str (sanitized for safe downstream use),
+                "topics": List[str] (sanitized valid topics for display),
+                "topics_valid": bool,
+                "sentiment": Optional[str] (None if missing or invalid),
+                "sentiment_valid": bool,
+                "display_sentiment": str,
+                "needs_review": Optional[bool] (None if missing or invalid),
+                "needs_review_valid": bool,
+                "display_needs_review": bool,
                 "summary": str or None,
-                "needs_review": bool,
                 "review_reason": str or None,
                 "raw_output": raw_output
             }
@@ -87,17 +99,52 @@ class SurveyCleanerJob(JobDefinition):
         if not isinstance(raw_output, dict):
             return {
                 "is_valid_schema": False,
+                "is_strict_json": False,
                 "validation_errors": [f"Model output must be a JSON object, got {type(raw_output).__name__}"],
                 "topics": [],
+                "topics_valid": False,
                 "sentiment": "unclear",
-                "summary": "",
+                "sentiment_valid": False,
+                "display_sentiment": "[missing/invalid]",
                 "needs_review": False,
+                "needs_review_valid": False,
+                "display_needs_review": False,
+                "summary": "",
                 "review_reason": None,
                 "raw_output": raw_output
             }
 
+        # Check strict raw formatting / markdown code fences by parsing the exact original response
+        is_strict_json = True
+        text_to_check = raw_text if raw_text is not None else raw_output.get("raw_model_text")
+        if text_to_check is not None:
+            text_str = str(text_to_check).strip()
+            try:
+                # Direct strict JSON parsing on exact original response
+                # Embedded backticks inside quoted string values parse normally and are valid
+                json.loads(text_str)
+                is_strict_json = True
+            except (json.JSONDecodeError, TypeError):
+                is_strict_json = False
+                fence_match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", text_str, flags=re.IGNORECASE)
+                if fence_match or text_str.startswith("```"):
+                    errors.append("Output contains markdown code fences; strict raw JSON is required")
+                else:
+                    errors.append("Output is not strictly formatted JSON")
+        else:
+            if raw_output.get("has_markdown_fence") is True:
+                errors.append("Output contains markdown code fences; strict raw JSON is required")
+                is_strict_json = False
+            elif raw_output.get("is_strict_json") is False and "raw_model_text" in raw_output:
+                errors.append("Output is not strictly formatted JSON")
+                is_strict_json = False
+
+        if raw_output.get("is_valid_json") is False:
+            errors.append("Output could not be parsed as valid JSON")
+
         # 1. Validate topics field
         sanitized_topics: List[str] = []
+        topics_valid = False
         if "topics" not in raw_output:
             errors.append("Missing required field 'topics'")
         else:
@@ -106,19 +153,26 @@ class SurveyCleanerJob(JobDefinition):
                 errors.append(f"Field 'topics' must be an array of strings, got {type(raw_topics).__name__}")
             else:
                 invalid_topics = []
+                valid_items = []
                 for item in raw_topics:
                     if not isinstance(item, str):
                         invalid_topics.append(str(item))
                     elif item not in valid_topic_ids:
                         invalid_topics.append(item)
                     else:
-                        if item not in sanitized_topics:
-                            sanitized_topics.append(item)
+                        if item not in valid_items:
+                            valid_items.append(item)
                 if invalid_topics:
                     errors.append(f"Unknown topic ID(s) not in taxonomy: {invalid_topics}")
+                    sanitized_topics = valid_items
+                    topics_valid = False
+                else:
+                    sanitized_topics = valid_items
+                    topics_valid = True
 
         # 2. Validate sentiment field
         sanitized_sentiment = "unclear"
+        sentiment_valid = False
         if "sentiment" not in raw_output:
             errors.append("Missing required field 'sentiment'")
         else:
@@ -133,10 +187,11 @@ class SurveyCleanerJob(JobDefinition):
                     )
                 else:
                     sanitized_sentiment = clean_sentiment
+                    sentiment_valid = True
 
-        # 3. Validate needs_review field
-        # MUST BE STRICT BOOLEAN (type(val) is bool)
+        # 3. Validate needs_review field (must be strict bool)
         sanitized_needs_review = False
+        needs_review_valid = False
         if "needs_review" not in raw_output:
             errors.append("Missing required field 'needs_review'")
         else:
@@ -145,11 +200,9 @@ class SurveyCleanerJob(JobDefinition):
                 errors.append(
                     f"Field 'needs_review' must be a boolean (true/false), got {type(raw_needs_review).__name__} ('{raw_needs_review}')"
                 )
-                # For safety downstream, if it looks like true
-                if str(raw_needs_review).lower() in {"true", "1", "yes"}:
-                    sanitized_needs_review = True
             else:
                 sanitized_needs_review = raw_needs_review
+                needs_review_valid = True
 
         # 4. Validate summary field
         raw_summary = raw_output.get("summary")
@@ -171,15 +224,21 @@ class SurveyCleanerJob(JobDefinition):
             else:
                 sanitized_reason = raw_reason
 
-        is_valid = len(errors) == 0
+        is_valid = (len(errors) == 0)
 
         return {
             "is_valid_schema": is_valid,
+            "is_strict_json": is_strict_json,
             "validation_errors": errors,
             "topics": sanitized_topics,
+            "topics_valid": topics_valid,
             "sentiment": sanitized_sentiment,
-            "summary": sanitized_summary,
+            "sentiment_valid": sentiment_valid,
+            "display_sentiment": sanitized_sentiment if sanitized_sentiment is not None else "[missing/invalid]",
             "needs_review": sanitized_needs_review,
+            "needs_review_valid": needs_review_valid,
+            "display_needs_review": bool(sanitized_needs_review) if sanitized_needs_review is not None else False,
+            "summary": sanitized_summary,
             "review_reason": sanitized_reason,
             "raw_output": raw_output
         }
