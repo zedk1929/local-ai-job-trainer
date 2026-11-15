@@ -64,6 +64,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 The backend strictly separates bundled read-only assets from writable project uploads and runtime data via explicit, strongly-typed settings in `app/config.py`:
 - `data_dir`: General data folder containing the bundled read-only sample datasets.
 - `sample_csv_path`: Direct path to the bundled read-only `sample_survey_labeled.csv`.
+- `dev_sample_csv_path`: Direct path to the bundled read-only `dev_survey_60_labeled.csv`.
 - `uploads_dir`: Writable folder for user-uploaded CSV datasets, segregated by project ID (`uploads/{project_id}/...`).
 - `runs_dir`: Storage for adapter checkpoints and training run artifacts.
 - `db_path`: SQLite database path (`data/trainer.sqlite3`).
@@ -138,6 +139,15 @@ CF_12,Quinn,"",,,
 ```
 
 *Disclaimer: This sample CSV is provided solely to check the workflow and automated evaluation machinery. It is not evidence of overall model quality or benchmark superiority.*
+
+### Development Benchmark Dataset (`dev_survey_60_labeled.csv`)
+An expanded 61-row fictional development survey dataset (60 labeled responses + 1 blank row) is provided at [`backend/data/dev_survey_60_labeled.csv`](file:///Users/lcooney/Documents/ChatGPT/HACKATHON/hackathon-project/backend/data/dev_survey_60_labeled.csv) for evaluating local models:
+- **Coverage**: Single-topic and multi-topic feedback (2-4 categories across `drink_quality`, `service`, `price`, and `seating`).
+- **Sentiment**: Balanced coverage of `positive`, `negative`, `mixed`, `neutral`, and `unclear`.
+- **Linguistic Variation**: Implicit feedback, informal/slang expressions, spelling errors/typos, and negation.
+- **Safety Hazards & Review Flags**: 10 rows flagged `needs_review=true` (physical hazards such as glass/staples, severe hygiene/chemical issues, and ambiguous/incomprehensible comments).
+- **Zero-topic & Out-of-Domain**: Explicitly empty topic lists (`[]`) for unrelated or non-applicable comments.
+- **Quoting & Parsing Robustness**: Quoted commas, escaped quotes (`""`), multiline cell text, and a blank response row.
 
 ---
 

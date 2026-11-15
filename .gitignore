@@ -41,6 +41,7 @@ backend/data/*.sqlite*
 backend/data/*.db
 backend/data/uploads/
 !backend/data/sample_survey_labeled.csv
+!backend/data/dev_survey_60_labeled.csv
 backend/runs/
 *.sqlite
 *.sqlite3

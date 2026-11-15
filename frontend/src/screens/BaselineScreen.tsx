@@ -132,7 +132,7 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
         if (ds.label_topics_col !== undefined) updatedFields.label_topics_col = ds.label_topics_col;
         if (ds.label_sentiment_col !== undefined) updatedFields.label_sentiment_col = ds.label_sentiment_col;
         if (ds.label_needs_review_col !== undefined) updatedFields.label_needs_review_col = ds.label_needs_review_col;
-      } else if (datasetId === 'sample_cafe_labeled') {
+      } else if (datasetId === 'sample_cafe_labeled' || datasetId === 'sample_dev_60') {
         updatedFields.response_col = 'feedback_text';
         updatedFields.id_col = 'response_id';
         updatedFields.label_topics_col = 'label_topics';
@@ -266,7 +266,9 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
   // Selected dataset meta
   const currentDatasetRecord = availableDatasets.find((d) => d.id === selectedDatasetId);
   const currentDatasetName =
-    selectedDatasetId === 'sample_cafe_labeled'
+    selectedDatasetId === 'sample_dev_60'
+      ? 'Fictional Dev Benchmark Dataset (Built-in, 61 rows)'
+      : selectedDatasetId === 'sample_cafe_labeled'
       ? 'Fictional Sample Café Feedback (Built-in, 12 rows)'
       : currentDatasetRecord
       ? `${currentDatasetRecord.filename} (${currentDatasetRecord.row_count} rows)`
@@ -364,6 +366,9 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
               >
                 <option value="sample_cafe_labeled">
                   ★ Fictional Sample Café Dataset (12 rows, labeled)
+                </option>
+                <option value="sample_dev_60">
+                  ★ Fictional Dev Benchmark Dataset (61 rows, labeled)
                 </option>
                 {availableDatasets.map((d) => (
                   <option key={d.id} value={d.id}>

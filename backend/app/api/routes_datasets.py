@@ -305,10 +305,14 @@ async def inspect_dataset_csv(
     Stage 1: Inspect the file without requiring column mappings or altering project state.
     Parses headers, validates CSV formatting, checks UTF-8 BOM, and returns a preview.
     """
-    if source in ("sample", "sample_cafe_labeled"):
-        sample_path = settings.sample_csv_path
+    if source in ("sample", "sample_cafe_labeled", "dev_60", "sample_dev_60", "dev_survey_60"):
+        is_dev_60 = source in ("dev_60", "sample_dev_60", "dev_survey_60")
+        sample_path = settings.dev_sample_csv_path if is_dev_60 else settings.sample_csv_path
+        default_filename = "dev_survey_60_labeled.csv" if is_dev_60 else "sample_survey_labeled.csv"
+        temp_id = "sample_dev_60" if is_dev_60 else "sample_cafe_labeled"
+
         if not sample_path.exists():
-            sample_path = Path(__file__).resolve().parent.parent.parent / "data" / "sample_survey_labeled.csv"
+            sample_path = Path(__file__).resolve().parent.parent.parent / "data" / default_filename
         try:
             with open(sample_path, "r", encoding="utf-8-sig") as f:
                 text = f.read()
@@ -319,8 +323,8 @@ async def inspect_dataset_csv(
         clean_headers, rows = parse_and_validate_csv_text(text)
         suggested = suggest_column_mappings(clean_headers)
         return {
-            "temp_file_id": "sample_cafe_labeled",
-            "filename": "sample_survey_labeled.csv",
+            "temp_file_id": temp_id,
+            "filename": default_filename,
             "is_sample": True,
             "columns": clean_headers,
             "row_count": len(rows),
@@ -373,12 +377,14 @@ async def confirm_dataset(req: ConfirmDatasetRequest):
     if not proj:
         raise HTTPException(status_code=404, detail="Project not found")
 
-    is_sample = bool(req.is_sample or (req.temp_file_id == "sample_cafe_labeled"))
+    is_sample = bool(req.is_sample or (req.temp_file_id in ("sample_cafe_labeled", "sample_dev_60")))
     staging_file = None
     if is_sample:
-        sample_path = settings.sample_csv_path
+        is_dev_60 = req.temp_file_id == "sample_dev_60"
+        sample_path = settings.dev_sample_csv_path if is_dev_60 else settings.sample_csv_path
+        default_filename = "dev_survey_60_labeled.csv" if is_dev_60 else "sample_survey_labeled.csv"
         if not sample_path.exists():
-            sample_path = Path(__file__).resolve().parent.parent.parent / "data" / "sample_survey_labeled.csv"
+            sample_path = Path(__file__).resolve().parent.parent.parent / "data" / default_filename
         try:
             with open(sample_path, "r", encoding="utf-8-sig") as f:
                 text = f.read()
@@ -388,7 +394,7 @@ async def confirm_dataset(req: ConfirmDatasetRequest):
 
         clean_headers, rows = parse_and_validate_csv_text(text)
         dest_filepath = str(sample_path)
-        origin = "bundled-sample"
+        origin = "bundled-dev-sample" if is_dev_60 else "bundled-sample"
     else:
         staging_dir = settings.uploads_dir / "_staging"
         staging_file = staging_dir / f"{req.temp_file_id}.csv"
@@ -629,10 +635,12 @@ async def get_datasets_for_project(project_id: str):
 
 @router.get("/datasets/{project_id}/{dataset_id}/preview")
 async def preview_dataset(project_id: str, dataset_id: str, limit: int = 5):
-    if dataset_id == "sample_cafe_labeled":
-        sample_path = settings.sample_csv_path
+    if dataset_id in ("sample_cafe_labeled", "sample_dev_60"):
+        is_dev_60 = dataset_id == "sample_dev_60"
+        sample_path = settings.dev_sample_csv_path if is_dev_60 else settings.sample_csv_path
+        default_filename = "dev_survey_60_labeled.csv" if is_dev_60 else "sample_survey_labeled.csv"
         if not sample_path.exists():
-            sample_path = Path(__file__).resolve().parent.parent.parent / "data" / "sample_survey_labeled.csv"
+            sample_path = Path(__file__).resolve().parent.parent.parent / "data" / default_filename
         rows = []
         with open(sample_path, "r", encoding="utf-8-sig") as f:
             reader = csv.DictReader(f)

@@ -610,10 +610,12 @@ class BaselineBatchRunner:
         label_needs_review_col = snapshot.get("label_needs_review_col") or None
 
         rows = []
-        if dataset_id == "sample_cafe_labeled":
-            sample_path = settings.sample_csv_path
+        if dataset_id in ("sample_cafe_labeled", "sample_dev_60"):
+            is_dev_60 = dataset_id == "sample_dev_60"
+            sample_path = settings.dev_sample_csv_path if is_dev_60 else settings.sample_csv_path
+            default_filename = "dev_survey_60_labeled.csv" if is_dev_60 else "sample_survey_labeled.csv"
             if not sample_path.exists():
-                sample_path = Path(__file__).resolve().parent.parent.parent / "data" / "sample_survey_labeled.csv"
+                sample_path = Path(__file__).resolve().parent.parent.parent / "data" / default_filename
             with open(sample_path, "r", encoding="utf-8-sig") as f:
                 reader = csv.DictReader(f)
                 rows = list(reader)

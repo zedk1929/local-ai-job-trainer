@@ -7,6 +7,7 @@ DATA_DIR = BASE_DIR / "data"
 RUNS_DIR = BASE_DIR / "runs"
 UPLOADS_DIR = DATA_DIR / "uploads"
 SAMPLE_CSV_PATH = DATA_DIR / "sample_survey_labeled.csv"
+DEV_SAMPLE_CSV_PATH = DATA_DIR / "dev_survey_60_labeled.csv"
 
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 RUNS_DIR.mkdir(parents=True, exist_ok=True)
@@ -21,6 +22,7 @@ class Settings(BaseModel):
     DATA_DIR: Path = DATA_DIR # Backward-compatibility alias
     uploads_dir: Path = UPLOADS_DIR
     sample_csv_path: Path = SAMPLE_CSV_PATH
+    dev_sample_csv_path: Path = DEV_SAMPLE_CSV_PATH
     db_path: Path = DATA_DIR / "trainer.sqlite3"
     runs_dir: Path = RUNS_DIR
 

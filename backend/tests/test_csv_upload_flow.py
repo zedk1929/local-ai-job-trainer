@@ -568,3 +568,117 @@ async def test_valid_multiline_quotes_and_escaped_quotes_succeed():
         assert data["preview_rows"][0]["comment"] == "Line 1\nLine 2\nLine 3"
         assert data["preview_rows"][1]["comment"] == 'Customer said, "Awesome service!", would return'
         assert data["preview_rows"][2]["comment"] == "Latte, mocha, and tea"
+
+@pytest.mark.asyncio
+async def test_dev_benchmark_60_dataset_inspect_confirm_and_validate():
+    """
+    Verify that the ~60 row development benchmark dataset (dev_survey_60_labeled.csv):
+    1. Can be inspected directly via preset source="dev_60"
+    2. Has correct suggested column mappings and 61 rows (60 labeled + 1 blank)
+    3. Confirms cleanly against Survey Cleaner taxonomy
+    4. Produces 0 invalid topic labels, 0 invalid sentiment labels, 0 invalid review flags
+    5. Correctly accounts for explicit empty topics (6 rows) and blank response (1 row)
+    """
+    proj = await run_store.create_project(
+        name="Dev Benchmark 60 Project",
+        job_id="survey-cleaner",
+        description="Testing dev benchmark dataset",
+        survey_context="A campus café gathering feedback",
+        taxonomy=[
+            {"id": "drink_quality", "name": "Drink Quality"},
+            {"id": "price", "name": "Price & Value"},
+            {"id": "service", "name": "Staff & Service"},
+            {"id": "seating", "name": "Atmosphere & Seating"},
+        ],
+        coding_rules=["Assign all relevant topics", "Mixed sentiment for positive+negative"]
+    )
+    project_id = proj["id"]
+
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+        # 1. Inspect dev benchmark source
+        inspect_resp = await client.post("/api/datasets/inspect", data={"source": "dev_60"})
+        assert inspect_resp.status_code == 200, inspect_resp.text
+        inspect_data = inspect_resp.json()
+        assert inspect_data["filename"] == "dev_survey_60_labeled.csv"
+        assert inspect_data["row_count"] == 61
+        assert inspect_data["columns"] == [
+            "response_id", "customer_name", "feedback_text",
+            "label_topics", "label_sentiment", "label_needs_review"
+        ]
+        assert inspect_data["suggested_mappings"]["response_col"] == "feedback_text"
+        assert inspect_data["suggested_mappings"]["id_col"] == "response_id"
+        assert inspect_data["suggested_mappings"]["label_topics_col"] == "label_topics"
+        assert inspect_data["suggested_mappings"]["label_sentiment_col"] == "label_sentiment"
+        assert inspect_data["suggested_mappings"]["label_needs_review_col"] == "label_needs_review"
+
+        # 2. Confirm dataset
+        confirm_resp = await client.post(
+            "/api/datasets/confirm",
+            json={
+                "project_id": project_id,
+                "temp_file_id": inspect_data["temp_file_id"],
+                "filename": inspect_data["filename"],
+                "is_sample": True,
+                "response_col": "feedback_text",
+                "id_col": "response_id",
+                "label_topics_col": "label_topics",
+                "label_sentiment_col": "label_sentiment",
+                "label_needs_review_col": "label_needs_review"
+            }
+        )
+        assert confirm_resp.status_code == 200, confirm_resp.text
+        confirm_data = confirm_resp.json()
+        summary = confirm_data["validation_summary"]
+
+        assert summary["total_rows"] == 61
+        assert summary["valid_response_rows"] == 60
+        assert summary["blank_response_rows"] == 1
+        assert summary["topics_invalid_rows"] == 0
+        assert summary["topics_valid_empty_rows"] == 6
+        assert summary["topics_labeled_rows"] == 60
+        assert summary["sentiment_invalid_rows"] == 0
+        assert summary["sentiment_labeled_rows"] == 60
+        assert summary["needs_review_invalid_rows"] == 0
+        assert summary["needs_review_labeled_rows"] == 60
+        assert summary["is_unlabeled"] is False
+
+        # 3. Preview endpoint check
+        preview_resp = await client.get(f"/api/datasets/{project_id}/sample_dev_60/preview")
+        assert preview_resp.status_code == 200
+        preview_data = preview_resp.json()
+        assert preview_data["row_count"] == 61
+        assert len(preview_data["preview_rows"]) == 5
+
+        # 4. Direct file upload of dev_survey_60_labeled.csv
+        dev_file_path = Path(__file__).resolve().parent.parent / "data" / "dev_survey_60_labeled.csv"
+        with open(dev_file_path, "rb") as f:
+            file_bytes = f.read()
+
+        upload_inspect = await client.post(
+            "/api/datasets/inspect",
+            files={"file": ("custom_dev_survey.csv", io.BytesIO(file_bytes), "text/csv")}
+        )
+        assert upload_inspect.status_code == 200
+        up_data = upload_inspect.json()
+        assert up_data["row_count"] == 61
+
+        confirm_up = await client.post(
+            "/api/datasets/confirm",
+            json={
+                "project_id": project_id,
+                "temp_file_id": up_data["temp_file_id"],
+                "filename": "custom_dev_survey.csv",
+                "is_sample": False,
+                "response_col": "feedback_text",
+                "id_col": "response_id",
+                "label_topics_col": "label_topics",
+                "label_sentiment_col": "label_sentiment",
+                "label_needs_review_col": "label_needs_review"
+            }
+        )
+        assert confirm_up.status_code == 200
+        up_summary = confirm_up.json()["validation_summary"]
+        assert up_summary["total_rows"] == 61
+        assert up_summary["topics_invalid_rows"] == 0
+        assert up_summary["sentiment_invalid_rows"] == 0
+        assert up_summary["needs_review_invalid_rows"] == 0

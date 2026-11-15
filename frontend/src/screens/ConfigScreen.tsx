@@ -166,6 +166,26 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
     }
   };
 
+  // Stage 1: Load Dev Benchmark CSV (~60 rows) fixture (inspect only)
+  const handleLoadDevBenchmarkCsv = async () => {
+    setInspecting(true);
+    setUploadError(null);
+    setConfirmSuccess(false);
+    try {
+      const res = await api.inspectCsv(undefined, 'dev_60');
+      setPendingInspection(res);
+      setResponseCol(res.suggested_mappings.response_col || res.columns[0] || '');
+      setIdCol(res.suggested_mappings.id_col || '');
+      setLabelTopicsCol(res.suggested_mappings.label_topics_col || '');
+      setLabelSentimentCol(res.suggested_mappings.label_sentiment_col || '');
+      setLabelNeedsReviewCol(res.suggested_mappings.label_needs_review_col || '');
+    } catch (err: any) {
+      setUploadError(err.message || 'Failed to inspect dev benchmark CSV');
+    } finally {
+      setInspecting(false);
+    }
+  };
+
   // Stage 1: Inspect user CSV file
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -447,14 +467,24 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
                 </h3>
                 <p className="text-xs text-slate-400">Two-stage inspect and confirm flow preserving original columns</p>
               </div>
-              <button
-                type="button"
-                onClick={handleLoadSampleCsv}
-                disabled={inspecting || confirming}
-                className="px-3 py-1.5 rounded-lg bg-blue-950 text-blue-300 border border-blue-800 hover:bg-blue-900 text-xs font-semibold transition disabled:opacity-50"
-              >
-                {inspecting && pendingInspection?.is_sample ? 'Inspecting Sample...' : 'Load Labeled Sample CSV (12 rows)'}
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleLoadSampleCsv}
+                  disabled={inspecting || confirming}
+                  className="px-3 py-1.5 rounded-lg bg-blue-950 text-blue-300 border border-blue-800 hover:bg-blue-900 text-xs font-semibold transition disabled:opacity-50"
+                >
+                  {inspecting && pendingInspection?.temp_file_id === 'sample_cafe_labeled' ? 'Inspecting Sample...' : 'Load Sample (12 rows)'}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleLoadDevBenchmarkCsv}
+                  disabled={inspecting || confirming}
+                  className="px-3 py-1.5 rounded-lg bg-indigo-950 text-indigo-300 border border-indigo-800 hover:bg-indigo-900 text-xs font-semibold transition disabled:opacity-50"
+                >
+                  {inspecting && pendingInspection?.temp_file_id === 'sample_dev_60' ? 'Inspecting Benchmark...' : 'Load Dev Benchmark (~60 rows)'}
+                </button>
+              </div>
             </div>
 
             {/* Error banner */}
@@ -702,7 +732,7 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
                   <div className="flex items-center justify-between">
                     <span className="font-semibold text-emerald-300 flex items-center gap-1.5">
                       <FileCheck className="w-4 h-4 text-emerald-400" />
-                      Active Confirmed Dataset: {confirmedDataset?.filename || (project.selected_dataset_id === 'sample_cafe_labeled' ? 'Fictional Sample Café Feedback (Built-in, 12 rows)' : project.selected_dataset_id)}
+                      Active Confirmed Dataset: {confirmedDataset?.filename || (project.selected_dataset_id === 'sample_dev_60' ? 'Fictional Dev Benchmark Dataset (Built-in, 61 rows)' : project.selected_dataset_id === 'sample_cafe_labeled' ? 'Fictional Sample Café Feedback (Built-in, 12 rows)' : project.selected_dataset_id)}
                     </span>
                     <button
                       type="button"
