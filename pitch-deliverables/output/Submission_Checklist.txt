@@ -3,7 +3,7 @@ CPVC AI HACKATHON — NOON SUBMISSION PACKAGE
 ================================================================================
 
 Deadline: Sunday 12:00 PM (Submissions close)
-Format: 1 Minute in front of the room (60-second pitch)
+Presentation Format: 4 Minutes on stage (240-second pitch + live Q&A)
 
 --------------------------------------------------------------------------------
 1. A LIVE LINK JUDGES CAN OPEN (YOUR WORKING APP)
@@ -25,7 +25,7 @@ https://github.com/zedk1929/local-ai-job-trainer
 3. SHORT DESCRIPTION + AI TOOLS USED
 --------------------------------------------------------------------------------
 Description:
-Apprentice helps professionals configure, evaluate, and deploy private on-device AI workers (Qwen 2.5 Coder 3B) for recurring computer jobs. A frontier parent AI (Gemini / Claude) analyzes failure patterns on sample data and proposes precision coding rules. The user reviews and approves rules under atomic revision locking. The resulting model runs 100% locally with zero cloud data transfer, zero recurring SaaS subscriptions, and measured 84.1% topic F1 accuracy.
+Apprentice helps Cal Poly students and teams configure, evaluate, and deploy private on-device AI workers (Qwen 2.5 Coder 3B) for recurring computer tasks. A frontier parent AI (Gemini / Claude) analyzes failure patterns on sample data and proposes precision coding rules (such as catching safety emergencies like glass in drinks). The user reviews and approves rules under atomic revision locking. The resulting model runs 100% locally with zero cloud data transfer, zero recurring SaaS subscriptions, and measured 84.1% topic F1 accuracy.
 
 AI Tools Used & What Each Did:
 - Qwen 2.5 Coder 3B (via Ollama): Runs on-device local inference for survey feedback categorization, sentiment scoring, and safety triage.
@@ -37,17 +37,17 @@ AI Tools Used & What Each Did:
 --------------------------------------------------------------------------------
 4. YOUR CHALLENGE PICK (IF ENTERING ONE)
 --------------------------------------------------------------------------------
-Best On-Device AI / Best Developer Tool / Productivity AI
+Best On-Device AI / Productivity AI / Best Developer Tool
 
 --------------------------------------------------------------------------------
 5. DEMO VIDEO (< 2 MINUTES, OPEN WITHOUT LOGIN)
 --------------------------------------------------------------------------------
-Local copy saved at: demo-video/Apprentice_Demo.mp4
+Local copy saved at: demo-video/Local_AI_Coach_Demo.mp4
 (Upload to unlisted YouTube or Loom as required by submission form)
 
 --------------------------------------------------------------------------------
-6. PITCH DECK (OPTIONAL, BUT PREPARED FOR PRESENTING)
+6. PITCH DECK (PREPARED FOR 4-MINUTE PRESENTATION)
 --------------------------------------------------------------------------------
 - Deck (PPTX): pitch-deliverables/output/Apprentice_Presentation.pptx
-- Speaker Script (1-Min Pitch & Q&A): pitch-deliverables/output/Presentation_Script.txt
+- Speaker Script (4-Min Pitch & Q&A): pitch-deliverables/output/Presentation_Script.txt
 - HTML Visual Notes: pitch-deliverables/output/Presentation_Script.html

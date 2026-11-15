@@ -1,59 +1,92 @@
 ================================================================================
-APPRENTICE — ONE-MINUTE STAGE PITCH (60 SECONDS SHARP)
+APPRENTICE — 4-MINUTE HACKATHON STAGE PRESENTATION SCRIPT
 ================================================================================
+Target Duration: 4 Minutes (240 Seconds) | Pacing: ~130-140 words/min (~520 words total)
 
-[0:00 - 0:10 | SLIDE 1: TITLE HOOK]
-"Why pay $50 a month for cloud AI to see your confidential data, when you can teach an AI your job once and run it on your own computer for free? That is Apprentice: frontier AI teaches, and a fast local model executes on your hardware with 100% privacy and zero monthly bills."
+--------------------------------------------------------------------------------
+[0:00 - 0:40 | 40s] PART 1: THE HOOK & CAL POLY STUDENT VALIDATION (Slides 1 & 2)
+--------------------------------------------------------------------------------
+"Why pay $50 a month for cloud AI to see your confidential data, when you can teach an AI your job once and run it on your own computer for free? 
 
-[0:10 - 0:20 | SLIDE 2: MARKET DEMAND]
-"We surveyed 31 professionals across legal, finance, healthcare, and ops: 96.8% do repetitive computer tasks every single week. 84% want a custom AI—but cloud AI fails them on four things: ease of use, accuracy, price, and privacy for confidential records."
+Good morning everyone. We are Apprentice. 
 
-[0:20 - 0:32 | SLIDE 3: HOW IT WORKS]
-"Here is how it works: a frontier parent model like Gemini or Claude analyzes mistakes on your sample data and formulates precision rules. A human approves them. Then a 3-billion parameter model executes locally on-device via Ollama—100% private, 100% offline, with zero data leakage."
+To see if people actually need on-device AI, we surveyed 31 Cal Poly students across engineering, business, and campus leadership. The numbers spoke loud and clear: 74% repeat the same computer tasks every single day—organizing lab datasets, cleaning club feedback, summarizing papers. 97% do it weekly, and 84% told us they want a custom AI to do it for them.
 
-[0:32 - 0:45 | SLIDE 4 & 5: WORKING PROTOTYPE & PROVEN RESULTS]
-"Our working prototype, Survey Cleaner, is live right now. On 40 reserved responses that the parent never saw, coaching boosted topic F1 from 76.5% to 84.1%, and sentiment accuracy to 80%, with a perfect 100% schema validity. Same local model, zero fine-tuning compute."
+So why aren't they using cloud AI? Four dealbreakers: 
+First, ease of use. Second, accuracy. Third, privacy for proprietary lab data. And fourth, price—because as students and builders, nobody wants another $20-a-month subscription trap."
 
-[0:45 - 0:55 | SLIDE 6: BUSINESS MODEL]
-"No subscription traps. Buy Apprentice once for $29, export your worker, and run millions of tokens on your own GPU forever. From customer feedback to meeting minutes and confidential contracts."
+--------------------------------------------------------------------------------
+[0:40 - 1:30 | 50s] PART 2: THE TEACHER-WORKER ARCHITECTURE (Slide 3)
+--------------------------------------------------------------------------------
+"That brings us to how Apprentice works. We call it the Teacher-Worker architecture.
 
-[0:55 - 1:00 | SLIDE 10: CLOSE]
-"Teach the job once. Keep the worker forever. Visit our live demo right now on your phone. Thank you!"
+Instead of fine-tuning expensive models from scratch, you bring a few dozen examples of your job. 
+Step 1: A frontier cloud AI—like Gemini 2.5 Flash or Claude 3.5 Sonnet—acts as the master craftsman. It inspects your baseline model's mistakes and formulates precise coding rules.
+Step 2: You, the human, review and edit those rules in our UI under atomic revision control.
+Step 3: Once approved, a lightweight 3-billion parameter model—Qwen 2.5 Coder—executes locally on your laptop via Ollama.
 
-================================================================================
-TWO-MINUTE DEMO SCRIPT (FOR CHALLENGE VIDEO OR BOOTH)
-================================================================================
+You get frontier intelligence during setup, but 100% offline privacy and zero token bills during execution. Your data never leaves your computer."
 
-[0:00 - 0:20 | The Problem]
-"Every business repeats tasks daily—reading customer reviews, categorizing feedback, screening resumes. Cloud AI subscriptions are expensive and expose sensitive customer data. We built Apprentice to let anyone train a small, private, on-device AI model for their exact job."
+--------------------------------------------------------------------------------
+[1:30 - 2:30 | 60s] PART 3: THE HIGH-STAKES EXAMPLE — "GLASS IN LATTE" (Slide 4)
+--------------------------------------------------------------------------------
+"Now let me show you why this matters with a concrete, high-stakes example from our campus dining feedback dataset.
 
-[0:20 - 0:45 | Step 1 & 2: Ingestion & Baseline]
-"Here in the Survey Cleaner interface, we import a raw customer feedback CSV. With one click, column headers are mapped. We run our local baseline using Qwen 2.5 Coder 3B on Ollama. The app measures topic F1, sentiment accuracy, and safety-review flags against our ground truth, exposing exact disagreements."
+A customer submitted this review: 'Found a piece of shattered glass in my iced latte. Almost swallowed it!'
 
-[0:45 - 1:15 | Step 3 & 4: Parent Diagnosis & Rule Refinement]
-"Next, we click 'Analyze Failures'. A frontier parent AI (Gemini 2.5 Flash) inspects sample mistakes and diagnoses the root causes. It proposes concrete coding rules: for example, distinguishing multi-topic praise from criticism and preserving safety flags. As the user, I can edit the rules directly in the browser. When ready, I approve Revision 2 with atomic revision locking."
+Out of the box, the baseline local AI catastrophically failed. It categorized the feedback as drink quality, called the sentiment 'unclear', and set needs_review to FALSE! A life-threatening safety emergency was completely buried in the inbox.
 
-[1:15 - 1:40 | Step 5 & 6: Reserved Comparison & Proven Uplift]
-"Now we test the approved rules on 40 reserved survey responses that the parent AI never touched. The results are undeniable: Topic F1 jumps from 76.5% to 84.1%, Sentiment accuracy rises from 72.5% to 80%, and Schema Validity reaches 100%. No hallucinations, no broken JSON."
+During the coaching phase, our parent AI caught this mistake and synthesized an explicit rule:
+'Any physical hazard or foreign object in food or drink must NEVER be marked unclear. Assign negative sentiment and flag needs_review=true immediately.'
 
-[1:40 - 2:00 | Conclusion & Value]
-"Best of all, all inference runs 100% locally on this laptop. No API tokens, no monthly subscription, and complete confidentiality for sensitive data. Teach the job once. Keep the worker forever."
+You approve the rule. When Apprentice runs again, it catches the glass immediately, flags the emergency, and alerts management within seconds. That is the power of human-approved parent coaching."
+
+--------------------------------------------------------------------------------
+[2:30 - 3:15 | 45s] PART 4: WORKING PROTOTYPE & PROVEN BENCHMARK RESULTS (Slides 5 & 6)
+--------------------------------------------------------------------------------
+"We built this as a fully functional app called Survey Cleaner, running live right now. You can upload any CSV, map columns in one click, view side-by-side failure diffs, and inspect transparent metrics.
+
+And does it actually improve performance? 
+We benchmarked Apprentice on 40 reserved test responses that the parent AI never touched.
+The results:
+- Topic Micro-F1 surged from 76.5% to 84.1%—a 7.6 percentage point gain.
+- Sentiment accuracy jumped from 72.5% to 80.0%.
+- Schema validity hit a perfect 100% with zero parse errors.
+- And safety review accuracy stayed rock-solid at 95.0%.
+All on the exact same 3B local model, with zero fine-tuning compute."
+
+--------------------------------------------------------------------------------
+[3:15 - 3:45 | 30s] PART 5: THE BUSINESS MODEL (Slide 7)
+--------------------------------------------------------------------------------
+"Our business model breaks the SaaS subscription trap.
+Instead of paying $20 to $50 a month forever, Apprentice is $29 one-time. 
+You configure your apprentice, verify its accuracy on reserved data, and export your worker. You can run millions of tokens on your own laptop GPU for zero dollars.
+For student research labs, solo founders, and healthcare clinics, this makes private AI automation affordable for the first time."
+
+--------------------------------------------------------------------------------
+[3:45 - 4:00 | 15s] PART 6: THE CLOSE & VISION (Slide 10)
+--------------------------------------------------------------------------------
+"Survey feedback is just the beginning. Our vision is a personal AI workforce that lives on your computer, follows your rules, and respects your privacy.
+
+Teach the job once. Keep the apprentice forever. 
+
+Our live demo is open right now on your phones via the Cloudflare link. Thank you!"
 
 ================================================================================
 JUDGE Q&A PREPARATION (RAPID-FIRE ANSWERS)
 ================================================================================
 
 Q1: "Is this actually fine-tuning model weights or just prompting?"
-A1: "Today it is prompt and rule refinement with deterministic schema enforcement and reserved verification. That means zero GPU training cost, instant deployment, and no catastrophic forgetting. Our Q2 roadmap adds optional on-device LoRA adapter tuning for tasks where prompt steering reaches its ceiling."
+A1: "Today it is prompt and rule refinement with deterministic schema enforcement and reserved verification. That means zero GPU training cost, instant deployment, and zero catastrophic forgetting. Our Q2 roadmap adds optional on-device LoRA adapter tuning for tasks that hit prompting ceilings."
 
 Q2: "What hardware does the user need?"
-A2: "Any modern laptop with 8GB RAM can run Qwen 2.5 Coder 3B or Llama 3.2 3B smoothly via Ollama. On an Apple M-series or modest Nvidia GPU, it runs at over 50 tokens per second. We also provide a simulated Preview Mode so judges can test the app without downloading any local models."
+A2: "Any modern laptop with 8GB RAM can run Qwen 2.5 Coder 3B or Llama 3.2 3B smoothly via Ollama. On an Apple M-series or modest GPU, it runs at over 50 tokens per second. We also provide a simulated Preview Mode so judges can explore the full app without downloading any local models."
 
 Q3: "How do you guarantee privacy if you use Gemini or Claude?"
-A3: "Privacy is user-controlled: only a small development sample of 10 to 20 anonymized examples is sent to the parent AI during setup to generate the rules. Once approved, 100% of the actual customer data and recurring production inference runs fully offline on the user's computer. The reserved evaluation set and future batches never touch the cloud."
+A3: "Privacy is user-controlled: only a small development sample of 10 to 20 anonymized examples is sent to the parent AI during setup to synthesize the rules. Once approved, 100% of the actual customer data and recurring production inference runs fully offline on the user's computer. The reserved evaluation set and future batches never touch the cloud."
 
 Q4: "Why would someone pay $29 instead of just writing prompts in ChatGPT?"
-A4: "Three reasons: First, 84% of surveyed professionals lack the prompt engineering expertise to achieve high F1 scores. Second, our system includes an automated evaluation harness with reserved test sets so you can mathematically verify improvement. Third, ChatGPT cannot run offline on confidential medical, financial, or legal records."
+A4: "Three reasons: First, 84% of surveyed Cal Poly students lack the prompt engineering expertise to achieve high F1 scores. Second, our system includes an automated evaluation harness with reserved test sets so you can mathematically verify improvement. Third, ChatGPT cannot run offline on confidential medical, financial, or student records."
 
 ================================================================================
 CPVC HACKATHON NOON SUBMISSION PACKAGE
@@ -67,7 +100,7 @@ CPVC HACKATHON NOON SUBMISSION PACKAGE
    https://github.com/zedk1929/local-ai-job-trainer
 
 3. SHORT DESCRIPTION:
-   Apprentice helps professionals and small businesses configure, evaluate, and deploy small local AI models (Qwen 2.5 Coder 3B) on their own computers. A frontier parent AI (Gemini/Claude) diagnoses mistakes on sample data and proposes precision coding rules, which the user reviews and approves under atomic revision control. The resulting worker runs 100% locally on-device with zero subscription fees, absolute data privacy, and measured 84.1% topic F1 accuracy.
+   Apprentice helps students and professionals configure, evaluate, and deploy private on-device AI workers (Qwen 2.5 Coder 3B) for recurring computer jobs. A frontier parent AI (Gemini/Claude) analyzes failure patterns on sample data and proposes precision coding rules (e.g. catching safety hazards like glass in drinks). The user reviews and approves rules under atomic revision locking. The resulting worker runs 100% locally on-device with zero cloud data transfer, zero recurring SaaS subscriptions, and measured 84.1% topic F1 accuracy.
 
 4. AI TOOLS USED & CREDITS:
    - Qwen 2.5 Coder 3B (via Ollama): On-device local inference for survey categorization, sentiment scoring, and safety triage.
@@ -77,7 +110,7 @@ CPVC HACKATHON NOON SUBMISSION PACKAGE
    - Codex & Antigravity: AI pair programming assistants for test harness development (88 automated backend tests) and system integration.
 
 5. CHALLENGE PICK:
-   (Select appropriate hackathon track e.g. Best On-Device AI / Best Developer Tool / Productivity AI)
+   Best On-Device AI / Productivity AI / Best Developer Tool
 
 6. DEMO VIDEO:
    Under 2-minute walkthrough showing data import, baseline evaluation, parent AI failure diagnosis, rule editing, and verified comparison uplift.
