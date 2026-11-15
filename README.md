@@ -51,8 +51,8 @@ To validate the demand for on-device AI automation, we surveyed 31 Cal Poly stud
   - **Review Flag Accuracy**: **95.0%** (safety triage fully preserved)
 
 ### 6. Pitch Deliverables
-- **Pitch Deck (10 Slides)**: [`pitch-deliverables/output/Apprentice_Presentation.pptx`](pitch-deliverables/output/Apprentice_Presentation.pptx)
-- **4-Minute Stage Presentation Script**: [`pitch-deliverables/output/Presentation_Script.txt`](pitch-deliverables/output/Presentation_Script.txt)
+- **Pitch Deck (6 Core Slides)**: [`pitch-deliverables/output/Apprentice_Presentation.pptx`](pitch-deliverables/output/Apprentice_Presentation.pptx)
+- **Speaker Cue Cards (Presenter Bullet Points)**: [`pitch-deliverables/output/Presentation_Script.txt`](pitch-deliverables/output/Presentation_Script.txt)
 - **HTML Slide Notes**: [`pitch-deliverables/output/Presentation_Script.html`](pitch-deliverables/output/Presentation_Script.html)
 - **Submission Package**: [`pitch-deliverables/output/Submission_Checklist.txt`](pitch-deliverables/output/Submission_Checklist.txt)
 - **Demo Video Walkthrough**: [`demo-video/Apprentice_Demo.mp4`](demo-video/Apprentice_Demo.mp4)
