@@ -1,12 +1,13 @@
 {
-  "name": "local-ai-job-trainer-frontend",
+  "name": "apprentice-frontend",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run"
   },
   "dependencies": {
     "lucide-react": "^1.16.0",
@@ -15,11 +16,14 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.5",
+    "@testing-library/react": "^16.3.3",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^26.1.0",
     "tailwindcss": "^4.3.5",
     "typescript": "^5.7.2",
-    "vite": "^6.2.0"
+    "vite": "^6.2.0",
+    "vitest": "^4.1.12"
   }
 }

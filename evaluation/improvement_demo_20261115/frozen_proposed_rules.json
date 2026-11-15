@@ -1,0 +1,50 @@
+{
+  "author": "Codex-reviewed instruction edits",
+  "example_source_row_indices": [
+    12,
+    20,
+    15,
+    5
+  ],
+  "development_row_indices": [
+    1,
+    29,
+    7,
+    35,
+    42,
+    47,
+    36,
+    12,
+    20,
+    10,
+    16,
+    6,
+    31,
+    56,
+    38,
+    15,
+    53,
+    3,
+    5,
+    22
+  ],
+  "rules": [
+    "Assign all relevant topics that are explicitly mentioned or strongly implied.",
+    "If the comment mentions both good and bad aspects (e.g. 'Coffee was great but line was huge'), mark sentiment as 'mixed'.",
+    "If the customer expresses uncertainty or the text is incomprehensible, mark sentiment as 'unclear' and set needs_review to true.",
+    "Do not infer unmentioned details or extrapolate facts.",
+    "Flag needs_review=true if customer reports an unresolved safety, harassment, or severe hygiene issue.",
+    "Use an independent four-category checklist before returning topics. Check drink_quality, price, service, and seating separately against every clause and every visit described. Include the UNION of all supported IDs; do not stop at the dominant complaint or choose only one topic.",
+    "Category boundaries: drink_quality covers beverage taste, temperature, texture, latte art and incorrect milk/recipe. price covers cost, discounts, fees, affordability and value. service covers staff behavior, courtesy, speed, wait times and handling an order or complaint. seating covers furniture, comfort, room conditions, noise, music, WiFi and outlets. A sentence may require several of these IDs.",
+    "Mentioning a beverage only to discuss its price does not by itself establish drink_quality. Mentioning a cashier only as the place a charge occurs does not establish service unless staff behavior, speed or order handling is evaluated. Do not infer unrelated topics.",
+    "Physical objects are not automatically seating. A contaminated drink or dangerous drink vessel concerns drink_quality; staff handling or dismissing that complaint concerns service. A food-only complaint is not automatically drink_quality. Include seating only if the actual environment or furniture is discussed.",
+    "Determine sentiment independently of needs_review. A clear report of injury, contamination, illness or threatening behavior is negative, not unclear, unless genuine praise elsewhere makes it mixed. Coherent slang, misspellings, metaphor and vivid complaints remain interpretable. Keep unclear for actual uncertainty or incomprehensible text as required by the original rules.",
+    "Use neutral for descriptive or routine statements without a clear positive or negative judgment. Do not manufacture praise from a factual count of furniture or condemnation from a routine transaction. Praise plus criticism is mixed even if the final clause is negative. Clear colloquial praise remains positive and clear colloquial criticism remains negative.",
+    "Keep review decisions separate from sentiment and topics. Flag unresolved safety hazards, severe hygiene issues, threats or harassment, and uncertainty or unintelligibility covered by the original rules. Ordinary negative opinions about taste, prices, music, seating or slow service do not alone require review. A coherent off-topic statement is not automatically unintelligible.",
+    "Development-only worked example: {\"text\": \"The oat milk cappuccino was silky and rich, but eight dollars is way too expensive.\", \"expected_classification\": {\"topics\": [\"drink_quality\", \"price\"], \"sentiment\": \"mixed\", \"needs_review\": false}}. Apply the same category and sentiment principles to other text; do not copy the answer to unrelated responses.",
+    "Development-only worked example: {\"text\": \"The matcha tasted like chalky powder and the deafening music made it impossible to read.\", \"expected_classification\": {\"topics\": [\"drink_quality\", \"seating\"], \"sentiment\": \"negative\", \"needs_review\": false}}. Apply the same category and sentiment principles to other text; do not copy the answer to unrelated responses.",
+    "Development-only worked example: {\"text\": \"The server was dismissive and gave me whole milk when I specifically requested oat.\", \"expected_classification\": {\"topics\": [\"drink_quality\", \"service\"], \"sentiment\": \"negative\", \"needs_review\": false}}. Apply the same category and sentiment principles to other text; do not copy the answer to unrelated responses.",
+    "Development-only worked example: {\"text\": \"Cashier swiped my card without saying hello or goodbye. Routine transaction.\", \"expected_classification\": {\"topics\": [\"service\"], \"sentiment\": \"neutral\", \"needs_review\": false}}. Apply the same category and sentiment principles to other text; do not copy the answer to unrelated responses."
+  ],
+  "provenance": "The app initializes an offline preview proposal, then stores these explicit AI-reviewed edits as revision 2. The comparison itself must use REAL local inference. No cloud-parent request is claimed."
+}

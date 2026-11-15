@@ -340,6 +340,57 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+      {/* 7-Step Hackathon Demo Pipeline Sequence Guide */}
+      <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-3.5 space-y-2.5">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-white text-xs uppercase tracking-wider">
+              Demo Pipeline Sequence
+            </span>
+            <span className="text-[10px] text-slate-400 font-mono">
+              (Configure → Import → Baseline → Analyze → Review Rules → Approve Comparison → Inspect)
+            </span>
+          </div>
+          <span className="text-[11px] text-slate-400 font-mono">
+            Step 1 (Configure) & Step 2 (Import Data) Active
+          </span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-1.5 text-[11px] font-mono">
+          <div className="p-2 rounded bg-blue-950/60 border border-blue-600 text-blue-200 flex flex-col gap-0.5">
+            <span className="text-[10px] text-blue-400 font-bold">1. Configure • Active</span>
+            <span className="text-[10px] text-slate-400">Context & Rules</span>
+          </div>
+          <div className="p-2 rounded bg-purple-950/60 border border-purple-600 text-purple-200 flex flex-col gap-0.5">
+            <span className="text-[10px] text-purple-400 font-bold">2. Import Data • Active</span>
+            <span className="text-[10px] text-slate-400">CSV & Labels</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => onNavigate('baseline')}
+            className="p-2 rounded bg-slate-900 hover:bg-slate-800/80 border border-slate-800 text-slate-300 flex flex-col gap-0.5 text-left transition cursor-pointer"
+          >
+            <span className="text-[10px] text-slate-300 font-bold">3. Baseline &rarr;</span>
+            <span className="text-[10px] text-slate-400">Unspecialized Run</span>
+          </button>
+          <div className="p-2 rounded bg-slate-950 border border-slate-900 text-slate-500 flex flex-col gap-0.5">
+            <span className="text-[10px] font-bold">4. Analyze</span>
+            <span className="text-[10px] text-slate-600">Parent AI Coach</span>
+          </div>
+          <div className="p-2 rounded bg-slate-950 border border-slate-900 text-slate-500 flex flex-col gap-0.5">
+            <span className="text-[10px] font-bold">5. Review Rules</span>
+            <span className="text-[10px] text-slate-600">Prompt Refinement</span>
+          </div>
+          <div className="p-2 rounded bg-slate-950 border border-slate-900 text-slate-500 flex flex-col gap-0.5">
+            <span className="text-[10px] font-bold">6. Approve</span>
+            <span className="text-[10px] text-slate-600">Revision Locking</span>
+          </div>
+          <div className="p-2 rounded bg-slate-950 border border-slate-900 text-slate-500 flex flex-col gap-0.5">
+            <span className="text-[10px] font-bold">7. Inspect/Export</span>
+            <span className="text-[10px] text-slate-600">Diff & CSV</span>
+          </div>
+        </div>
+      </div>
+
       {/* Header and Save Action */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
         <div>
@@ -349,7 +400,7 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
             </span>
             <span className="text-xs text-slate-400">· Project: {project.name}</span>
           </div>
-          <h1 className="text-2xl font-bold text-white mt-1">Configure Task Context & Rules</h1>
+          <h1 className="text-2xl font-bold text-white mt-1">Steps 1 & 2: Configure Context & Import Data</h1>
         </div>
 
         <div className="flex items-center gap-3">
@@ -369,8 +420,14 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Left Column: Context & Taxonomy */}
+        {/* Left Column: Step 1 Context & Taxonomy */}
         <div className="space-y-6">
+          <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
+            <span className="text-xs uppercase font-mono px-2 py-0.5 rounded bg-blue-950 text-blue-400 border border-blue-800 font-bold">
+              Step 1 of 7
+            </span>
+            <span className="text-xs font-semibold text-slate-300">Configure Context, Taxonomy & Rules</span>
+          </div>
           {/* Survey Context */}
           <div className="p-5 rounded-xl border border-slate-800 bg-slate-900/50 space-y-3">
             <label className="block text-sm font-bold text-white">Survey Context & Purpose</label>
@@ -511,8 +568,14 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
           </div>
         </div>
 
-        {/* Right Column: Dataset Upload, Human Labels & Validation */}
+        {/* Right Column: Step 2 Dataset Upload, Human Labels & Validation */}
         <div className="space-y-6">
+          <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
+            <span className="text-xs uppercase font-mono px-2 py-0.5 rounded bg-purple-950 text-purple-400 border border-purple-800 font-bold">
+              Step 2 of 7
+            </span>
+            <span className="text-xs font-semibold text-slate-300">Import & Map Survey Dataset (CSV)</span>
+          </div>
           {/* CSV Upload & Quick Sample */}
           <div className="p-5 rounded-xl border border-slate-800 bg-slate-900/50 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -980,12 +1043,12 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
 
       {/* Action Footer: Proceed to Baseline Evaluation */}
       <div className="flex items-center justify-between pt-4 border-t border-slate-800">
-        <span className="text-xs text-slate-400">Ready to benchmark the unspecialized model?</span>
+        <span className="text-xs text-slate-400">Ready to benchmark the unspecialized model? Next in pipeline:</span>
         <button
           onClick={() => onNavigate('baseline')}
-          className="px-6 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-lg shadow-blue-600/30 transition flex items-center gap-2"
+          className="px-6 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-lg shadow-blue-600/30 transition flex items-center gap-2 cursor-pointer"
         >
-          Proceed to Baseline Evaluation &rarr;
+          Proceed to Step 3: Baseline Evaluation &rarr;
         </button>
       </div>
     </div>

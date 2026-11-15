@@ -1,0 +1,246 @@
+{
+  "frames": [
+    {
+      "file": "000043.png",
+      "time": 41,
+      "caption": "1. Define the job with your categories and coding rules",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000044.png",
+      "time": 41.301,
+      "caption": "1. Define the job with your categories and coding rules",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000045.png",
+      "time": 41.399,
+      "caption": "1. Define the job with your categories and coding rules",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000046.png",
+      "time": 47.113,
+      "caption": "2. Inspect the CSV and map response and human-label columns",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000047.png",
+      "time": 47.413,
+      "caption": "2. Inspect the CSV and map response and human-label columns",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000048.png",
+      "time": 47.472,
+      "caption": "2. Inspect the CSV and map response and human-label columns",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000049.png",
+      "time": 47.487,
+      "caption": "2. Inspect the CSV and map response and human-label columns",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000050.png",
+      "time": 47.764,
+      "caption": "3. Confirm the dataset before evaluating the model",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000051.png",
+      "time": 54.92,
+      "caption": "3. Confirm the dataset before evaluating the model",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000052.png",
+      "time": 55.221,
+      "caption": "4. Start an original baseline evaluation",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000053.png",
+      "time": 58.917,
+      "caption": "4. Start an original baseline evaluation",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000054.png",
+      "time": 59.198,
+      "caption": "4. Start an original baseline evaluation",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000055.png",
+      "time": 74.724,
+      "caption": "5. Inspect topic F1, sentiment, review flags and schema validity",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000056.png",
+      "time": 75.025,
+      "caption": "5. Inspect topic F1, sentiment, review flags and schema validity",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000057.png",
+      "time": 80.697,
+      "caption": "5. Inspect topic F1, sentiment, review flags and schema validity",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000058.png",
+      "time": 80.998,
+      "caption": "6. Find concrete disagreements against the human labels",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000059.png",
+      "time": 81.283,
+      "caption": "6. Find concrete disagreements against the human labels",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000060.png",
+      "time": 81.318,
+      "caption": "6. Find concrete disagreements against the human labels",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000061.png",
+      "time": 81.597,
+      "caption": "7. Analyze supported failures and review a rule proposal",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000062.png",
+      "time": 95.11,
+      "caption": "7. Analyze supported failures and review a rule proposal",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000063.png",
+      "time": 95.411,
+      "caption": "7. Analyze supported failures and review a rule proposal",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000064.png",
+      "time": 95.466,
+      "caption": "7. Analyze supported failures and review a rule proposal",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000065.png",
+      "time": 95.551,
+      "caption": "8. Edit the proposal and save the exact rule revision",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000066.png",
+      "time": 101.812,
+      "caption": "8. Edit the proposal and save the exact rule revision",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000067.png",
+      "time": 102.114,
+      "caption": "9. Explicitly approve Revision 2 for the comparison",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000068.png",
+      "time": 102.166,
+      "caption": "9. Explicitly approve Revision 2 for the comparison",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000069.png",
+      "time": 102.448,
+      "caption": "10. Compare on the same reserved rows; improvement is not guaranteed",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000070.png",
+      "time": 115.031,
+      "caption": "10. Compare on the same reserved rows; improvement is not guaranteed",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000071.png",
+      "time": 115.332,
+      "caption": "10. Compare on the same reserved rows; improvement is not guaranteed",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000072.png",
+      "time": 115.382,
+      "caption": "10. Compare on the same reserved rows; improvement is not guaranteed",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000073.png",
+      "time": 128.929,
+      "caption": "11. Export predictions with source rows and provenance",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000074.png",
+      "time": 137.887,
+      "caption": "11. Export predictions with source rows and provenance",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000075.png",
+      "time": 138.189,
+      "caption": "12. Inspect the individual comparison predictions",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000076.png",
+      "time": 138.214,
+      "caption": "12. Inspect the individual comparison predictions",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000077.png",
+      "time": 138.498,
+      "caption": "12. Inspect the individual comparison predictions",
+      "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE"
+    },
+    {
+      "file": "000078.png",
+      "time": 149.482,
+      "caption": "Separate real run: Qwen2.5-Coder 3B evaluated 60 labeled responses",
+      "mode": "RECORDED REAL LOCAL BASELINE • SEPARATE SAVED RUN"
+    },
+    {
+      "file": "000079.png",
+      "time": 155.994,
+      "caption": "Separate real run: Qwen2.5-Coder 3B evaluated 60 labeled responses",
+      "mode": "RECORDED REAL LOCAL BASELINE • SEPARATE SAVED RUN"
+    },
+    {
+      "file": "000080.png",
+      "time": 156.294,
+      "caption": "Real mistakes are visible; a parent-driven improvement is not yet verified",
+      "mode": "RECORDED REAL LOCAL BASELINE • SEPARATE SAVED RUN"
+    },
+    {
+      "file": "000081.png",
+      "time": 156.594,
+      "caption": "Real mistakes are visible; a parent-driven improvement is not yet verified",
+      "mode": "RECORDED REAL LOCAL BASELINE • SEPARATE SAVED RUN"
+    },
+    {
+      "file": "000082.png",
+      "time": 156.7,
+      "caption": "Real mistakes are visible; a parent-driven improvement is not yet verified",
+      "mode": "RECORDED REAL LOCAL BASELINE • SEPARATE SAVED RUN"
+    }
+  ],
+  "note": "Edited app-only capture of actual UI interactions. Preview workflow uses simulated outputs. Closing real baseline is a separate previously saved run. No real improvement claim.",
+  "created": "2026-11-15T18:25:45.166Z"
+}

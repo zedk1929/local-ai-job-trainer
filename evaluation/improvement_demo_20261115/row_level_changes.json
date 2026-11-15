@@ -1,0 +1,238 @@
+{
+  "fixes": [
+    {
+      "source_row_index": 46,
+      "id": "DEV_47",
+      "text": "Took a sip of my iced latte and bit down on a jagged shard of green glass! My gum was bleeding.",
+      "changes": {
+        "topics": {
+          "before": [
+            "seating"
+          ],
+          "after": [
+            "drink_quality"
+          ],
+          "truth": [
+            "drink_quality"
+          ],
+          "direction": "fixed"
+        },
+        "sentiment": {
+          "before": "unclear",
+          "after": "negative",
+          "truth": "negative",
+          "direction": "fixed"
+        }
+      }
+    },
+    {
+      "source_row_index": 51,
+      "id": "DEV_52",
+      "text": "There was a dead cockroach floating beneath the ice in my cold brew. Manager dismissed my concern.",
+      "changes": {
+        "sentiment": {
+          "before": "unclear",
+          "after": "negative",
+          "truth": "negative",
+          "direction": "fixed"
+        }
+      }
+    },
+    {
+      "source_row_index": 50,
+      "id": "DEV_51",
+      "text": "The ceramic rim of the coffee mug was cracked with a sharp chipped edge that sliced my lower lip.",
+      "changes": {
+        "topics": {
+          "before": [
+            "seating"
+          ],
+          "after": [
+            "drink_quality"
+          ],
+          "truth": [
+            "drink_quality"
+          ],
+          "direction": "fixed"
+        },
+        "sentiment": {
+          "before": "unclear",
+          "after": "negative",
+          "truth": "negative",
+          "direction": "fixed"
+        }
+      }
+    },
+    {
+      "source_row_index": 37,
+      "id": "DEV_38",
+      "text": "Vibes are immaculate here! Huge shoutout to the baristas for keeping the energy so high.",
+      "changes": {
+        "topics": {
+          "before": [],
+          "after": [
+            "seating",
+            "service"
+          ],
+          "truth": [
+            "service",
+            "seating"
+          ],
+          "direction": "fixed"
+        }
+      }
+    },
+    {
+      "source_row_index": 58,
+      "id": "DEV_59",
+      "text": "When I asked about whole beans, the cashier scoffed, \"we do not sell that kind of stuff here,\" and walked away.",
+      "changes": {
+        "topics": {
+          "before": [
+            "price"
+          ],
+          "after": [
+            "service"
+          ],
+          "truth": [
+            "service"
+          ],
+          "direction": "fixed"
+        }
+      }
+    },
+    {
+      "source_row_index": 23,
+      "id": "DEV_24",
+      "text": "The staff was very sweet and apologized, but the Americano was completely lukewarm and sour.",
+      "changes": {
+        "topics": {
+          "before": [
+            "service"
+          ],
+          "after": [
+            "drink_quality",
+            "service"
+          ],
+          "truth": [
+            "drink_quality",
+            "service"
+          ],
+          "direction": "fixed"
+        }
+      }
+    },
+    {
+      "source_row_index": 17,
+      "id": "DEV_18",
+      "text": "Sticky tables everywhere piled with dirty mugs, and staff made zero effort to clear them.",
+      "changes": {
+        "needs_review": {
+          "before": true,
+          "after": false,
+          "truth": false,
+          "direction": "fixed"
+        }
+      }
+    },
+    {
+      "source_row_index": 57,
+      "id": "DEV_58",
+      "text": "The afternoon sunshine on the sidewalk outside was 72 degrees and gorgeous.",
+      "changes": {
+        "topics": {
+          "before": [],
+          "after": [
+            "seating"
+          ],
+          "truth": [],
+          "direction": "regressed"
+        },
+        "sentiment": {
+          "before": "neutral",
+          "after": "positive",
+          "truth": "positive",
+          "direction": "fixed"
+        }
+      }
+    }
+  ],
+  "regressions": [
+    {
+      "source_row_index": 45,
+      "id": "DEV_46",
+      "text": "Not cheap by any stretch of the imagination, but I cannot complain about the comfortable leather couches.",
+      "changes": {
+        "topics": {
+          "before": [
+            "price",
+            "seating"
+          ],
+          "after": [
+            "seating"
+          ],
+          "truth": [
+            "price",
+            "seating"
+          ],
+          "direction": "regressed"
+        }
+      }
+    },
+    {
+      "source_row_index": 54,
+      "id": "DEV_55",
+      "text": "Coffee coffee.... green umbrella left near the yellow bicycle rack outside????",
+      "changes": {
+        "topics": {
+          "before": [],
+          "after": [
+            "drink_quality"
+          ],
+          "truth": [],
+          "direction": "regressed"
+        }
+      }
+    },
+    {
+      "source_row_index": 57,
+      "id": "DEV_58",
+      "text": "The afternoon sunshine on the sidewalk outside was 72 degrees and gorgeous.",
+      "changes": {
+        "topics": {
+          "before": [],
+          "after": [
+            "seating"
+          ],
+          "truth": [],
+          "direction": "regressed"
+        },
+        "sentiment": {
+          "before": "neutral",
+          "after": "positive",
+          "truth": "positive",
+          "direction": "fixed"
+        }
+      }
+    },
+    {
+      "source_row_index": 52,
+      "id": "DEV_53",
+      "text": "Maybe next Tuesday around 3:15? Not sure if the blue one is still over by the counter.",
+      "changes": {
+        "sentiment": {
+          "before": "unclear",
+          "after": "neutral",
+          "truth": "unclear",
+          "direction": "regressed"
+        },
+        "needs_review": {
+          "before": true,
+          "after": false,
+          "truth": true,
+          "direction": "regressed"
+        }
+      }
+    }
+  ]
+}

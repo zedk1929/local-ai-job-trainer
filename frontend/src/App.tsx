@@ -83,7 +83,7 @@ export const App: React.FC = () => {
       <div className="min-h-screen bg-[#0b0f19] flex items-center justify-center text-slate-400 font-mono text-xs">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-blue-500 animate-ping"></div>
-          Initializing Local AI Job Trainer...
+          Initializing Apprentice...
         </div>
       </div>
     );

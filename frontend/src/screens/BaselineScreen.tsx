@@ -314,6 +314,85 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+      {/* 7-Step Hackathon Demo Pipeline Sequence Guide */}
+      <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-3.5 space-y-2.5">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-white text-xs uppercase tracking-wider">
+              Demo Pipeline Sequence
+            </span>
+            <span className="text-[10px] text-slate-400 font-mono">
+              (Configure → Import → Baseline → Analyze → Review Rules → Approve Comparison → Inspect)
+            </span>
+          </div>
+          <span className="text-[11px] text-slate-400 font-mono">
+            {activeBatch?.status === 'completed'
+              ? '✓ Steps 1–3 Complete · Steps 4–7 Active Below'
+              : '✓ Steps 1–2 Complete · Step 3 In Progress'}
+          </span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-1.5 text-[11px] font-mono">
+          <button
+            type="button"
+            onClick={() => onNavigate('config')}
+            className="p-2 rounded bg-slate-900 hover:bg-slate-800/80 border border-slate-800 text-slate-300 flex flex-col gap-0.5 text-left transition cursor-pointer"
+          >
+            <span className="text-[10px] text-emerald-400 font-bold">1. Configure ✓</span>
+            <span className="text-[10px] text-slate-400">Context & Rules</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => onNavigate('config')}
+            className="p-2 rounded bg-slate-900 hover:bg-slate-800/80 border border-slate-800 text-slate-300 flex flex-col gap-0.5 text-left transition cursor-pointer"
+          >
+            <span className="text-[10px] text-emerald-400 font-bold">2. Import Data ✓</span>
+            <span className="text-[10px] text-slate-400">CSV & Labels</span>
+          </button>
+          <div className={`p-2 rounded border flex flex-col gap-0.5 ${
+            activeBatch?.status === 'completed'
+              ? 'bg-slate-900 border-slate-800 text-slate-300'
+              : 'bg-blue-950/60 border-blue-600 text-blue-200'
+          }`}>
+            <span className={`text-[10px] font-bold ${activeBatch?.status === 'completed' ? 'text-emerald-400' : 'text-blue-400 animate-pulse'}`}>
+              3. Baseline {activeBatch?.status === 'completed' ? '✓' : '• Active'}
+            </span>
+            <span className="text-[10px] text-slate-400">Unspecialized Run</span>
+          </div>
+          <div className={`p-2 rounded border flex flex-col gap-0.5 ${
+            activeBatch?.status === 'completed'
+              ? 'bg-indigo-950/60 border-indigo-600 text-indigo-200'
+              : 'bg-slate-950 border-slate-900 text-slate-500'
+          }`}>
+            <span className="text-[10px] text-indigo-300 font-bold">4. Analyze</span>
+            <span className="text-[10px] text-slate-400">Parent AI Coach</span>
+          </div>
+          <div className={`p-2 rounded border flex flex-col gap-0.5 ${
+            activeBatch?.status === 'completed'
+              ? 'bg-indigo-950/40 border-indigo-800 text-indigo-200'
+              : 'bg-slate-950 border-slate-900 text-slate-500'
+          }`}>
+            <span className="text-[10px] text-indigo-300 font-bold">5. Review Rules</span>
+            <span className="text-[10px] text-slate-400">Prompt Refinement</span>
+          </div>
+          <div className={`p-2 rounded border flex flex-col gap-0.5 ${
+            activeBatch?.status === 'completed'
+              ? 'bg-indigo-950/40 border-indigo-800 text-indigo-200'
+              : 'bg-slate-950 border-slate-900 text-slate-500'
+          }`}>
+            <span className="text-[10px] text-indigo-300 font-bold">6. Approve</span>
+            <span className="text-[10px] text-slate-400">Revision Locking</span>
+          </div>
+          <div className={`p-2 rounded border flex flex-col gap-0.5 ${
+            activeBatch?.status === 'completed'
+              ? 'bg-indigo-950/40 border-indigo-800 text-indigo-200'
+              : 'bg-slate-950 border-slate-900 text-slate-500'
+          }`}>
+            <span className="text-[10px] text-indigo-300 font-bold">7. Inspect/Export</span>
+            <span className="text-[10px] text-slate-400">Diff & CSV</span>
+          </div>
+        </div>
+      </div>
+
       {activeBatch && (activeBatch.status === 'completed' || activeBatch.snapshot.analysis_id) && (
         <FailureAnalysisPanel key={activeBatch.snapshot.source_batch_id || activeBatch.id} batch={activeBatch} appMode={appMode} onInspectBatch={batch => {
           if (activeBatch.id === batch.id) {
@@ -327,8 +406,8 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs uppercase font-mono px-2 py-0.5 rounded bg-blue-950 text-blue-400 border border-blue-800">
-              Evaluation Milestone
+            <span className="text-xs uppercase font-mono px-2 py-0.5 rounded bg-blue-950 text-blue-400 border border-blue-800 font-bold">
+              Step 3 of 7: Evaluation Milestone
             </span>
             <span className="text-xs text-slate-400">· Project: {project.name}</span>
           </div>
@@ -346,11 +425,13 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
               {batchModelLabel}
             </span>
             {batchModeLabel === 'preview' ? (
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-amber-950 text-amber-300 border border-amber-800">
+              <span className="px-2.5 py-1 rounded text-[10px] font-mono font-semibold bg-amber-950/90 text-amber-300 border border-amber-700/80 flex items-center gap-1.5" title="Preview mode using deterministic fixtures.">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                 Simulated Preview Fixture
               </span>
             ) : (
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800">
+              <span className="px-2.5 py-1 rounded text-[10px] font-mono font-semibold bg-emerald-950/90 text-emerald-300 border border-emerald-700/80 flex items-center gap-1.5" title="Live local inference running via Ollama.">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 Real Local Inference (Ollama)
               </span>
             )}

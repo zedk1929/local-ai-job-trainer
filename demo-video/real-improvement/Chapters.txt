@@ -1,0 +1,6 @@
+00:00 — Before: a glass shard in a latte was classified as seating and unclear
+00:06 — Keep the same local model and original rules; add reviewed instructions
+00:12 — Codex-assisted edits: check every topic and assess sentiment separately
+00:19 — After: the same response is classified as drink_quality and negative
+00:25 — Same 40 rows: topic F1 76.5% → 84.1%; sentiment accuracy 72.5% → 80%
+00:37 — Development comparison; weights unchanged. Some individual rows regressed.

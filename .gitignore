@@ -53,3 +53,7 @@ Thumbs.db
 
 # Pitch deliverables build artifacts
 pitch-deliverables/.build/
+
+# Demo video intermediate frame dumps
+demo-video/frames/
+demo-video/captioned-frames/

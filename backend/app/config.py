@@ -14,7 +14,7 @@ RUNS_DIR.mkdir(parents=True, exist_ok=True)
 UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 
 class Settings(BaseModel):
-    app_name: str = "Local AI Job Trainer"
+    app_name: str = "Apprentice"
     app_mode: str = os.getenv("APP_MODE", "preview") # "preview" or "connected"
     host: str = os.getenv("HOST", "127.0.0.1")
     port: int = int(os.getenv("PORT", "8000"))

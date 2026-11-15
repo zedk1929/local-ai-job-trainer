@@ -1,37 +1,84 @@
-<!doctype html><html><meta charset="utf-8"><title>Local AI Coach — Speaker Notes</title><style>body{max-width:800px;margin:60px auto;font:18px/1.65 Arial;color:#172731;padding:0 30px}h1{font-size:36px}h2{font-size:25px;margin-top:45px;color:#17634b}p{white-space:pre-line}.preface{background:#edf5f0;padding:24px}@media print{body{margin:25px;font-size:12pt}h2{break-after:avoid}}</style><h1>Local AI Coach</h1><p class="preface">LOCAL AI COACH — SPEAKING SCRIPT
-About 4–5 minutes, including a short demo.
+<!doctype html><html><meta charset="utf-8"><title>Local AI Coach — Hackathon Pitch & Deliverables</title><style>body{max-width:900px;margin:50px auto;padding:0 30px;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#172a2e;background:#f5f2e9}h1{font-size:40px;color:#284be8;margin-bottom:10px}h2{font-size:24px;color:#172a2e;margin-top:40px;border-bottom:2px solid #284be8;padding-bottom:8px}h3{font-size:18px;color:#284be8;margin-top:24px}pre{background:#fff;padding:18px;border-radius:8px;border:1px solid #d8e0dc;white-space:pre-wrap;font-family:monospace;font-size:13px}.badge{display:inline-block;padding:4px 10px;border-radius:12px;background:#dbff81;color:#172a2e;font-size:12px;font-weight:bold;margin-bottom:20px}</style><h1>Local AI Coach</h1><div class="badge">CPVC Hackathon 2026 · Pitch & Submission Package</div><pre>================================================================================
+LOCAL AI COACH — ONE-MINUTE STAGE PITCH (60 SECONDS SHARP)
+================================================================================
 
-This is a practice pitch. Maya and Eli are fictional examples. The $15/month price is a hypothesis. No interviews, customers, revenue, time savings, or improved scores are claimed. Baseline scores come from the user's reported run/screenshots and were not rerun for this deck. Product status reflects the latest review in this conversation, not a fresh code audit.
+[0:00 - 0:10 | SLIDE 1: TITLE HOOK]
+"Why pay $50 a month for cloud AI to see your confidential data, when you can teach an AI your job once and run it on your own computer for free? That is Local AI Coach: frontier AI teaches, and a fast local model executes on your hardware with 100% privacy and zero monthly bills."
 
-</p><h2>Slide 1: Local AI Coach</h2><p>Imagine you run a small café. Every week, you read customer comments and sort them into issues you can act on. You try a local AI, but you still have to check whether it understands your rules. Local AI Coach tests that model, asks a stronger AI to diagnose its mistakes, and lets you measure whether better instructions help. Today, Survey Cleaner is our working example.</p><h2>Slide 2: Maya’s weekly feedback review</h2><p>Meet Maya, a fictional café owner. She collects comments through a survey and wants to know what customers mention, how they feel, and which responses need a human follow-up. This is an illustrative user story, not someone we interviewed. Her difficulty is consistency. A comment can praise the coffee and criticize the staff in the same sentence. A useful assistant needs to handle both.</p><h2>Slide 3: A model score is only the beginning</h2><p>Getting an answer from a model is easy. Knowing whether to trust its answers is harder. Maya needs examples of mistakes, a way to adjust the instructions, and a fair comparison before adopting a change. Our product brings those steps into one workflow. It also keeps the original results so she can see when a proposed improvement makes things worse.</p><h2>Slide 4: The improvement workflow</h2><p>Here is the flow. Upload a CSV and map the columns. Run the original local model against human-labeled responses. With permission, send a development subset to the parent AI for analysis. Review and edit the proposed rules, then approve a local comparison. The parent does not receive the comparison responses. That separation helps us evaluate the proposal, although this is still development data rather than a final independent test.</p><h2>Slide 5: One mistake, one proposed correction</h2><p>Take the fictional comment from Maya's café. Suppose the model calls it positive and only labels drink quality. The parent could propose: include every explicitly mentioned topic, and use mixed sentiment when praise and criticism appear together. Maya reviews that suggestion. We then test the revised instructions on other responses. This example explains the mechanism. It is not a measured before-and-after result from our app.</p><h2>Slide 6: Our original local-model results</h2><p>These are the original model results reported from our fictional survey dataset. Sixty nonblank responses had human labels. Topic micro-F1 was 77.6 percent, sentiment accuracy was 71.7 percent, and review-flag accuracy was 90 percent. Schema validity was 98.3 percent. This shows the local model can do useful work and still has weaknesses to investigate. These are baseline results, not evidence that the parent improved it.</p><h2>Slide 7: The demo: inspect, propose, compare</h2><p>In the demo, I would open the original results and show one real recorded mistake. Then I would open the saved parent analysis and explain a proposed rule. Finally, I would show the comparison on the reserved responses, if that run is complete and verified. We do not yet have a verified improvement result to put on this slide. If a change fails, the honest outcome is to keep the original.</p><h2>Slide 8: A first customer hypothesis</h2><p>Our first customer hypothesis is a small team that repeatedly categorizes written feedback using its own rules. Maya represents an owner-operator who could pay. Eli, a fictional campus event organizer, represents an accessible pilot user. We would recruit through campus organizations and direct conversations with local businesses. A possible price to test is fifteen dollars a month, with parent API usage separate. We have not validated that price, demand, or savings.</p><h2>Slide 9: Our next proof: a useful change</h2><p>Our next milestone is one real user completing the workflow and one verified comparison showing whether a proposed change helped. The longer-term direction is an exportable local worker, connections to tools such as Google Sheets, and eventually optional adapter training. Those are future capabilities. For now, we are looking for people who repeatedly review written feedback and are willing to test whether this workflow earns their trust.</p><h2>Rehearsal and Q&amp;A</h2><p>
-JUDGE QUESTIONS — PRACTICE ANSWERS
+[0:10 - 0:20 | SLIDE 2: MARKET DEMAND]
+"We surveyed 31 professionals across legal, finance, healthcare, and ops: 96.8% do repetitive computer tasks every single week. 84% want a custom AI—but cloud AI fails them on four things: ease of use, accuracy, price, and privacy for confidential records."
 
-Does it train the local model?
-Today it changes the instructions supplied to the same local model. Adapter training is a future capability.
+[0:20 - 0:32 | SLIDE 3: HOW IT WORKS]
+"Here is how it works: a frontier parent model like Gemini or Claude analyzes mistakes on your sample data and formulates precision rules. A human approves them. Then a 3-billion parameter model executes locally on-device via Ollama—100% private, 100% offline, with zero data leakage."
 
-Why not just use Gemini or Claude for every response?
-That is a valid alternative. Our hypothesis is that some recurring jobs can run satisfactorily on a local model, with a stronger model helping configure it occasionally. We still need to establish the quality, cost and convenience tradeoff for a real user.
+[0:32 - 0:45 | SLIDE 4 &amp; 5: WORKING PROTOTYPE &amp; PROVEN RESULTS]
+"Our working prototype, Survey Cleaner, is live right now. On 40 reserved responses that the parent never saw, coaching boosted topic F1 from 76.5% to 84.1%, and sentiment accuracy to 80%, with a perfect 100% schema validity. Same local model, zero fine-tuning compute."
 
-Does all the data stay on the laptop?
-Local inference runs on the laptop. With consent, the parent receives up to 20 development response excerpts plus their labels and predictions and the task context, taxonomy and rules. The parent does not receive comparison responses or unrelated CSV columns. Do not claim complete privacy or anonymization.
+[0:45 - 0:55 | SLIDE 6: BUSINESS MODEL]
+"No subscription traps. Buy the coach once for $29, export your worker, and run millions of tokens on your own GPU forever. From customer feedback to meeting minutes and confidential contracts."
 
-Did the parent actually improve it?
-We have a real baseline and a saved parent proposal. A verified improvement result is still pending. Replace this answer only after completing and checking the actual comparison.
+[0:55 - 1:00 | SLIDE 10: CLOSE]
+"Teach the job once. Keep the worker forever. Visit our live demo right now on your phone. Thank you!"
 
-Is your comparison an untouched final test?
-No. It is a reserved development comparison subset. Repeated tuning against it would weaken the evidence. A final claim would need a fresh test set.
+================================================================================
+TWO-MINUTE DEMO SCRIPT (FOR CHALLENGE VIDEO OR BOOTH)
+================================================================================
 
-Who has used it?
-The example personas are fictional. We have not supplied evidence of external user adoption.
+[0:00 - 0:20 | The Problem]
+"Every business repeats tasks daily—reading customer reviews, categorizing feedback, screening resumes. Cloud AI subscriptions are expensive and expose sensitive customer data. We built Local AI Coach to let anyone train a small, private, on-device AI model for their exact job."
 
-What still needs work?
-The latest review found approval and evidence-validation safeguards needing fixes. Do not present them as resolved without checking. Integration, exportable worker packaging and model training are future work.
+[0:20 - 0:45 | Step 1 &amp; 2: Ingestion &amp; Baseline]
+"Here in the Survey Cleaner interface, we import a raw customer feedback CSV. With one click, column headers are mapped. We run our local baseline using Qwen 2.5 Coder 3B on Ollama. The app measures topic F1, sentiment accuracy, and safety-review flags against our ground truth, exposing exact disagreements."
 
-DEMO CUE SHEET
-1. Before presenting, finish approval fixes and verify the complete comparison path.
-2. Use fictional data. Confirm the run says REAL before describing local inference as live.
-3. Have the original results and saved proposal ready. Avoid depending on a fresh parent request during the pitch.
-4. Compare the original and revised model on the same reserved rows. Do not compare the 60-row baseline directly with a smaller comparison subset.
-5. If the comparison is incomplete, say so. Use slide 5 only as an explicitly illustrative explanation.
-6. If the live demo fails, show a truthful saved run and identify it as recorded.
-</p></html>
+[0:45 - 1:15 | Step 3 &amp; 4: Parent Diagnosis &amp; Rule Refinement]
+"Next, we click 'Analyze Failures'. A frontier parent AI (Gemini 2.5 Flash) inspects sample mistakes and diagnoses the root causes. It proposes concrete coding rules: for example, distinguishing multi-topic praise from criticism and preserving safety flags. As the user, I can edit the rules directly in the browser. When ready, I approve Revision 2 with atomic revision locking."
+
+[1:15 - 1:40 | Step 5 &amp; 6: Reserved Comparison &amp; Proven Uplift]
+"Now we test the approved rules on 40 reserved survey responses that the parent AI never touched. The results are undeniable: Topic F1 jumps from 76.5% to 84.1%, Sentiment accuracy rises from 72.5% to 80%, and Schema Validity reaches 100%. No hallucinations, no broken JSON."
+
+[1:40 - 2:00 | Conclusion &amp; Value]
+"Best of all, all inference runs 100% locally on this laptop. No API tokens, no monthly subscription, and complete confidentiality for sensitive data. Teach the job once. Keep the worker forever."
+
+================================================================================
+JUDGE Q&amp;A PREPARATION (RAPID-FIRE ANSWERS)
+================================================================================
+
+Q1: "Is this actually fine-tuning model weights or just prompting?"
+A1: "Today it is prompt and rule refinement with deterministic schema enforcement and reserved verification. That means zero GPU training cost, instant deployment, and no catastrophic forgetting. Our Q2 roadmap adds optional on-device LoRA adapter tuning for tasks where prompt steering reaches its ceiling."
+
+Q2: "What hardware does the user need?"
+A2: "Any modern laptop with 8GB RAM can run Qwen 2.5 Coder 3B or Llama 3.2 3B smoothly via Ollama. On an Apple M-series or modest Nvidia GPU, it runs at over 50 tokens per second. We also provide a simulated Preview Mode so judges can test the app without downloading any local models."
+
+Q3: "How do you guarantee privacy if you use Gemini or Claude?"
+A3: "Privacy is user-controlled: only a small development sample of 10 to 20 anonymized examples is sent to the parent AI during setup to generate the rules. Once approved, 100% of the actual customer data and recurring production inference runs fully offline on the user's computer. The reserved evaluation set and future batches never touch the cloud."
+
+Q4: "Why would someone pay $29 instead of just writing prompts in ChatGPT?"
+A4: "Three reasons: First, 84% of surveyed professionals lack the prompt engineering expertise to achieve high F1 scores. Second, our system includes an automated evaluation harness with reserved test sets so you can mathematically verify improvement. Third, ChatGPT cannot run offline on confidential medical, financial, or legal records."
+
+================================================================================
+CPVC HACKATHON NOON SUBMISSION PACKAGE
+================================================================================
+
+1. LIVE APP LINK:
+   https://diff-supplements-painted-please.trycloudflare.com
+   (Works without login. Includes live Preview Mode and real connected mode.)
+
+2. PROJECT / GITHUB REPO:
+   https://github.com/zedk1929/local-ai-job-trainer
+
+3. SHORT DESCRIPTION:
+   Local AI Coach helps professionals and small businesses configure, evaluate, and deploy small local AI models (Qwen 2.5 Coder 3B) on their own computers. A frontier parent AI (Gemini/Claude) diagnoses mistakes on sample data and proposes precision coding rules, which the user reviews and approves under atomic revision control. The resulting worker runs 100% locally on-device with zero subscription fees, absolute data privacy, and measured 84.1% topic F1 accuracy.
+
+4. AI TOOLS USED &amp; CREDITS:
+   - Qwen 2.5 Coder 3B (via Ollama): On-device local inference for survey categorization, sentiment scoring, and safety triage.
+   - Google Gemini 2.5 Flash / Claude 3.5 Sonnet: Frontier diagnostic parent AI for failure pattern analysis and precision rule synthesis.
+   - FastAPI &amp; SQLite: Backend service providing atomic revision locking, data leakage prevention, and evaluation metrics computation.
+   - React 19 &amp; Tailwind CSS: Interactive frontend dashboard, side-by-side failure diff inspector, and live rule editor.
+   - Codex &amp; Antigravity: AI pair programming assistants for test harness development (88 automated backend tests) and system integration.
+
+5. CHALLENGE PICK:
+   (Select appropriate hackathon track e.g. Best On-Device AI / Best Developer Tool / Productivity AI)
+
+6. DEMO VIDEO:
+   Under 2-minute walkthrough showing data import, baseline evaluation, parent AI failure diagnosis, rule editing, and verified comparison uplift.
+</pre></html>

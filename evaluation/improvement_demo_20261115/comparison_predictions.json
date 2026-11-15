@@ -1,0 +1,2289 @@
+[
+  {
+    "id": 323,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 0,
+    "response_id": "DEV_47",
+    "response_text": "Took a sip of my iced latte and bit down on a jagged shard of green glass! My gum was bleeding.",
+    "original_data": {
+      "response_id": "DEV_47",
+      "customer_name": "Isaac R.",
+      "feedback_text": "Took a sip of my iced latte and bit down on a jagged shard of green glass! My gum was bleeding.",
+      "label_topics": "drink_quality",
+      "label_sentiment": "negative",
+      "label_needs_review": "true"
+    },
+    "ground_truth_topics": [
+      "drink_quality"
+    ],
+    "ground_truth_sentiment": "negative",
+    "ground_truth_needs_review": true,
+    "predicted_topics": [
+      "drink_quality"
+    ],
+    "predicted_sentiment": "negative",
+    "generated_summary": "Glass shard in iced latte caused injury.",
+    "predicted_needs_review": true,
+    "review_reason": "Injury reported",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 11.694,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality"
+      ],
+      "sentiment": "negative",
+      "summary": "Glass shard in iced latte caused injury.",
+      "needs_review": true,
+      "review_reason": "Injury reported",
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Glass shard in iced latte caused injury.\",\n  \"needs_review\": true,\n  \"review_reason\": \"Injury reported\"\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 11.541
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Glass shard in iced latte caused injury.\",\n  \"needs_review\": true,\n  \"review_reason\": \"Injury reported\"\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 324,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 1,
+    "response_id": "DEV_33",
+    "response_text": "This dark roast is straight jet fuel in the best way possible, got me through my finals.",
+    "original_data": {
+      "response_id": "DEV_33",
+      "customer_name": "Gabriel M.",
+      "feedback_text": "This dark roast is straight jet fuel in the best way possible, got me through my finals.",
+      "label_topics": "drink_quality",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "The dark roast was described as straight jet fuel, indicating high quality.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 5.033,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality"
+      ],
+      "sentiment": "positive",
+      "summary": "The dark roast was described as straight jet fuel, indicating high quality.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"The dark roast was described as straight jet fuel, indicating high quality.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 4.818
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"The dark roast was described as straight jet fuel, indicating high quality.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 325,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 2,
+    "response_id": "DEV_15",
+    "response_text": "The barista crafted a gorgeous rosetta and handed it to me with a warm smile.",
+    "original_data": {
+      "response_id": "DEV_15",
+      "customer_name": "Sophia D.",
+      "feedback_text": "The barista crafted a gorgeous rosetta and handed it to me with a warm smile.",
+      "label_topics": "drink_quality; service",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality",
+      "service"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Barista crafted a beautiful rosetta with a warm smile.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 5.6,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality"
+      ],
+      "sentiment": "positive",
+      "summary": "Barista crafted a beautiful rosetta with a warm smile.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Barista crafted a beautiful rosetta with a warm smile.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 5.294
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Barista crafted a beautiful rosetta with a warm smile.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 326,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 3,
+    "response_id": "DEV_29",
+    "response_text": "Everything was stellar: plush booths, lightning-fast cheerful staff, fair prices, and delicious espresso.",
+    "original_data": {
+      "response_id": "DEV_29",
+      "customer_name": "Harper N.",
+      "feedback_text": "Everything was stellar: plush booths, lightning-fast cheerful staff, fair prices, and delicious espresso.",
+      "label_topics": "drink_quality; service; price; seating",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality",
+      "service",
+      "price",
+      "seating"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality",
+      "price",
+      "service",
+      "seating"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Excellent atmosphere, fast service, fair prices, and delicious coffee.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 6.166,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality",
+        "price",
+        "service",
+        "seating"
+      ],
+      "sentiment": "positive",
+      "summary": "Excellent atmosphere, fast service, fair prices, and delicious coffee.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"price\", \"service\", \"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Excellent atmosphere, fast service, fair prices, and delicious coffee.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 5.841
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"price\", \"service\", \"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Excellent atmosphere, fast service, fair prices, and delicious coffee.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 327,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 4,
+    "response_id": "DEV_01",
+    "response_text": "The single-origin Ethiopian espresso had vibrant citrus notes and velvety crema.",
+    "original_data": {
+      "response_id": "DEV_01",
+      "customer_name": "Maya L.",
+      "feedback_text": "The single-origin Ethiopian espresso had vibrant citrus notes and velvety crema.",
+      "label_topics": "drink_quality",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Single-origin Ethiopian espresso had vibrant citrus notes and velvety crema.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 5.805,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality"
+      ],
+      "sentiment": "positive",
+      "summary": "Single-origin Ethiopian espresso had vibrant citrus notes and velvety crema.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Single-origin Ethiopian espresso had vibrant citrus notes and velvety crema.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 5.472
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Single-origin Ethiopian espresso had vibrant citrus notes and velvety crema.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 328,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 5,
+    "response_id": "DEV_05",
+    "response_text": "Waited twenty minutes at pickup while three baristas ignored the counter to chat.",
+    "original_data": {
+      "response_id": "DEV_05",
+      "customer_name": "Chloe S.",
+      "feedback_text": "Waited twenty minutes at pickup while three baristas ignored the counter to chat.",
+      "label_topics": "service",
+      "label_sentiment": "negative",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "service"
+    ],
+    "ground_truth_sentiment": "negative",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "service"
+    ],
+    "predicted_sentiment": "negative",
+    "generated_summary": "Waited twenty minutes at pickup while three baristas ignored the counter to chat.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 5.401,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "service"
+      ],
+      "sentiment": "negative",
+      "summary": "Waited twenty minutes at pickup while three baristas ignored the counter to chat.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"service\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Waited twenty minutes at pickup while three baristas ignored the counter to chat.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 5.148
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"service\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Waited twenty minutes at pickup while three baristas ignored the counter to chat.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 329,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 6,
+    "response_id": "DEV_42",
+    "response_text": "Comfy seeting and reliable wfi, but the pastrees are way overpiced.",
+    "original_data": {
+      "response_id": "DEV_42",
+      "customer_name": "Kylie B.",
+      "feedback_text": "Comfy seeting and reliable wfi, but the pastrees are way overpiced.",
+      "label_topics": "price; seating",
+      "label_sentiment": "mixed",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "price",
+      "seating"
+    ],
+    "ground_truth_sentiment": "mixed",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "seating",
+      "service"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Comfy seating and reliable WiFi, but pastries are overpriced.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 5.313,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "seating",
+        "service"
+      ],
+      "sentiment": "positive",
+      "summary": "Comfy seating and reliable WiFi, but pastries are overpriced.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"seating\", \"service\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Comfy seating and reliable WiFi, but pastries are overpriced.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 5.184
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"seating\", \"service\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Comfy seating and reliable WiFi, but pastries are overpriced.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 330,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 7,
+    "response_id": "DEV_10",
+    "response_text": "Loved the cozy velvet armchairs and quiet study nook tucked in the back.",
+    "original_data": {
+      "response_id": "DEV_10",
+      "customer_name": "Oliver G.",
+      "feedback_text": "Loved the cozy velvet armchairs and quiet study nook tucked in the back.",
+      "label_topics": "seating",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "seating"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "seating"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "The cozy velvet armchairs and quiet study nook provided a comfortable atmosphere.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 5.112,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "seating"
+      ],
+      "sentiment": "positive",
+      "summary": "The cozy velvet armchairs and quiet study nook provided a comfortable atmosphere.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"The cozy velvet armchairs and quiet study nook provided a comfortable atmosphere.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 5.068
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"The cozy velvet armchairs and quiet study nook provided a comfortable atmosphere.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 331,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 8,
+    "response_id": "DEV_46",
+    "response_text": "Not cheap by any stretch of the imagination, but I cannot complain about the comfortable leather couches.",
+    "original_data": {
+      "response_id": "DEV_46",
+      "customer_name": "Stella U.",
+      "feedback_text": "Not cheap by any stretch of the imagination, but I cannot complain about the comfortable leather couches.",
+      "label_topics": "price; seating",
+      "label_sentiment": "mixed",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "price",
+      "seating"
+    ],
+    "ground_truth_sentiment": "mixed",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "seating"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "The comfortable leather couches are a positive feature.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.942,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "seating"
+      ],
+      "sentiment": "positive",
+      "summary": "The comfortable leather couches are a positive feature.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"The comfortable leather couches are a positive feature.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.877
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"The comfortable leather couches are a positive feature.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 332,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 9,
+    "response_id": "DEV_60",
+    "response_text": "First visit: smooth pour-over with fast service.\nSecond visit: lukewarm latte after waiting 20 minutes.\nOverall a mixed bag.",
+    "original_data": {
+      "response_id": "DEV_60",
+      "customer_name": "Reese B.",
+      "feedback_text": "First visit: smooth pour-over with fast service.\nSecond visit: lukewarm latte after waiting 20 minutes.\nOverall a mixed bag.",
+      "label_topics": "drink_quality; service",
+      "label_sentiment": "mixed",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality",
+      "service"
+    ],
+    "ground_truth_sentiment": "mixed",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality",
+      "service"
+    ],
+    "predicted_sentiment": "mixed",
+    "generated_summary": "First visit: smooth pour-over with fast service. Second visit: lukewarm latte after waiting 20 minutes. Overall a mixed bag.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 5.329,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality",
+        "service"
+      ],
+      "sentiment": "mixed",
+      "summary": "First visit: smooth pour-over with fast service. Second visit: lukewarm latte after waiting 20 minutes. Overall a mixed bag.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"service\"],\n  \"sentiment\": \"mixed\",\n  \"summary\": \"First visit: smooth pour-over with fast service. Second visit: lukewarm latte after waiting 20 minutes. Overall a mixed bag.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 5.267
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"service\"],\n  \"sentiment\": \"mixed\",\n  \"summary\": \"First visit: smooth pour-over with fast service. Second visit: lukewarm latte after waiting 20 minutes. Overall a mixed bag.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 333,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 10,
+    "response_id": "DEV_52",
+    "response_text": "There was a dead cockroach floating beneath the ice in my cold brew. Manager dismissed my concern.",
+    "original_data": {
+      "response_id": "DEV_52",
+      "customer_name": "Penelope M.",
+      "feedback_text": "There was a dead cockroach floating beneath the ice in my cold brew. Manager dismissed my concern.",
+      "label_topics": "drink_quality; service",
+      "label_sentiment": "negative",
+      "label_needs_review": "true"
+    },
+    "ground_truth_topics": [
+      "drink_quality",
+      "service"
+    ],
+    "ground_truth_sentiment": "negative",
+    "ground_truth_needs_review": true,
+    "predicted_topics": [
+      "drink_quality"
+    ],
+    "predicted_sentiment": "negative",
+    "generated_summary": "Dead cockroach in cold brew",
+    "predicted_needs_review": true,
+    "review_reason": "Safety hazard",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.832,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality"
+      ],
+      "sentiment": "negative",
+      "summary": "Dead cockroach in cold brew",
+      "needs_review": true,
+      "review_reason": "Safety hazard",
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Dead cockroach in cold brew\",\n  \"needs_review\": true,\n  \"review_reason\": \"Safety hazard\"\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.819
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Dead cockroach in cold brew\",\n  \"needs_review\": true,\n  \"review_reason\": \"Safety hazard\"\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 334,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 11,
+    "response_id": "DEV_31",
+    "response_text": "The nitro cold brew and cozy armchairs are top tier, but sluggish staff and steep prices drag it down.",
+    "original_data": {
+      "response_id": "DEV_31",
+      "customer_name": "Evelyn K.",
+      "feedback_text": "The nitro cold brew and cozy armchairs are top tier, but sluggish staff and steep prices drag it down.",
+      "label_topics": "drink_quality; service; price; seating",
+      "label_sentiment": "mixed",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality",
+      "service",
+      "price",
+      "seating"
+    ],
+    "ground_truth_sentiment": "mixed",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality",
+      "service",
+      "price"
+    ],
+    "predicted_sentiment": "mixed",
+    "generated_summary": "Nitro cold brew is top tier, but sluggish staff and steep prices drag it down.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 5.089,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality",
+        "service",
+        "price"
+      ],
+      "sentiment": "mixed",
+      "summary": "Nitro cold brew is top tier, but sluggish staff and steep prices drag it down.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"service\", \"price\"],\n  \"sentiment\": \"mixed\",\n  \"summary\": \"Nitro cold brew is top tier, but sluggish staff and steep prices drag it down.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 5.049
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"service\", \"price\"],\n  \"sentiment\": \"mixed\",\n  \"summary\": \"Nitro cold brew is top tier, but sluggish staff and steep prices drag it down.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 335,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 12,
+    "response_id": "DEV_56",
+    "response_text": "Just wondering if anyone knows who was driving that silver sedan parked near the back?",
+    "original_data": {
+      "response_id": "DEV_56",
+      "customer_name": "Casey H.",
+      "feedback_text": "Just wondering if anyone knows who was driving that silver sedan parked near the back?",
+      "label_topics": "[]",
+      "label_sentiment": "unclear",
+      "label_needs_review": "true"
+    },
+    "ground_truth_topics": [],
+    "ground_truth_sentiment": "unclear",
+    "ground_truth_needs_review": true,
+    "predicted_topics": [],
+    "predicted_sentiment": "unclear",
+    "generated_summary": "1-sentence factual summary",
+    "predicted_needs_review": true,
+    "review_reason": "The text is incomprehensible and does not provide any clear feedback.",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 4.155,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [],
+      "sentiment": "unclear",
+      "summary": "1-sentence factual summary",
+      "needs_review": true,
+      "review_reason": "The text is incomprehensible and does not provide any clear feedback.",
+      "raw_model_text": "{\n  \"topics\": [],\n  \"sentiment\": \"unclear\",\n  \"summary\": \"1-sentence factual summary\",\n  \"needs_review\": true,\n  \"review_reason\": \"The text is incomprehensible and does not provide any clear feedback.\"\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.856
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [],\n  \"sentiment\": \"unclear\",\n  \"summary\": \"1-sentence factual summary\",\n  \"needs_review\": true,\n  \"review_reason\": \"The text is incomprehensible and does not provide any clear feedback.\"\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 336,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 13,
+    "response_id": "DEV_55",
+    "response_text": "Coffee coffee.... green umbrella left near the yellow bicycle rack outside????",
+    "original_data": {
+      "response_id": "DEV_55",
+      "customer_name": "Morgan E.",
+      "feedback_text": "Coffee coffee.... green umbrella left near the yellow bicycle rack outside????",
+      "label_topics": "[]",
+      "label_sentiment": "unclear",
+      "label_needs_review": "true"
+    },
+    "ground_truth_topics": [],
+    "ground_truth_sentiment": "unclear",
+    "ground_truth_needs_review": true,
+    "predicted_topics": [
+      "drink_quality"
+    ],
+    "predicted_sentiment": "unclear",
+    "generated_summary": "Coffee quality unclear due to unclear description",
+    "predicted_needs_review": true,
+    "review_reason": "Incomprehensible text",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 4.284,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality"
+      ],
+      "sentiment": "unclear",
+      "summary": "Coffee quality unclear due to unclear description",
+      "needs_review": true,
+      "review_reason": "Incomprehensible text",
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"unclear\",\n  \"summary\": \"Coffee quality unclear due to unclear description\",\n  \"needs_review\": true,\n  \"review_reason\": \"Incomprehensible text\"\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 4.261
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"unclear\",\n  \"summary\": \"Coffee quality unclear due to unclear description\",\n  \"needs_review\": true,\n  \"review_reason\": \"Incomprehensible text\"\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 337,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 14,
+    "response_id": "DEV_44",
+    "response_text": "Honestly, the house drip coffee is not bad at all compared to the campus dining hall.",
+    "original_data": {
+      "response_id": "DEV_44",
+      "customer_name": "Hannah V.",
+      "feedback_text": "Honestly, the house drip coffee is not bad at all compared to the campus dining hall.",
+      "label_topics": "drink_quality",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "House drip coffee is not bad compared to campus dining hall.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 4.164,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality"
+      ],
+      "sentiment": "positive",
+      "summary": "House drip coffee is not bad compared to campus dining hall.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"House drip coffee is not bad compared to campus dining hall.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.995
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"House drip coffee is not bad compared to campus dining hall.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 338,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 15,
+    "response_id": "DEV_27",
+    "response_text": "Overpriced sour drip coffee in a cramped, noisy basement where every table wobbles.",
+    "original_data": {
+      "response_id": "DEV_27",
+      "customer_name": "Amelia D.",
+      "feedback_text": "Overpriced sour drip coffee in a cramped, noisy basement where every table wobbles.",
+      "label_topics": "drink_quality; price; seating",
+      "label_sentiment": "negative",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality",
+      "price",
+      "seating"
+    ],
+    "ground_truth_sentiment": "negative",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "price",
+      "seating"
+    ],
+    "predicted_sentiment": "negative",
+    "generated_summary": "Overpriced sour drip coffee in a cramped, noisy basement with wobbly tables.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 4.816,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "price",
+        "seating"
+      ],
+      "sentiment": "negative",
+      "summary": "Overpriced sour drip coffee in a cramped, noisy basement with wobbly tables.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"price\", \"seating\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Overpriced sour drip coffee in a cramped, noisy basement with wobbly tables.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 4.587
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"price\", \"seating\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Overpriced sour drip coffee in a cramped, noisy basement with wobbly tables.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 339,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 16,
+    "response_id": "DEV_40",
+    "response_text": "Their seasonal hazelnut brew is legit fire and the counter homie hooked it up in 30 seconds flat.",
+    "original_data": {
+      "response_id": "DEV_40",
+      "customer_name": "Layla X.",
+      "feedback_text": "Their seasonal hazelnut brew is legit fire and the counter homie hooked it up in 30 seconds flat.",
+      "label_topics": "drink_quality; service",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality",
+      "service"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Seasonal hazelnut brew is praised for its taste and quick service.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 4.111,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality"
+      ],
+      "sentiment": "positive",
+      "summary": "Seasonal hazelnut brew is praised for its taste and quick service.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Seasonal hazelnut brew is praised for its taste and quick service.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.894
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Seasonal hazelnut brew is praised for its taste and quick service.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 340,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 17,
+    "response_id": "DEV_12",
+    "response_text": "There are four small two-top tables along the east wall.",
+    "original_data": {
+      "response_id": "DEV_12",
+      "customer_name": "Brian N.",
+      "feedback_text": "There are four small two-top tables along the east wall.",
+      "label_topics": "seating",
+      "label_sentiment": "neutral",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "seating"
+    ],
+    "ground_truth_sentiment": "neutral",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "seating"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "There are four small two-top tables along the east wall.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.825,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "seating"
+      ],
+      "sentiment": "positive",
+      "summary": "There are four small two-top tables along the east wall.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"There are four small two-top tables along the east wall.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.796
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"There are four small two-top tables along the east wall.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 341,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 18,
+    "response_id": "DEV_51",
+    "response_text": "The ceramic rim of the coffee mug was cracked with a sharp chipped edge that sliced my lower lip.",
+    "original_data": {
+      "response_id": "DEV_51",
+      "customer_name": "Eli S.",
+      "feedback_text": "The ceramic rim of the coffee mug was cracked with a sharp chipped edge that sliced my lower lip.",
+      "label_topics": "drink_quality",
+      "label_sentiment": "negative",
+      "label_needs_review": "true"
+    },
+    "ground_truth_topics": [
+      "drink_quality"
+    ],
+    "ground_truth_sentiment": "negative",
+    "ground_truth_needs_review": true,
+    "predicted_topics": [
+      "drink_quality"
+    ],
+    "predicted_sentiment": "negative",
+    "generated_summary": "The cracked coffee mug caused injury.",
+    "predicted_needs_review": true,
+    "review_reason": "Injury reported",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.482,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality"
+      ],
+      "sentiment": "negative",
+      "summary": "The cracked coffee mug caused injury.",
+      "needs_review": true,
+      "review_reason": "Injury reported",
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"The cracked coffee mug caused injury.\",\n  \"needs_review\": true,\n  \"review_reason\": \"Injury reported\"\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.373
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"The cracked coffee mug caused injury.\",\n  \"needs_review\": true,\n  \"review_reason\": \"Injury reported\"\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 342,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 19,
+    "response_id": "DEV_49",
+    "response_text": "The milk in my chai smelled like rancid bleach and tasted curdled. I felt severely sick twenty minutes later.",
+    "original_data": {
+      "response_id": "DEV_49",
+      "customer_name": "Logan T.",
+      "feedback_text": "The milk in my chai smelled like rancid bleach and tasted curdled. I felt severely sick twenty minutes later.",
+      "label_topics": "drink_quality",
+      "label_sentiment": "negative",
+      "label_needs_review": "true"
+    },
+    "ground_truth_topics": [
+      "drink_quality"
+    ],
+    "ground_truth_sentiment": "negative",
+    "ground_truth_needs_review": true,
+    "predicted_topics": [
+      "drink_quality"
+    ],
+    "predicted_sentiment": "negative",
+    "generated_summary": "The chai tasted rancid and caused severe illness.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.488,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality"
+      ],
+      "sentiment": "negative",
+      "summary": "The chai tasted rancid and caused severe illness.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"The chai tasted rancid and caused severe illness.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.471
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"The chai tasted rancid and caused severe illness.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 343,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 20,
+    "response_id": "DEV_41",
+    "response_text": "The expesso was unberably sour and the capaccino foam was compltely flat.",
+    "original_data": {
+      "response_id": "DEV_41",
+      "customer_name": "Nathan Q.",
+      "feedback_text": "The expesso was unberably sour and the capaccino foam was compltely flat.",
+      "label_topics": "drink_quality",
+      "label_sentiment": "negative",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality"
+    ],
+    "ground_truth_sentiment": "negative",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality"
+    ],
+    "predicted_sentiment": "negative",
+    "generated_summary": "The espresso was sour and the capuccino foam was flat.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.509,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality"
+      ],
+      "sentiment": "negative",
+      "summary": "The espresso was sour and the capuccino foam was flat.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"The espresso was sour and the capuccino foam was flat.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.492
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"The espresso was sour and the capuccino foam was flat.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 344,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 21,
+    "response_id": "DEV_38",
+    "response_text": "Vibes are immaculate here! Huge shoutout to the baristas for keeping the energy so high.",
+    "original_data": {
+      "response_id": "DEV_38",
+      "customer_name": "Aria R.",
+      "feedback_text": "Vibes are immaculate here! Huge shoutout to the baristas for keeping the energy so high.",
+      "label_topics": "service; seating",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "service",
+      "seating"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "seating",
+      "service"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Vibes are immaculate here!",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.478,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "seating",
+        "service"
+      ],
+      "sentiment": "positive",
+      "summary": "Vibes are immaculate here!",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"seating\", \"service\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Vibes are immaculate here!\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.462
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"seating\", \"service\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Vibes are immaculate here!\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 345,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 22,
+    "response_id": "DEV_59",
+    "response_text": "When I asked about whole beans, the cashier scoffed, \"we do not sell that kind of stuff here,\" and walked away.",
+    "original_data": {
+      "response_id": "DEV_59",
+      "customer_name": "Quinn D.",
+      "feedback_text": "When I asked about whole beans, the cashier scoffed, \"we do not sell that kind of stuff here,\" and walked away.",
+      "label_topics": "service",
+      "label_sentiment": "negative",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "service"
+    ],
+    "ground_truth_sentiment": "negative",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "service"
+    ],
+    "predicted_sentiment": "negative",
+    "generated_summary": "Cashier dismissed customer's request for whole beans.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.638,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "service"
+      ],
+      "sentiment": "negative",
+      "summary": "Cashier dismissed customer's request for whole beans.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"service\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Cashier dismissed customer's request for whole beans.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.619
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"service\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Cashier dismissed customer's request for whole beans.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 346,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 23,
+    "response_id": "DEV_24",
+    "response_text": "The staff was very sweet and apologized, but the Americano was completely lukewarm and sour.",
+    "original_data": {
+      "response_id": "DEV_24",
+      "customer_name": "Alexander T.",
+      "feedback_text": "The staff was very sweet and apologized, but the Americano was completely lukewarm and sour.",
+      "label_topics": "drink_quality; service",
+      "label_sentiment": "mixed",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality",
+      "service"
+    ],
+    "ground_truth_sentiment": "mixed",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality",
+      "service"
+    ],
+    "predicted_sentiment": "negative",
+    "generated_summary": "Staff was sweet but Americano was lukewarm and sour.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.551,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality",
+        "service"
+      ],
+      "sentiment": "negative",
+      "summary": "Staff was sweet but Americano was lukewarm and sour.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"service\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Staff was sweet but Americano was lukewarm and sour.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.531
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"service\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Staff was sweet but Americano was lukewarm and sour.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 347,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 24,
+    "response_id": "DEV_03",
+    "response_text": "Standard dark roast coffee. Nothing special, tasted okay.",
+    "original_data": {
+      "response_id": "DEV_03",
+      "customer_name": "Elena R.",
+      "feedback_text": "Standard dark roast coffee. Nothing special, tasted okay.",
+      "label_topics": "drink_quality",
+      "label_sentiment": "neutral",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality"
+    ],
+    "ground_truth_sentiment": "neutral",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Standard dark roast coffee tasted okay.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.502,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality"
+      ],
+      "sentiment": "positive",
+      "summary": "Standard dark roast coffee tasted okay.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Standard dark roast coffee tasted okay.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.478
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Standard dark roast coffee tasted okay.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 348,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 25,
+    "response_id": "DEV_19",
+    "response_text": "Great comfy booths and fast WiFi, but charging seven dollars for a tea feels ridiculous.",
+    "original_data": {
+      "response_id": "DEV_19",
+      "customer_name": "Ava M.",
+      "feedback_text": "Great comfy booths and fast WiFi, but charging seven dollars for a tea feels ridiculous.",
+      "label_topics": "price; seating",
+      "label_sentiment": "mixed",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "price",
+      "seating"
+    ],
+    "ground_truth_sentiment": "mixed",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "seating",
+      "service"
+    ],
+    "predicted_sentiment": "mixed",
+    "generated_summary": "Comfortable booths and fast WiFi, but charging for tea feels ridiculous.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 4.279,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "seating",
+        "service"
+      ],
+      "sentiment": "mixed",
+      "summary": "Comfortable booths and fast WiFi, but charging for tea feels ridiculous.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"seating\", \"service\"],\n  \"sentiment\": \"mixed\",\n  \"summary\": \"Comfortable booths and fast WiFi, but charging for tea feels ridiculous.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 4.267
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"seating\", \"service\"],\n  \"sentiment\": \"mixed\",\n  \"summary\": \"Comfortable booths and fast WiFi, but charging for tea feels ridiculous.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 349,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 26,
+    "response_id": "DEV_20",
+    "response_text": "Outstanding cold brew with chocolate notes, and plenty of sunlight at the communal table.",
+    "original_data": {
+      "response_id": "DEV_20",
+      "customer_name": "Ethan W.",
+      "feedback_text": "Outstanding cold brew with chocolate notes, and plenty of sunlight at the communal table.",
+      "label_topics": "drink_quality; seating",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality",
+      "seating"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality",
+      "seating"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Outstanding cold brew with chocolate notes and plenty of sunlight at the communal table.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 4.177,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality",
+        "seating"
+      ],
+      "sentiment": "positive",
+      "summary": "Outstanding cold brew with chocolate notes and plenty of sunlight at the communal table.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Outstanding cold brew with chocolate notes and plenty of sunlight at the communal table.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 4.15
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Outstanding cold brew with chocolate notes and plenty of sunlight at the communal table.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 350,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 27,
+    "response_id": "DEV_18",
+    "response_text": "Sticky tables everywhere piled with dirty mugs, and staff made zero effort to clear them.",
+    "original_data": {
+      "response_id": "DEV_18",
+      "customer_name": "Noah J.",
+      "feedback_text": "Sticky tables everywhere piled with dirty mugs, and staff made zero effort to clear them.",
+      "label_topics": "service; seating",
+      "label_sentiment": "negative",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "service",
+      "seating"
+    ],
+    "ground_truth_sentiment": "negative",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "seating"
+    ],
+    "predicted_sentiment": "negative",
+    "generated_summary": "Tables are sticky and dirty, with no effort to clear them.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.515,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "seating"
+      ],
+      "sentiment": "negative",
+      "summary": "Tables are sticky and dirty, with no effort to clear them.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"seating\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Tables are sticky and dirty, with no effort to clear them.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.499
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"seating\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Tables are sticky and dirty, with no effort to clear them.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 351,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 28,
+    "response_id": "DEV_50",
+    "response_text": "An aggressive person was shouting and physically threatening customers in line while staff refused to call security.",
+    "original_data": {
+      "response_id": "DEV_50",
+      "customer_name": "Audrey W.",
+      "feedback_text": "An aggressive person was shouting and physically threatening customers in line while staff refused to call security.",
+      "label_topics": "service",
+      "label_sentiment": "negative",
+      "label_needs_review": "true"
+    },
+    "ground_truth_topics": [
+      "service"
+    ],
+    "ground_truth_sentiment": "negative",
+    "ground_truth_needs_review": true,
+    "predicted_topics": [
+      "service"
+    ],
+    "predicted_sentiment": "negative",
+    "generated_summary": "Staff refused to call security in response to aggressive behavior in line.",
+    "predicted_needs_review": true,
+    "review_reason": "Unresolved safety incident",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.818,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "service"
+      ],
+      "sentiment": "negative",
+      "summary": "Staff refused to call security in response to aggressive behavior in line.",
+      "needs_review": true,
+      "review_reason": "Unresolved safety incident",
+      "raw_model_text": "{\n  \"topics\": [\"service\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Staff refused to call security in response to aggressive behavior in line.\",\n  \"needs_review\": true,\n  \"review_reason\": \"Unresolved safety incident\"\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.804
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"service\"],\n  \"sentiment\": \"negative\",\n  \"summary\": \"Staff refused to call security in response to aggressive behavior in line.\",\n  \"needs_review\": true,\n  \"review_reason\": \"Unresolved safety incident\"\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 352,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 29,
+    "response_id": "DEV_22",
+    "response_text": "Super swift order turnaround and they offered a 15% student discount at the counter.",
+    "original_data": {
+      "response_id": "DEV_22",
+      "customer_name": "Lucas K.",
+      "feedback_text": "Super swift order turnaround and they offered a 15% student discount at the counter.",
+      "label_topics": "service; price",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "service",
+      "price"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "service"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Fast service and student discount offered",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.128,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "service"
+      ],
+      "sentiment": "positive",
+      "summary": "Fast service and student discount offered",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"service\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Fast service and student discount offered\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.108
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"service\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Fast service and student discount offered\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 353,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 30,
+    "response_id": "DEV_28",
+    "response_text": "Baristas were swift and polite, great lighting for reading, but the drinks are definitely overpriced.",
+    "original_data": {
+      "response_id": "DEV_28",
+      "customer_name": "Henry G.",
+      "feedback_text": "Baristas were swift and polite, great lighting for reading, but the drinks are definitely overpriced.",
+      "label_topics": "service; price; seating",
+      "label_sentiment": "mixed",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "service",
+      "price",
+      "seating"
+    ],
+    "ground_truth_sentiment": "mixed",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "service",
+      "drink_quality",
+      "price"
+    ],
+    "predicted_sentiment": "mixed",
+    "generated_summary": "Baristas were swift and polite, but drinks are overpriced.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.94,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "service",
+        "drink_quality",
+        "price"
+      ],
+      "sentiment": "mixed",
+      "summary": "Baristas were swift and polite, but drinks are overpriced.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"service\", \"drink_quality\", \"price\"],\n  \"sentiment\": \"mixed\",\n  \"summary\": \"Baristas were swift and polite, but drinks are overpriced.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.93
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"service\", \"drink_quality\", \"price\"],\n  \"sentiment\": \"mixed\",\n  \"summary\": \"Baristas were swift and polite, but drinks are overpriced.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 354,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 31,
+    "response_id": "DEV_25",
+    "response_text": "Pour-over was exquisite and the barista was knowledgeable, though the $9 price tag hurts.",
+    "original_data": {
+      "response_id": "DEV_25",
+      "customer_name": "Charlotte L.",
+      "feedback_text": "Pour-over was exquisite and the barista was knowledgeable, though the $9 price tag hurts.",
+      "label_topics": "drink_quality; service; price",
+      "label_sentiment": "mixed",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality",
+      "service",
+      "price"
+    ],
+    "ground_truth_sentiment": "mixed",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality",
+      "price"
+    ],
+    "predicted_sentiment": "mixed",
+    "generated_summary": "Pour-over was exquisite but the price tag hurts.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.256,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality",
+        "price"
+      ],
+      "sentiment": "mixed",
+      "summary": "Pour-over was exquisite but the price tag hurts.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"price\"],\n  \"sentiment\": \"mixed\",\n  \"summary\": \"Pour-over was exquisite but the price tag hurts.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.193
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"price\"],\n  \"sentiment\": \"mixed\",\n  \"summary\": \"Pour-over was exquisite but the price tag hurts.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 355,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 32,
+    "response_id": "DEV_14",
+    "response_text": "Delicious vanilla bean latte and surprisingly affordable for a specialty café.",
+    "original_data": {
+      "response_id": "DEV_14",
+      "customer_name": "Julian F.",
+      "feedback_text": "Delicious vanilla bean latte and surprisingly affordable for a specialty café.",
+      "label_topics": "drink_quality; price",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality",
+      "price"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality",
+      "price"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Delicious vanilla bean latte and surprisingly affordable for a specialty café.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.642,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality",
+        "price"
+      ],
+      "sentiment": "positive",
+      "summary": "Delicious vanilla bean latte and surprisingly affordable for a specialty café.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"price\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Delicious vanilla bean latte and surprisingly affordable for a specialty café.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.627
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"price\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Delicious vanilla bean latte and surprisingly affordable for a specialty café.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 356,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 33,
+    "response_id": "DEV_35",
+    "response_text": "Had to take out a second mortgage just to get a cortado and a warmed croissant.",
+    "original_data": {
+      "response_id": "DEV_35",
+      "customer_name": "Samuel O.",
+      "feedback_text": "Had to take out a second mortgage just to get a cortado and a warmed croissant.",
+      "label_topics": "price",
+      "label_sentiment": "negative",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "price"
+    ],
+    "ground_truth_sentiment": "negative",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "drink_quality",
+      "price"
+    ],
+    "predicted_sentiment": "mixed",
+    "generated_summary": "Cortado and warmed croissant were satisfactory, but the price was too high.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 4.731,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "drink_quality",
+        "price"
+      ],
+      "sentiment": "mixed",
+      "summary": "Cortado and warmed croissant were satisfactory, but the price was too high.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"price\"],\n  \"sentiment\": \"mixed\",\n  \"summary\": \"Cortado and warmed croissant were satisfactory, but the price was too high.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 4.608
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"drink_quality\", \"price\"],\n  \"sentiment\": \"mixed\",\n  \"summary\": \"Cortado and warmed croissant were satisfactory, but the price was too high.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 357,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 34,
+    "response_id": "DEV_34",
+    "response_text": "The morning crew were absolute machines today tackling that forty-person morning rush.",
+    "original_data": {
+      "response_id": "DEV_34",
+      "customer_name": "Victoria H.",
+      "feedback_text": "The morning crew were absolute machines today tackling that forty-person morning rush.",
+      "label_topics": "service",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "service"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "service"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "The morning crew handled the rush efficiently.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.424,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "service"
+      ],
+      "sentiment": "positive",
+      "summary": "The morning crew handled the rush efficiently.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"service\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"The morning crew handled the rush efficiently.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.356
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"service\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"The morning crew handled the rush efficiently.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 358,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 35,
+    "response_id": "DEV_09",
+    "response_text": "Standard city prices for coffee, about what you expect around here.",
+    "original_data": {
+      "response_id": "DEV_09",
+      "customer_name": "Sarah W.",
+      "feedback_text": "Standard city prices for coffee, about what you expect around here.",
+      "label_topics": "price",
+      "label_sentiment": "neutral",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "price"
+    ],
+    "ground_truth_sentiment": "neutral",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "price"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Standard city prices for coffee, about what you expect around here.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.759,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "price"
+      ],
+      "sentiment": "positive",
+      "summary": "Standard city prices for coffee, about what you expect around here.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"price\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Standard city prices for coffee, about what you expect around here.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.735
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"price\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Standard city prices for coffee, about what you expect around here.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 359,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 36,
+    "response_id": "DEV_45",
+    "response_text": "Never had to wait more than ninety seconds for a counter pickup here.",
+    "original_data": {
+      "response_id": "DEV_45",
+      "customer_name": "Caleb Z.",
+      "feedback_text": "Never had to wait more than ninety seconds for a counter pickup here.",
+      "label_topics": "service",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "service"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "service"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Staff handled orders quickly.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.766,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "service"
+      ],
+      "sentiment": "positive",
+      "summary": "Staff handled orders quickly.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"service\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Staff handled orders quickly.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.753
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"service\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Staff handled orders quickly.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 360,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 37,
+    "response_id": "DEV_58",
+    "response_text": "The afternoon sunshine on the sidewalk outside was 72 degrees and gorgeous.",
+    "original_data": {
+      "response_id": "DEV_58",
+      "customer_name": "Sydney C.",
+      "feedback_text": "The afternoon sunshine on the sidewalk outside was 72 degrees and gorgeous.",
+      "label_topics": "[]",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "seating"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "The afternoon sunshine on the sidewalk outside was 72 degrees and gorgeous.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 4.126,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "seating"
+      ],
+      "sentiment": "positive",
+      "summary": "The afternoon sunshine on the sidewalk outside was 72 degrees and gorgeous.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"The afternoon sunshine on the sidewalk outside was 72 degrees and gorgeous.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 4.064
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"The afternoon sunshine on the sidewalk outside was 72 degrees and gorgeous.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 361,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 38,
+    "response_id": "DEV_53",
+    "response_text": "Maybe next Tuesday around 3:15? Not sure if the blue one is still over by the counter.",
+    "original_data": {
+      "response_id": "DEV_53",
+      "customer_name": "Jordan A.",
+      "feedback_text": "Maybe next Tuesday around 3:15? Not sure if the blue one is still over by the counter.",
+      "label_topics": "[]",
+      "label_sentiment": "unclear",
+      "label_needs_review": "true"
+    },
+    "ground_truth_topics": [],
+    "ground_truth_sentiment": "unclear",
+    "ground_truth_needs_review": true,
+    "predicted_topics": [],
+    "predicted_sentiment": "neutral",
+    "generated_summary": "No specific topics or sentiment identified.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 3.638,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [],
+      "sentiment": "neutral",
+      "summary": "No specific topics or sentiment identified.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [],\n  \"sentiment\": \"neutral\",\n  \"summary\": \"No specific topics or sentiment identified.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 3.621
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [],\n  \"sentiment\": \"neutral\",\n  \"summary\": \"No specific topics or sentiment identified.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  },
+  {
+    "id": 362,
+    "batch_id": "batch_dbf97cdf7dac45c3b2968d7f1897e92c",
+    "row_index": 39,
+    "response_id": "DEV_26",
+    "response_text": "Warm and friendly staff, smooth flat whites, and plenty of cushioned chairs near outlets.",
+    "original_data": {
+      "response_id": "DEV_26",
+      "customer_name": "Benjamin C.",
+      "feedback_text": "Warm and friendly staff, smooth flat whites, and plenty of cushioned chairs near outlets.",
+      "label_topics": "drink_quality; service; seating",
+      "label_sentiment": "positive",
+      "label_needs_review": "false"
+    },
+    "ground_truth_topics": [
+      "drink_quality",
+      "service",
+      "seating"
+    ],
+    "ground_truth_sentiment": "positive",
+    "ground_truth_needs_review": false,
+    "predicted_topics": [
+      "service",
+      "seating"
+    ],
+    "predicted_sentiment": "positive",
+    "generated_summary": "Friendly staff, smooth flat whites, and comfortable seating near outlets.",
+    "predicted_needs_review": false,
+    "review_reason": "",
+    "is_valid_schema": true,
+    "schema_errors": [],
+    "status": "success",
+    "error_message": null,
+    "latency_seconds": 4.484,
+    "ground_truth_label_errors": [],
+    "raw_model_output": {
+      "topics": [
+        "service",
+        "seating"
+      ],
+      "sentiment": "positive",
+      "summary": "Friendly staff, smooth flat whites, and comfortable seating near outlets.",
+      "needs_review": false,
+      "review_reason": null,
+      "raw_model_text": "{\n  \"topics\": [\"service\", \"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Friendly staff, smooth flat whites, and comfortable seating near outlets.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+      "is_strict_json": true,
+      "has_markdown_fence": false,
+      "is_valid_json": true,
+      "is_simulated_fixture": false,
+      "model_used": "qwen2.5-coder:3b",
+      "adapter_used": null,
+      "latency_seconds": 4.457
+    },
+    "is_simulated": false,
+    "model_name": "qwen2.5-coder:3b",
+    "raw_model_text": "{\n  \"topics\": [\"service\", \"seating\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"Friendly staff, smooth flat whites, and comfortable seating near outlets.\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}",
+    "topics_valid": true,
+    "sentiment_valid": true,
+    "needs_review_valid": true
+  }
+]

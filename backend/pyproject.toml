@@ -1,5 +1,5 @@
 [project]
-name = "local-ai-job-trainer"
+name = "apprentice"
 version = "0.1.0"
 description = "A consumer app for teaching local AI specific jobs"
 readme = "README.md"

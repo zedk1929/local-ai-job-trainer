@@ -1,0 +1,14 @@
+00:00 — 1. Define the job with your categories and coding rules
+00:06 — 2. Inspect the CSV and map response and human-label columns
+00:13 — 3. Confirm the dataset before evaluating the model
+00:17 — 4. Start an original baseline evaluation
+00:21 — 5. Inspect topic F1, sentiment, review flags and schema validity
+00:28 — 6. Find concrete disagreements against the human labels
+00:35 — 7. Analyze supported failures and review a rule proposal
+00:43 — 8. Edit the proposal and save the exact rule revision
+00:50 — 9. Explicitly approve Revision 2 for the comparison
+00:56 — 10. Compare on the same reserved rows; improvement is not guaranteed
+01:05 — 11. Export predictions with source rows and provenance
+01:09 — 12. Inspect the individual comparison predictions
+01:15 — Separate real run: Qwen2.5-Coder 3B evaluated 60 labeled responses
+01:25 — Real mistakes are visible; a parent-driven improvement is not yet verified

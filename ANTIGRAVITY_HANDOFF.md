@@ -1,4 +1,4 @@
-# Antigravity handoff: local AI job trainer
+# Antigravity handoff: Apprentice
 
 ## Start here
 

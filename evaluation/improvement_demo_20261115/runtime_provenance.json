@@ -1,0 +1,10 @@
+{
+  "running_backend_checkout": "/Users/lcooney/Documents/ChatGPT/HACKATHON/hackathon-project/backend",
+  "runtime_files": {
+    "app/services/model_backend.py": "4f4b1e6c642ba8f4915a6b6cf65da21288016426d8b133fe6ab1229f3e7c64db",
+    "app/services/baseline_runner.py": "99b9d4e5f87ed28e5e7288d074671bbc06ef203d1264db99d7c9d9b8d9ddd4da",
+    "app/api/routes_analysis.py": "c185cb96473872aad1877871b8aaf45f094abbb40947e933357f02724a74925a",
+    "app/services/evaluator.py": "a6dfa53b8db8b75f3b9093fb678a41eaf8b3a860edd557462c9e5bde6182d897"
+  },
+  "workspace_matches_runtime": true
+}

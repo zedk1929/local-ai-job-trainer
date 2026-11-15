@@ -1,0 +1,100 @@
+[
+  {
+    "first": 0,
+    "last": 2,
+    "title": "1. Define the job with your categories and coding rules",
+    "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE",
+    "hold": 6
+  },
+  {
+    "first": 3,
+    "last": 6,
+    "title": "2. Inspect the CSV and map response and human-label columns",
+    "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE",
+    "hold": 6
+  },
+  {
+    "first": 7,
+    "last": 8,
+    "title": "3. Confirm the dataset before evaluating the model",
+    "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE",
+    "hold": 4
+  },
+  {
+    "first": 9,
+    "last": 11,
+    "title": "4. Start an original baseline evaluation",
+    "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE",
+    "hold": 3
+  },
+  {
+    "first": 12,
+    "last": 14,
+    "title": "5. Inspect topic F1, sentiment, review flags and schema validity",
+    "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE",
+    "hold": 7
+  },
+  {
+    "first": 15,
+    "last": 17,
+    "title": "6. Find concrete disagreements against the human labels",
+    "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE",
+    "hold": 6
+  },
+  {
+    "first": 18,
+    "last": 21,
+    "title": "7. Analyze supported failures and review a rule proposal",
+    "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE",
+    "hold": 8
+  },
+  {
+    "first": 22,
+    "last": 23,
+    "title": "8. Edit the proposal and save the exact rule revision",
+    "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE",
+    "hold": 6
+  },
+  {
+    "first": 24,
+    "last": 25,
+    "title": "9. Explicitly approve Revision 2 for the comparison",
+    "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE",
+    "hold": 6
+  },
+  {
+    "first": 26,
+    "last": 29,
+    "title": "10. Compare on the same reserved rows; improvement is not guaranteed",
+    "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE",
+    "hold": 8
+  },
+  {
+    "first": 30,
+    "last": 31,
+    "title": "11. Export predictions with source rows and provenance",
+    "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE",
+    "hold": 4
+  },
+  {
+    "first": 32,
+    "last": 34,
+    "title": "12. Inspect the individual comparison predictions",
+    "mode": "PREVIEW WORKFLOW • SIMULATED RESULTS • EDITED CAPTURE",
+    "hold": 6
+  },
+  {
+    "first": 35,
+    "last": 36,
+    "title": "Separate real run: Qwen2.5-Coder 3B evaluated 60 labeled responses",
+    "mode": "RECORDED REAL LOCAL BASELINE • SEPARATE SAVED RUN",
+    "hold": 9
+  },
+  {
+    "first": 37,
+    "last": 39,
+    "title": "Real mistakes are visible; a parent-driven improvement is not yet verified",
+    "mode": "RECORDED REAL LOCAL BASELINE • SEPARATE SAVED RUN",
+    "hold": 6
+  }
+]

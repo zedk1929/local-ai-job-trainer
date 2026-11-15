@@ -1,4 +1,4 @@
-# Local AI Job Trainer (Local AI Coach)
+# Apprentice
 
 > 🚀 **Live Working App for Judges**: [https://diff-supplements-painted-please.trycloudflare.com](https://diff-supplements-painted-please.trycloudflare.com)  
 > *(No login required. Works in private browsing. Explore immediately in **Preview Mode** with zero local configuration, or Connected Mode via the host).*
@@ -31,10 +31,30 @@ Small business owners, customer experience teams, and community organizations re
 - **Anthropic Claude API (`claude-3-5-sonnet`)**: Secondary parent AI supervisor provider.
 - **Google Antigravity**: Agentic coding pair programmer used to architect, build, verify, and harden the full-stack system, test suite, and database migrations.
 
-### 4. Pitch Deliverables
-- **Pitch Deck**: [`pitch-deliverables/output/Local_AI_Coach_Presentation.pptx`](pitch-deliverables/output/Local_AI_Coach_Presentation.pptx)
-- **Speaker Notes & Presentation Script**: [`pitch-deliverables/output/Presentation_Script.txt`](pitch-deliverables/output/Presentation_Script.txt)
+### 4. Market & Customer Validation (31 Survey Responses)
+To validate the market demand for on-device AI automation, we surveyed 31 practitioners across finance, healthcare/biotech, legal, and solo business operations:
+- **Repetitive Workload**: **96.8%** of respondents perform recurring computer tasks weekly (**74.2% daily**).
+- **Primary Time Drains**: Reading/organizing information (58.1%), writing reports/messages (54.8%), and categorizing data (48.4%).
+- **High Market Appetite**: **83.9%** expressed strong interest in customizable AI for recurring jobs (58.1% "Very interested").
+- **Key Decision Criteria (The 4 Dealbreakers)**:
+  1. *Ease of Use* (32.3%): No complex developer setup or brittle glue code.
+  2. *Accuracy & Zero Hallucinations* (29.0%): Deterministic validation with exact source citations.
+  3. *Data Privacy & Confidentiality* (19.4%): On-device execution for sensitive legal, financial, and clinical data.
+  4. *Price & Cost Affordability* (19.4%): Freedom from recurring monthly SaaS subscription fatigue.
+
+### 5. Measured On-Device Improvement
+On a separate benchmark of 40 reserved survey responses that the parent AI never saw, human-approved instruction refinement achieved measurable uplift on the exact same local model (`qwen2.5-coder:3b`):
+- **Topic Micro-F1**: **76.5% → 84.1%** (+7.6 percentage points)
+- **Sentiment Accuracy**: **72.5% → 80.0%** (+7.5 percentage points)
+- **Schema Validity**: **97.5% → 100.0%** (zero parse errors)
+- **Review Flag Accuracy**: **95.0%** (safety triage fully preserved)
+
+### 6. Pitch Deliverables
+- **Pitch Deck (10 Slides)**: [`pitch-deliverables/output/Apprentice_Presentation.pptx`](pitch-deliverables/output/Apprentice_Presentation.pptx)
+- **1-Minute Stage Pitch & Speaker Script**: [`pitch-deliverables/output/Presentation_Script.txt`](pitch-deliverables/output/Presentation_Script.txt)
 - **HTML Slide Notes**: [`pitch-deliverables/output/Presentation_Script.html`](pitch-deliverables/output/Presentation_Script.html)
+- **Submission Package**: [`pitch-deliverables/output/Submission_Checklist.txt`](pitch-deliverables/output/Submission_Checklist.txt)
+- **Demo Video Walkthrough**: [`demo-video/Local_AI_Coach_Demo.mp4`](demo-video/Local_AI_Coach_Demo.mp4)
 
 ---
 

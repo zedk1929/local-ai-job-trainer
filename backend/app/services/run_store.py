@@ -2,6 +2,7 @@ import json
 import asyncio
 import aiosqlite
 import logging
+import uuid
 from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime, timezone
 from pathlib import Path
@@ -156,7 +157,7 @@ class RunStore:
         label_sentiment_col: str = "",
         label_needs_review_col: str = ""
     ) -> Dict[str, Any]:
-        proj_id = f"proj_{int(datetime.now().timestamp() * 1000)}"
+        proj_id = f"proj_{int(datetime.now().timestamp() * 1000)}_{uuid.uuid4().hex[:6]}"
         now = get_now_iso()
         async with aiosqlite.connect(settings.db_path) as db:
             await db.execute("""
@@ -292,7 +293,7 @@ class RunStore:
         label_needs_review_col: str = "",
         origin: str = "human-labeled"
     ) -> Dict[str, Any]:
-        ds_id = f"ds_{int(datetime.now().timestamp() * 1000)}"
+        ds_id = f"ds_{int(datetime.now().timestamp() * 1000)}_{uuid.uuid4().hex[:6]}"
         now = get_now_iso()
         async with aiosqlite.connect(settings.db_path) as db:
             await db.execute("""
@@ -412,7 +413,7 @@ class RunStore:
             return [dict(r) for r in rows]
 
     async def create_run(self, project_id: str, job_id: str, config: Dict[str, Any]) -> Dict[str, Any]:
-        run_id = f"run_{int(datetime.now().timestamp() * 1000)}"
+        run_id = f"run_{int(datetime.now().timestamp() * 1000)}_{uuid.uuid4().hex[:6]}"
         now = get_now_iso()
         initial_stage = STAGES[0]
 

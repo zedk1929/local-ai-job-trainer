@@ -25,8 +25,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   const screens = [
     { id: 'jobs', label: '1. Jobs', icon: Bot },
     { id: 'setup', label: '2. Setup', icon: Settings2 },
-    { id: 'config', label: '3. Configure CSV', icon: Sliders },
-    { id: 'baseline', label: '4. Baseline Batch', icon: CheckSquare, highlight: true },
+    { id: 'config', label: '3. Configure & Import', icon: Sliders },
+    { id: 'baseline', label: '4. Baseline & Coach', icon: CheckSquare, highlight: true },
     { id: 'experiment', label: '5. LoRA Training', icon: Terminal },
     { id: 'results', label: '6. Results', icon: BarChart3 },
     { id: 'inference', label: '7. Playground', icon: PlayCircle },
@@ -43,7 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-base tracking-tight text-white">Local AI Job Trainer</span>
+                <span className="font-bold text-base tracking-tight text-white">Apprentice</span>
                 <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">v0.2.0</span>
               </div>
               <p className="text-xs text-slate-400">Teach local AI a job</p>
@@ -77,24 +77,26 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded-lg border border-slate-800">
               <button
                 onClick={() => onToggleMode('preview')}
-                className={`px-2.5 py-1 rounded text-xs font-semibold transition ${
+                className={`px-2.5 py-1 rounded text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer ${
                   appMode === 'preview'
-                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
                     : 'text-slate-400 hover:text-slate-200'
                 }`}
                 title="Preview mode uses deterministic fixtures. No API keys or model downloads required."
               >
+                {appMode === 'preview' && <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>}
                 Preview Mode
               </button>
               <button
                 onClick={() => onToggleMode('connected')}
-                className={`px-2.5 py-1 rounded text-xs font-semibold transition ${
+                className={`px-2.5 py-1 rounded text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer ${
                   appMode === 'connected'
-                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm'
                     : 'text-slate-400 hover:text-slate-200'
                 }`}
                 title="Connected mode queries your real local Ollama model (qwen2.5-coder:3b)."
               >
+                {appMode === 'connected' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>}
                 Connected Mode
               </button>
             </div>

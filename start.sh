@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Local AI Job Trainer launcher
+# Apprentice launcher
 echo "=========================================================="
-echo " Starting Local AI Job Trainer (Hackathon Skeleton)"
+echo " Starting Apprentice (Hackathon Skeleton)"
 echo " Mode: Preview Mode (deterministic fixtures enabled)"
 echo "=========================================================="
 

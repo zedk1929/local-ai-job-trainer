@@ -1,0 +1,22 @@
+REAL LOCAL-MODEL DEVELOPMENT COMPARISON
+
+Model: qwen2.5-coder:3b
+Same comparison responses in both columns: 40
+One frozen comparison; original baseline instructions preserved.
+
+topic_micro_f1: 76.5% -> 84.1% (+7.6 percentage points)
+sentiment_accuracy: 72.5% -> 80.0% (+7.5 percentage points)
+review_flag_accuracy: 95.0% -> 95.0% (+0.0 percentage points)
+schema_validity_pct: 97.5% -> 100.0% (+2.5 percentage points)
+
+Rules: Codex-reviewed instructions and four worked examples from the separate development subset.
+The app initialized an offline proposal; the approved revised predictions are REAL local inference. No paid cloud-parent call was made.
+Model weights were not changed. This is instruction refinement, not fine-tuning.
+8 reserved rows improved in at least one measured field; 4 regressed in at least one field (one row appears in both groups). All 40 rows remain in the metrics.
+Fictional development data, previously evaluated; not an untouched final test or proof of general performance.
+
+Project: Real improvement demo — Nov 15 (proj_1794767876901)
+Original baseline: batch_1685ea4370574e5c9c24a7abbaf68c71
+Real comparison: batch_dbf97cdf7dac45c3b2968d7f1897e92c
+
+Present: On the same 40 responses, AI-reviewed instructions increased topic F1 from 76.5 to 84.1 and sentiment accuracy from 72.5% to 80%, using the same local model.

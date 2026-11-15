@@ -1,0 +1,44 @@
+[
+  {
+    "first": 0,
+    "last": 0,
+    "title": "Before: a glass shard in a latte was classified as seating and unclear",
+    "mode": "REAL LOCAL INFERENCE • AI-REVIEWED RULE EDITS • RECORDED RUN",
+    "hold": 6
+  },
+  {
+    "first": 1,
+    "last": 1,
+    "title": "Keep the same local model and original rules; add reviewed instructions",
+    "mode": "REAL LOCAL INFERENCE • AI-REVIEWED RULE EDITS • RECORDED RUN",
+    "hold": 6
+  },
+  {
+    "first": 2,
+    "last": 2,
+    "title": "Codex-assisted edits: check every topic and assess sentiment separately",
+    "mode": "REAL LOCAL INFERENCE • AI-REVIEWED RULE EDITS • RECORDED RUN",
+    "hold": 7
+  },
+  {
+    "first": 3,
+    "last": 3,
+    "title": "After: the same response is classified as drink_quality and negative",
+    "mode": "REAL LOCAL INFERENCE • AI-REVIEWED RULE EDITS • RECORDED RUN",
+    "hold": 6
+  },
+  {
+    "first": 4,
+    "last": 4,
+    "title": "Same 40 rows: topic F1 76.5% → 84.1%; sentiment accuracy 72.5% → 80%",
+    "mode": "REAL LOCAL INFERENCE • AI-REVIEWED RULE EDITS • RECORDED RUN",
+    "hold": 12
+  },
+  {
+    "first": 5,
+    "last": 5,
+    "title": "Development comparison; weights unchanged. Some individual rows regressed.",
+    "mode": "REAL LOCAL INFERENCE • AI-REVIEWED RULE EDITS • RECORDED RUN",
+    "hold": 7
+  }
+]

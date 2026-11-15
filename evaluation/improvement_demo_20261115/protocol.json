@@ -1,0 +1,14 @@
+{
+  "purpose": "Single real local-model development comparison for the presentation demo.",
+  "primary_metric": "topic_micro_f1",
+  "secondary_metrics": [
+    "sentiment_accuracy",
+    "review_flag_accuracy",
+    "schema_validity_pct"
+  ],
+  "baseline_policy": "Original strong baseline instructions copied unchanged; no deliberately weakened baseline.",
+  "evaluation_policy": "Use the application development/evaluation split once; compare original and edited predictions on exactly the same reserved rows.",
+  "rule_author": "Codex-reviewed instruction edits; no claim of a live cloud-parent request.",
+  "limitations": "Fictional development data, previously evaluated; not an untouched test or proof of general improvement. Weights do not change.",
+  "max_comparisons": 1
+}

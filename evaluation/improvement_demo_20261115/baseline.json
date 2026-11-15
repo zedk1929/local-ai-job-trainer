@@ -1,0 +1,142 @@
+{
+  "id": "batch_1685ea4370574e5c9c24a7abbaf68c71",
+  "project_id": "proj_1794767876901",
+  "dataset_id": "inline_rows",
+  "status": "completed",
+  "model_name": "qwen2.5-coder:3b",
+  "model_endpoint": "http://127.0.0.1:11434",
+  "job_version": "1.0.0",
+  "concurrency": 1,
+  "total_rows": 61,
+  "processed_rows": 61,
+  "error_count": 0,
+  "blank_count": 1,
+  "elapsed_seconds": 268.3,
+  "throughput_items_per_sec": 0.22,
+  "snapshot": {
+    "project_id": "proj_1794767876901",
+    "project_name": "Real improvement demo — Nov 15",
+    "job_id": "survey-cleaner",
+    "job_version": "1.0.0",
+    "survey_context": "Campus café gathering customer feedback on menu quality, pricing, speed, and seating.",
+    "taxonomy": [
+      {
+        "id": "drink_quality",
+        "name": "Drink Quality",
+        "description": "Taste, temperature, espresso extraction, milk texture, or recipe accuracy."
+      },
+      {
+        "id": "price",
+        "name": "Price & Value",
+        "description": "Cost of items, discounts, value for money, perceived affordability."
+      },
+      {
+        "id": "service",
+        "name": "Staff & Service",
+        "description": "Speed of service, barista friendliness, accuracy of orders, wait times."
+      },
+      {
+        "id": "seating",
+        "name": "Atmosphere & Seating",
+        "description": "Table availability, noise level, cleanliness, seating comfort, WiFi, power outlets."
+      }
+    ],
+    "coding_rules": [
+      "Assign all relevant topics that are explicitly mentioned or strongly implied.",
+      "If the comment mentions both good and bad aspects (e.g. 'Coffee was great but line was huge'), mark sentiment as 'mixed'.",
+      "If the customer expresses uncertainty or the text is incomprehensible, mark sentiment as 'unclear' and set needs_review to true.",
+      "Do not infer unmentioned details or extrapolate facts.",
+      "Flag needs_review=true if customer reports an unresolved safety, harassment, or severe hygiene issue."
+    ],
+    "model_name": "qwen2.5-coder:3b",
+    "model_endpoint": "http://127.0.0.1:11434",
+    "app_mode": "connected",
+    "retried_from_batch_id": null,
+    "concurrency": 1,
+    "response_col": "feedback_text",
+    "id_col": "response_id",
+    "label_topics_col": "label_topics",
+    "label_sentiment_col": "label_sentiment",
+    "label_needs_review_col": "label_needs_review",
+    "prompt_template": "You are an expert survey data analyst specializing in customer feedback categorization.\nYour job is to read raw survey feedback and transform it into a structured record strictly adhering to the specified taxonomy and coding rules.\n\n### SURVEY CONTEXT:\nCampus café gathering customer feedback on menu quality, pricing, speed, and seating.\n\n### ALLOWED TOPIC TAXONOMY:\n  - ID: \"drink_quality\" | Name: \"Drink Quality\" | Description: Taste, temperature, espresso extraction, milk texture, or recipe accuracy.\n  - ID: \"price\" | Name: \"Price & Value\" | Description: Cost of items, discounts, value for money, perceived affordability.\n  - ID: \"service\" | Name: \"Staff & Service\" | Description: Speed of service, barista friendliness, accuracy of orders, wait times.\n  - ID: \"seating\" | Name: \"Atmosphere & Seating\" | Description: Table availability, noise level, cleanliness, seating comfort, WiFi, power outlets.\n\n### CODING RULES:\n  1. Assign all relevant topics that are explicitly mentioned or strongly implied.\n  2. If the comment mentions both good and bad aspects (e.g. 'Coffee was great but line was huge'), mark sentiment as 'mixed'.\n  3. If the customer expresses uncertainty or the text is incomprehensible, mark sentiment as 'unclear' and set needs_review to true.\n  4. Do not infer unmentioned details or extrapolate facts.\n  5. Flag needs_review=true if customer reports an unresolved safety, harassment, or severe hygiene issue.\n  - Multiple Topics: Assign ALL matching topic IDs from the taxonomy above. A response may mention 0, 1, or multiple topics. Output topic IDs as an array of strings. Do NOT invent new topic IDs.\n  - Sentiment: Must be strictly one of: \"positive\", \"negative\", \"mixed\", \"neutral\", \"unclear\".\n    * If both positive and negative aspects are mentioned, use \"mixed\".\n    * If incomprehensible, gibberish, or vague, use \"unclear\".\n  - Needs Review: Set needs_review to true if the feedback reports an unresolved safety incident, physical hazard, severe hygiene issue, harassment, or if text is completely unintelligible. Otherwise false.\n  - Summary: Write a concise, 1-sentence factual summary of the feedback. Do not extrapolate or add unmentioned details.\n\n### RAW SURVEY RESPONSE TO CATEGORIZE:\n\"<SURVEY_TEXT>\"\n\n### OUTPUT FORMAT:\nRespond ONLY with a valid JSON object matching this exact schema:\n{\n  \"topics\": [\"topic_id_1\", \"topic_id_2\"],\n  \"sentiment\": \"positive\",\n  \"summary\": \"1-sentence factual summary\",\n  \"needs_review\": false,\n  \"review_reason\": null\n}"
+  },
+  "metrics": {
+    "is_unlabeled": false,
+    "is_simulated": false,
+    "execution_mode": "connected",
+    "model_name": "qwen2.5-coder:3b",
+    "total_rows": 61,
+    "attempted_rows": 60,
+    "blank_rows": 1,
+    "failed_requests": 0,
+    "schema_valid_count": 59,
+    "schema_invalid_count": 1,
+    "schema_validity_pct": 98.3,
+    "has_topic_labels": true,
+    "topic_labeled_rows": 60,
+    "invalid_topic_label_count": 0,
+    "topic_coverage_pct": 100.0,
+    "topic_tp": 64,
+    "topic_fp": 10,
+    "topic_fn": 27,
+    "topic_precision": 86.5,
+    "topic_recall": 70.3,
+    "topic_micro_f1": 77.6,
+    "per_topic_breakdown": {
+      "drink_quality": {
+        "tp": 17,
+        "fp": 1,
+        "fn": 10,
+        "precision": 94.4,
+        "recall": 63.0,
+        "f1": 75.6
+      },
+      "price": {
+        "tp": 15,
+        "fp": 1,
+        "fn": 4,
+        "precision": 93.8,
+        "recall": 78.9,
+        "f1": 85.7
+      },
+      "service": {
+        "tp": 18,
+        "fp": 4,
+        "fn": 9,
+        "precision": 81.8,
+        "recall": 66.7,
+        "f1": 73.5
+      },
+      "seating": {
+        "tp": 14,
+        "fp": 4,
+        "fn": 4,
+        "precision": 77.8,
+        "recall": 77.8,
+        "f1": 77.8
+      }
+    },
+    "has_sentiment_labels": true,
+    "sentiment_labeled_rows": 60,
+    "invalid_sentiment_label_count": 0,
+    "sentiment_coverage_pct": 100.0,
+    "sentiment_correct": 43,
+    "sentiment_accuracy": 71.7,
+    "has_review_flag_labels": true,
+    "review_flag_labeled_rows": 60,
+    "invalid_review_flag_count": 0,
+    "review_flag_coverage_pct": 100.0,
+    "review_flag_correct": 54,
+    "review_flag_accuracy": 90.0,
+    "total_elapsed_seconds": 268.27,
+    "throughput_items_per_sec": 0.22,
+    "average_latency_seconds": 4.21,
+    "scientific_disclaimer": "Empirical measurement on configured batch dataset. Accuracy and F1 scores are descriptive of this local sample only and do not establish general statistical significance or performance guarantees."
+  },
+  "error_message": null,
+  "created_at": "2026-11-15T18:37:56.916529+00:00",
+  "updated_at": "2026-11-15T18:42:25.227303+00:00",
+  "completed_at": "2026-11-15T18:42:25.227312+00:00",
+  "app_mode": "connected",
+  "retried_from_batch_id": null
+}

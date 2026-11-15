@@ -305,7 +305,7 @@ wheels = [
 ]
 
 [[package]]
-name = "local-ai-job-trainer"
+name = "apprentice"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

@@ -1,0 +1,23 @@
+{
+  "frames": [
+    {
+      "file": "03-before-example.png"
+    },
+    {
+      "file": "00-rules.png"
+    },
+    {
+      "file": "01-refined-rules.png"
+    },
+    {
+      "file": "04-after-example.png"
+    },
+    {
+      "file": "02-real-comparison.png"
+    },
+    {
+      "file": "02-real-comparison.png"
+    }
+  ],
+  "note": "Edited captures of actual app interaction. Real original and revised local inference. Rules reviewed by Codex; no live cloud-parent request. Original example capture matches the fresh baseline prediction exactly."
+}
