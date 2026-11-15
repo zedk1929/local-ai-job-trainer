@@ -19,7 +19,7 @@ def isolate_environment(tmp_path: Path):
     original_model_name = settings.local_model_name
     original_endpoint = settings.local_model_endpoint
 
-    settings.db_path = tmp_path / "test_trainer.sqlite3"
+    settings.db_path = tmp_path / "test_apprentice.sqlite3"
     settings.data_dir = tmp_path / "data"
     settings.uploads_dir = tmp_path / "uploads"
     settings.runs_dir = tmp_path / "runs"

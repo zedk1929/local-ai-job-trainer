@@ -364,7 +364,7 @@ export const BaselineScreen: React.FC<BaselineScreenProps> = ({
               : 'bg-slate-950 border-slate-900 text-slate-500'
           }`}>
             <span className="text-[10px] text-indigo-300 font-bold">4. Analyze</span>
-            <span className="text-[10px] text-slate-400">Parent AI Coach</span>
+            <span className="text-[10px] text-slate-400">Parent AI</span>
           </div>
           <div className={`p-2 rounded border flex flex-col gap-0.5 ${
             activeBatch?.status === 'completed'

@@ -349,7 +349,7 @@ export function FailureAnalysisPanel({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5 text-indigo-300 font-semibold text-sm">
               <RefreshCw className="w-4 h-4 text-indigo-400 animate-spin shrink-0" />
-              <span>Step 4: Parent AI Coach is analyzing failure cases...</span>
+              <span>Step 4: Parent AI is analyzing failure cases...</span>
             </div>
             <span className="text-xs font-mono text-indigo-300 bg-indigo-900/60 px-2 py-0.5 rounded border border-indigo-700">
               {elapsed}s elapsed

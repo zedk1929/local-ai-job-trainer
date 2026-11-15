@@ -23,7 +23,7 @@ class Settings(BaseModel):
     uploads_dir: Path = UPLOADS_DIR
     sample_csv_path: Path = SAMPLE_CSV_PATH
     dev_sample_csv_path: Path = DEV_SAMPLE_CSV_PATH
-    db_path: Path = DATA_DIR / "trainer.sqlite3"
+    db_path: Path = DATA_DIR / "apprentice.sqlite3"
     runs_dir: Path = RUNS_DIR
 
     # Supervisor configuration

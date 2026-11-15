@@ -48,7 +48,7 @@ async def run_baseline_experiment():
         shutil.rmtree(temp_dir)
     temp_dir.mkdir(parents=True, exist_ok=True)
 
-    settings.db_path = temp_dir / "eval_trainer.sqlite3"
+    settings.db_path = temp_dir / "eval_apprentice.sqlite3"
     settings.uploads_dir = temp_dir / "uploads"
     settings.runs_dir = temp_dir / "runs"
     settings.data_dir = temp_dir / "data"

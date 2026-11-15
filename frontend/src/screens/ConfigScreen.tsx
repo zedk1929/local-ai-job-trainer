@@ -374,7 +374,7 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({
           </button>
           <div className="p-2 rounded bg-slate-950 border border-slate-900 text-slate-500 flex flex-col gap-0.5">
             <span className="text-[10px] font-bold">4. Analyze</span>
-            <span className="text-[10px] text-slate-600">Parent AI Coach</span>
+            <span className="text-[10px] text-slate-600">Parent AI</span>
           </div>
           <div className="p-2 rounded bg-slate-950 border border-slate-900 text-slate-500 flex flex-col gap-0.5">
             <span className="text-[10px] font-bold">5. Review Rules</span>

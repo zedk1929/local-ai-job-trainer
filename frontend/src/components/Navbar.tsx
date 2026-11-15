@@ -26,7 +26,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'jobs', label: '1. Jobs', icon: Bot },
     { id: 'setup', label: '2. Setup', icon: Settings2 },
     { id: 'config', label: '3. Configure & Import', icon: Sliders },
-    { id: 'baseline', label: '4. Baseline & Coach', icon: CheckSquare, highlight: true },
+    { id: 'baseline', label: '4. Baseline & Supervise', icon: CheckSquare, highlight: true },
     { id: 'experiment', label: '5. LoRA Training', icon: Terminal },
     { id: 'results', label: '6. Results', icon: BarChart3 },
     { id: 'inference', label: '7. Playground', icon: PlayCircle },

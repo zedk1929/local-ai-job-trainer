@@ -1,9 +1,9 @@
 ================================================================================
-LOCAL AI COACH — ONE-MINUTE STAGE PITCH (60 SECONDS SHARP)
+APPRENTICE — ONE-MINUTE STAGE PITCH (60 SECONDS SHARP)
 ================================================================================
 
 [0:00 - 0:10 | SLIDE 1: TITLE HOOK]
-"Why pay $50 a month for cloud AI to see your confidential data, when you can teach an AI your job once and run it on your own computer for free? That is Local AI Coach: frontier AI teaches, and a fast local model executes on your hardware with 100% privacy and zero monthly bills."
+"Why pay $50 a month for cloud AI to see your confidential data, when you can teach an AI your job once and run it on your own computer for free? That is Apprentice: frontier AI teaches, and a fast local model executes on your hardware with 100% privacy and zero monthly bills."
 
 [0:10 - 0:20 | SLIDE 2: MARKET DEMAND]
 "We surveyed 31 professionals across legal, finance, healthcare, and ops: 96.8% do repetitive computer tasks every single week. 84% want a custom AI—but cloud AI fails them on four things: ease of use, accuracy, price, and privacy for confidential records."
@@ -12,10 +12,10 @@ LOCAL AI COACH — ONE-MINUTE STAGE PITCH (60 SECONDS SHARP)
 "Here is how it works: a frontier parent model like Gemini or Claude analyzes mistakes on your sample data and formulates precision rules. A human approves them. Then a 3-billion parameter model executes locally on-device via Ollama—100% private, 100% offline, with zero data leakage."
 
 [0:32 - 0:45 | SLIDE 4 & 5: WORKING PROTOTYPE & PROVEN RESULTS]
-"Our working prototype, Survey Cleaner, is live right now. On 40 reserved responses that the parent never saw, coaching boosted topic F1 from 76.5% to 84.1%, and sentiment accuracy to 80%, with a perfect 100% schema validity. Same local model, zero fine-tuning compute."
+"Our working prototype, Survey Cleaner, is live right now. On 40 reserved responses that the parent never saw, supervision boosted topic F1 from 76.5% to 84.1%, and sentiment accuracy to 80%, with a perfect 100% schema validity. Same local model, zero fine-tuning compute."
 
 [0:45 - 0:55 | SLIDE 6: BUSINESS MODEL]
-"No subscription traps. Buy the coach once for $29, export your worker, and run millions of tokens on your own GPU forever. From customer feedback to meeting minutes and confidential contracts."
+"No subscription traps. Buy Apprentice once for $29, export your worker, and run millions of tokens on your own GPU forever. From customer feedback to meeting minutes and confidential contracts."
 
 [0:55 - 1:00 | SLIDE 10: CLOSE]
 "Teach the job once. Keep the worker forever. Visit our live demo right now on your phone. Thank you!"
@@ -25,7 +25,7 @@ TWO-MINUTE DEMO SCRIPT (FOR CHALLENGE VIDEO OR BOOTH)
 ================================================================================
 
 [0:00 - 0:20 | The Problem]
-"Every business repeats tasks daily—reading customer reviews, categorizing feedback, screening resumes. Cloud AI subscriptions are expensive and expose sensitive customer data. We built Local AI Coach to let anyone train a small, private, on-device AI model for their exact job."
+"Every business repeats tasks daily—reading customer reviews, categorizing feedback, screening resumes. Cloud AI subscriptions are expensive and expose sensitive customer data. We built Apprentice to let anyone train a small, private, on-device AI model for their exact job."
 
 [0:20 - 0:45 | Step 1 & 2: Ingestion & Baseline]
 "Here in the Survey Cleaner interface, we import a raw customer feedback CSV. With one click, column headers are mapped. We run our local baseline using Qwen 2.5 Coder 3B on Ollama. The app measures topic F1, sentiment accuracy, and safety-review flags against our ground truth, exposing exact disagreements."
@@ -67,7 +67,7 @@ CPVC HACKATHON NOON SUBMISSION PACKAGE
    https://github.com/zedk1929/local-ai-job-trainer
 
 3. SHORT DESCRIPTION:
-   Local AI Coach helps professionals and small businesses configure, evaluate, and deploy small local AI models (Qwen 2.5 Coder 3B) on their own computers. A frontier parent AI (Gemini/Claude) diagnoses mistakes on sample data and proposes precision coding rules, which the user reviews and approves under atomic revision control. The resulting worker runs 100% locally on-device with zero subscription fees, absolute data privacy, and measured 84.1% topic F1 accuracy.
+   Apprentice helps professionals and small businesses configure, evaluate, and deploy small local AI models (Qwen 2.5 Coder 3B) on their own computers. A frontier parent AI (Gemini/Claude) diagnoses mistakes on sample data and proposes precision coding rules, which the user reviews and approves under atomic revision control. The resulting worker runs 100% locally on-device with zero subscription fees, absolute data privacy, and measured 84.1% topic F1 accuracy.
 
 4. AI TOOLS USED & CREDITS:
    - Qwen 2.5 Coder 3B (via Ollama): On-device local inference for survey categorization, sentiment scoring, and safety triage.

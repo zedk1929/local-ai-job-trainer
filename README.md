@@ -14,7 +14,7 @@ The hackathon preset is **Survey Cleaner**, which transforms raw, unstructured c
 ### 1. The Problem & Who Has It
 Small business owners, customer experience teams, and community organizations receive high volumes of unstructured feedback (e.g. coffee shop reviews, student feedback, event responses).
 - **The Challenge**: General-purpose AI models make frequent errors without domain-specific rules, sending all private customer feedback to cloud APIs can be costly and raises privacy concerns, and non-technical operators cannot easily evaluate whether an AI model actually follows their specific guidelines.
-- **The Solution**: A local-first workflow where a lightweight, open-weight model runs privately on the user's laptop, guided by a stronger "Parent AI Coach" that diagnoses mistakes and proposes refined rules with human-in-the-loop review.
+- **The Solution**: A local-first workflow where a lightweight, open-weight model runs privately on the user's laptop, guided by a stronger "Parent AI" supervisor that diagnoses mistakes and proposes refined rules with human-in-the-loop review.
 
 ### 2. What We Built
 - **Local Inference Engine**: Runs `qwen2.5-coder:3b` locally via Ollama with zero cloud API dependencies.
@@ -54,7 +54,7 @@ On a separate benchmark of 40 reserved survey responses that the parent AI never
 - **1-Minute Stage Pitch & Speaker Script**: [`pitch-deliverables/output/Presentation_Script.txt`](pitch-deliverables/output/Presentation_Script.txt)
 - **HTML Slide Notes**: [`pitch-deliverables/output/Presentation_Script.html`](pitch-deliverables/output/Presentation_Script.html)
 - **Submission Package**: [`pitch-deliverables/output/Submission_Checklist.txt`](pitch-deliverables/output/Submission_Checklist.txt)
-- **Demo Video Walkthrough**: [`demo-video/Local_AI_Coach_Demo.mp4`](demo-video/Local_AI_Coach_Demo.mp4)
+- **Demo Video Walkthrough**: [`demo-video/Apprentice_Demo.mp4`](demo-video/Apprentice_Demo.mp4)
 
 ---
 
@@ -152,7 +152,7 @@ The backend strictly separates bundled read-only assets from writable project up
 - `dev_sample_csv_path`: Direct path to the bundled read-only `dev_survey_60_labeled.csv`.
 - `uploads_dir`: Writable folder for user-uploaded CSV datasets, segregated by project ID (`uploads/{project_id}/...`).
 - `runs_dir`: Storage for adapter checkpoints and training run artifacts.
-- `db_path`: SQLite database path (`data/trainer.sqlite3`).
+- `db_path`: SQLite database path (`data/apprentice.sqlite3`).
 
 In tests, `conftest.py` isolates these paths into temporary folders (`tmp_path`) so user projects and datasets are never touched.
 
